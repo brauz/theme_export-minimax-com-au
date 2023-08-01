@@ -1,0 +1,262 @@
+/* Helpers */
+.hide {
+	display: none !important;
+}
+.readonly {
+	input, select {
+		background-color: rgba(0,0,0,0.02) !important;
+		cursor: default;
+		pointer-events: none;
+	}
+}
+
+/* Shipping Address Styling */
+.section--shipping-address {
+	.sis-cnc-intro-text {
+		display: none;
+		margin-bottom: 0.8em;
+	}
+	&.click-collect-active .sis-cnc-intro-text {
+		display: block; 
+	}
+}
+
+/* Shipping Address - Click and Collect - Selection Boxes */
+.click-collect-controls ul {
+	display: flex;
+	flex-wrap: nowrap;
+	margin-top: 1em;
+	width: 100%;
+	@media (min-width: 750px) {
+		margin-top: 1.5em;
+	}
+	li.section__delivery {
+		width: 50%;
+		padding: 0.92857em 0.78571em 0.92857em 2.58571em;
+		border: 1px solid #d9d9d9;
+		color: #545454;
+		position: relative;
+		cursor: pointer;
+		strong {
+			&::before {
+				content: "";
+				display: block;
+				border: 1px solid #aeb2b1;
+				width: 14px;
+				height: 14px;
+				border-radius: 50%;
+				position: absolute;
+				left: 0.78571em;
+				top: 1.02857em;
+				box-sizing: border-box;
+				padding: 0;
+			}
+		}
+		.seltext,
+		&.selected .unseltext {
+			display: none;
+		}
+        .sis-cc-store-info {
+          font-weight: bold;
+          .sis-cc-store-name {
+            font-weight: normal;
+          }
+        }
+      	.sis-cc-link {
+        	a {
+              text-decoration: underline;
+          		&:hover {
+                  text-decoration: none;
+          		}
+        	}
+      	}
+		&.selected {
+			background: #E7F6E6;
+			border-color: #02AD02;
+			box-shadow: 0 0 10px #E7F6E6;
+			position: relative;
+			cursor: default;
+			strong {
+				color: #02AD02;
+				&::before {
+					border-color: #02AD02;
+				}
+				&::after {
+					content: "";
+					display: block;
+					width: 6px;
+					height: 6px;
+					margin-left: 4px;
+					margin-top: 4px;
+					background-color: #02AD02;
+					border-radius: 50%;
+					position: absolute;
+					left: 0.78571em;
+					top: 1.02857em;
+				}
+			}
+			.seltext {
+				display: block;
+			}
+			&#click_collect_link {
+				&::before {
+					content: "";
+					display: block;
+					width: 16px;
+					height: 7px;
+					position: absolute;
+					background-color: #E7F6E6;
+					bottom: 0;
+					left: 50%;
+					z-index: 1;
+					margin-left: -3px;
+				}
+				&::after{
+					content: "";
+					display: block;
+					width: 10px;
+					height: 10px;
+					background-color: #02ad02;
+					position: absolute;
+					left: 50%;
+					bottom: -5px;
+					transform: rotate(45deg);
+				}
+			}
+		}
+	}
+}
+
+/* Continue Buttons Disabled */
+div[data-step="shipping_method"] #continue_button{
+	pointer-events: none;
+	animation: buttonStates 0s forwards;
+	animation-iteration-count: 1;
+	animation-delay: 3s;
+}
+div[data-step="shipping_method"] #continue_button.completed{
+	pointer-events: all;
+}
+@-webkit-keyframes buttonStates {
+	0% {
+		pointer-events: none;
+	}
+	100% {
+		pointer-events: all;
+	}
+}
+@keyframes buttonStates {
+	0% {
+		pointer-events: none;
+	}
+	100% {
+		pointer-events: all;
+	}
+}
+
+/* Shipping Methods - Hide C&C Shipping Method */
+.content-box__row .radio-wrapper[data-shipping-method="shopify-Click%20&%20Collect-0.00"] {
+	display: none;
+}
+
+/* Shipping Methods - Add overlay when logic is applied */
+.section--shipping-method:not(.shipping-method-ready) fieldset.content-box {
+	position: relative;
+	&::before {
+		content: "";
+		display: block;
+		position: absolute;
+		top: -1px;
+		left: -1px;
+		right: -1px;
+		bottom: -1px;
+		background-color: rgba(255,255,255,0.8);
+		z-index: 9;
+		animation: shippingMethods 0s forwards;
+		animation-iteration-count: 1;
+		animation-delay: 3s;
+	}
+}
+@-webkit-keyframes shippingMethods {
+	0% {
+		top: -1px;
+	}
+	100% {
+		top: 110%;
+	}
+}
+@keyframes shippingMethods {
+	0% {
+		top: -1px;
+	}
+	100% {
+		top: 110%;
+	}
+}
+
+/* Shipping Method - Show C&C if everything is ok */
+body.click-collect-enabled,
+body.click-collect-demo-enabled {
+	.content-box__row .radio-wrapper[data-shipping-method="shopify-Click%20&%20Collect-0.00"] {
+		display: block;
+	}
+}
+
+/* Notifications */
+.sis-cnc-basket-availability {
+  margin-top: 10px;
+}
+.sis-cnc-checkout-step-availability,
+.sis-cnc-basket-availability {
+	padding: 0.92857em 0.78571em;
+	margin-bottom: 1.5em;
+	line-height: normal;
+	&.notice--error {
+		border-color: #fad9d9;
+		background-color: #ffebeb;
+		.notice__icon {
+			color: #e32c2b;
+		}
+		a {
+			color: #e32c2b;
+			font-weight: bold;
+          	text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+			}
+        }
+	}
+}
+.field__message--error {
+	color: #e32c2b;
+	span {
+    	float: none !important;
+  	}
+}
+.cartItemsWrapper .sis-cnc-basket-item-availability {
+  padding: 5px 0;
+  font-family: Georgia,sans-serif;
+  font-size: 14px;
+}
+
+/* Hide Notifications then C&C not selected or customer is on thank you page */
+.click-collect-not-selected,
+.page--thank-you {
+	.sis-cnc-checkout-step-availability.notice--error,
+	.sis-cnc-basket-availability.notice--error {
+		display: none !important;
+	}
+	.sidebar__content {
+		.sis-cnc-basket-item-availability {
+			display: none !important;
+		}
+	}
+}
+
+/* Checkout Overrides */
+.sidebar__content .sis-cnc-basket-item-availability {
+	font-size: 0.85714em;
+}
+.content-box__row.hide + .content-box__row {
+	border-top: none;
+}

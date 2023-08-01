@@ -1,0 +1,41 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Recently Viewed",
+    "id":"recentlyviewed",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "recently viewed",
+    "description": "Recently Viewed",
+    "settings":[
+        {
+            "id" : "recentlyviewed",
+            "label" : "Recently Viewed",
+            "info" : "Include Recently Viewed",
+            "type" : "select",
+            "options": [
+                {
+                    "label": "Yes",
+                    "value": "yes"
+                },
+                {
+                    "label": "No",
+                    "value": "no"
+                }
+            ]
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'recentlyviewed' %}
+{% assign recentlyviewed = val %}
+
+{% if recentlyviewed == 'yes' %}
+    <section class="productCarousel">
+        <div class="container">
+            {% include 'dtk_recentviewed_display' %}
+        </div>
+    </section>
+{% endif %}

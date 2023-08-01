@@ -1,0 +1,185 @@
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnoneproductfour], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnoneproductthree], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnoneproducttwo], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnoneproductone], products: null %}
+<section class="one atbcollection">
+    <div class="container">
+        <span class="column">
+            <span class="atbImageContainer">
+                <span class="atbImage" style="background-image: url({{ section.settings.image | img_url: 'master' }});"></span>
+                <span class="atbImageMobile" style="background-image: url({{ section.settings.imageonemobile | img_url: 'master' }});"></span>
+                {% if section.settings.shoppablebuttontextone != blank %}
+                    <span class="shoppableOverlay">
+                        <a href="#" class="shoppableButton">{{ section.settings.shoppablebuttontextone }}</a>
+                        <div class="shoppableContainer">
+                            <div class="owl-carousel oneColumnCarousel">
+                                {% if section.settings.columnoneproductone != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnoneproductone] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                  {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columnoneproducttwo != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnoneproducttwo] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columnoneproductthree != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnoneproductthree] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                    {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columnoneproductfour != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnoneproductfour] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                    {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                            </div>
+                            <a href="#" class="shoppableClose"></a>
+                        </div>
+                    </span>
+                {% endif %}
+            </span>
+            
+            </span>
+        </span>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "One Column Collection",
+        "settings":[
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "imageonemobile",
+          "label": "Image Mobile"
+        },
+        {
+          "type": "select",
+          "id": "background_colour",
+          "label": "Background Colour",
+          "options": [
+            {
+              "value": "#ffffff",
+              "label": "White"
+            },
+            {
+              "value": "#f7f7f7",
+              "label": "Light Grey"
+            },
+            {
+              "value": "#e5e5e5",
+              "label": "Darker Grey"
+            }
+          ],
+			"default": "#f7f7f7"
+        },
+        {
+            "id" : "title",
+            "label" : "Title",
+            "type" : "text"
+        },
+        {
+            "id" : "link",
+            "label" : "Link",
+            "info" : "Include link",
+            "type" : "text"
+        },
+        {
+            "id" : "shoppablebuttontextone",
+            "label" : "Shoppable Button Text",
+            "info" : "Text to feature in button, leave empty if no featured products",
+            "type" : "text"
+        },
+        {
+            "type": "product",
+            "id": "columnoneproductone",
+            "label": "Column One Product One",
+            "info": "Pick up to four featured products"
+        },
+        {
+            "type": "product",
+            "id": "columnoneproducttwo",
+            "label": "Column One Product Two"
+
+        },
+        {
+            "type": "product",
+            "id": "columnoneproductthree",
+            "label": "Column One Product Three"
+        },
+        {
+            "type": "product",
+            "id": "columnoneproductfour",
+            "label": "Column One Product Four"
+        }
+    ],
+    "presets": [
+        {
+            "name": "One Column Collection",
+            "category": "Collection"
+        }
+    ]
+}
+
+{% endschema %}

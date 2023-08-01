@@ -1,0 +1,151 @@
+
+
+<div class="container">
+    <h2 class="title ose-related-title">Others you might like</h2>
+
+
+{% comment %}
+Number of related items per row,
+and number of rows.
+{% endcomment %}
+
+
+{% assign number_of_rows = 1 %}
+
+{% comment %}
+Heading.
+Leave blank if you don't need one.
+{% endcomment %}
+
+{% assign heading = section.settings.related_title %}
+
+{% comment %}
+Set either or both to true, if you want
+to limit yourself to items with same vendor, and/or type.
+{% endcomment %}
+
+{% assign same_vendor = true %}
+{% assign same_type = false %}
+
+{% comment %}
+Collections to ignore.
+Never pick related items from those.
+{% endcomment %}
+
+{% assign exclusions = 'frontpage,all' | split: ',' %}
+
+{% comment %}
+Looking for a relevant collection.
+{% endcomment %}
+
+{% assign found_a_collection = false %}
+{% if collection and collection.all_products_count > 1 %}
+{% unless exclusions contains collection.handle %}
+{% assign found_a_collection = true %}
+{% endunless %}
+{% endif %}
+{% unless found_a_collection %}
+{% for c in product.collections %}
+{% unless exclusions contains c.handle or c.all_products_count < 2 %}
+{% assign found_a_collection = true %}
+{% assign collection = c %}
+{% break %}
+{% endunless %}
+{% endfor %}
+{% endunless %}
+
+{% comment %}
+If we have a relevant collection.
+{% endcomment %}
+
+{% if found_a_collection %}
+
+{% assign counter = 0 %}
+{% assign break_at = number_of_rows | times: number_of_related_products_per_row %}
+{% assign current_product = product %}
+
+
+{% capture related_items %}
+
+<div class="owl-carousel" id="related">
+{% for product in collection.products limit:12 %}
+{% unless product.title == current_product.title %}
+
+       <div class="productWrapper">
+        {% assign current_variant = product.selected_or_first_available_variant %}
+
+           <a href="{{ product.url | within: collection }}" class="item">
+               <span class="imageWrapper">
+                   {% if product.metafields.accentuate.sale_flag == 'Yes' %}
+                        {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color:{{ product.metafields.accentuate.flag_border }}; ">{{ product.metafields.accentuate.flag_text }}</span>
+                        {% else %}
+                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border-radius: 50%; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color: #fff; ">{{ product.metafields.accentuate.flag_text }}</span>
+                        {% endif %}
+                   {% endif %}
+                   <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                   </span>
+               </span>
+
+               <span class="productInformation">
+                   <span class="contentDetails">
+                       {% if product.metafields.accentuate.sale_promo_product %}
+                            {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+                                <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">
+                                    {{ product.metafields.accentuate.sale_promo_product }}
+                                </span>
+                            {% else %}
+                                <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">
+                                    {{ product.metafields.accentuate.sale_promo_product }}
+                                </span>
+                            {% endif %}
+                       {% endif %}
+                       <span class="productName">{{ product.title }}</span>
+                       <div data-price-wrapper class="price">
+                             {% if product.compare_at_price_max > product.price %}
+                                 <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                                 <span class="comparison" data-compare-price>
+                                     <span class="was">
+                                        {{ product.compare_at_price_max | money }}
+                                     </span>
+                                     <span class="now" data-product-price>
+                                       {{ product.price | money }}
+                                     </span>
+                               </span>
+                             {% else %}
+                                 <span class="productPrice">{{ product.price | money }}</span>
+                             {% endif %}
+                       </div>
+                   </span>
+               </span>
+           </a>
+       </div>
+
+
+
+
+     {% assign counter = counter | plus: 1 %}
+     {% if counter == break_at %}
+       {% break %}
+     {% endif %}
+{% endunless %}
+{% endfor %}
+</div>
+{% endcapture %}
+
+
+{% assign related_items = related_items | trim %}
+
+{% unless related_items == blank %}
+
+
+{{ related_items }}
+
+{% endunless %}
+
+{% endif %}
+
+
+
+
+</div>

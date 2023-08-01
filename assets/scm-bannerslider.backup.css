@@ -1,0 +1,6 @@
+@media (max-width:414px){
+  .scm-banner-display-desktop {display: none;}  
+}
+@media (min-width:415px){
+  .scm-banner-display-mobile {display: none;}
+}

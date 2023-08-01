@@ -1,0 +1,80 @@
+<section class="fixedHeroSlider">
+	<div class="slideContainer">
+		<div class="flexslider flexSliderDesktop">
+			<ul class="slides">
+                {% for block in section.blocks %}
+              		
+                    <li class="heroImages flex-active-slide" style="background-image: url('{{ block.settings.image | img_url: 'master' }}');" data-thumb-alt="">
+					<a href="{{ block.settings.link_url }}">
+                      <div class="v-wrap" style="width:100%;height:100%">
+    						<div class="v-box">
+	    							<div class="sliderButtonContainer {{ block.settings.text_colour }} {{ block.settings.position }}">
+	    							</div>
+    						</div>
+    					</div>
+                    </a>
+    				</li>
+                  	
+                {% endfor %}
+			</ul>
+		</div>
+		<div class="flexslider flexSliderMobile">
+			<ul class="slides">
+                {% for block in section.blocks %}
+                   
+                    <li class="heroImages flex-active-slide" style="background-image: url('{{ block.settings.imageMobile | img_url: 'master' }}');" data-thumb-alt="">
+						<a href="{{ block.settings.link_url }}" >
+    					<div class="v-wrap" style="width:100%;height:100%">
+    						<div class="v-box">
+	    							<div class="sliderButtonContainer {{ block.settings.text_colour }} {{ block.settings.position }}">
+	    							</div>
+    						</div>
+    					</div>
+                        </a>
+    				</li>
+
+                {% endfor %}
+			</ul>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Slideshow with Links",
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+		  {
+            "type": "image_picker",
+            "id": "imageMobile",
+            "label": "Mobile Image"
+          },
+		  {
+            "type": "url",
+            "id": "link_url",
+            "label": "Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Slideshow with Links",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

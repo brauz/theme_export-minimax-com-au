@@ -1,0 +1,1 @@
+(function($){$(document).ready(function(){var ids=[];$(".xo-gallery-html").each(function(){ids.push($(this).attr("data-id"))});ids.length&&$.post(gallery_get_html_url,{ids:ids},function(data){ids.forEach(function(id,index){data&&data[id]&&$(".xo-gallery-html[data-id="+id+"]").html(data[id].data)})})})})(jQuery);

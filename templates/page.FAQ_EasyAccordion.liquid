@@ -1,0 +1,8 @@
+{% include 'atb' zone:"Top"%}
+<h2 style="text-align:center">{{ page.title }}</h2>
+
+<div class="rte">
+  {% assign content = page.content | replace: '&lt;!-- acsplit --&gt;', '<!-- acsplit -->' | split: '<!-- acsplit -->' %}{% for c in content %}{% include 'product-description-slider-page' with c %}{% endfor %}
+</div>
+
+{% include 'atb' zone:"Bottom"%}

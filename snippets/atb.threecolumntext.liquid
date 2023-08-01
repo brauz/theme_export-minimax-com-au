@@ -1,0 +1,53 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Three Column Text",
+    "id":"threecolumntext",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "three column text",
+    "description": "Three Column Text",
+    "settings":[
+        {
+            "id" : "columnone",
+            "label" : "Text",
+            "info" : "Include text",
+            "type" : "html"
+        },
+        {
+            "id" : "columntwo",
+            "label" : "Text",
+            "info" : "Include text",
+            "type" : "html"
+        },
+        {
+            "id" : "columnthree",
+            "label" : "Text",
+            "info" : "Include text",
+            "type" : "html"
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'columnone' %}
+{% assign columnone = val %}
+{% include 'atb-render' field:'columntwo' %}
+{% assign columntwo = val %}
+{% include 'atb-render' field:'columnthree' %}
+{% assign columnthree = val %}
+
+<section class="threeColumnText">
+    <div class="container">
+        <div class="column">
+            {{ columnone }}
+        </div>
+        <div class="column">
+            {{ columntwo }}
+        </div>
+        <div class="column">
+            {{ columnthree }}
+        </div>
+    </div>
+</section>

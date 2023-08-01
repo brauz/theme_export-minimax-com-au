@@ -1,0 +1,325 @@
+<footer>
+    <div class="footerTop">
+        <a href="#" class="backTop">{% include 'chevron-up' %}</a>
+        <div class="container">
+        
+
+          
+            <ul>
+                <li class="services">
+                    <a href="/pages/delivery">
+                        <span class="serviceIcon">
+                            {% include 'truck' %}
+                        </span>
+                        <span class="serviceTitle">
+                            Free Delivery
+                        </span>
+                        <span class="serviceText">
+                            Spend over $99 for FREE Shipping.
+                        </span>
+                    </a>
+                </li>
+                <li class="services">
+                    <a href="/pages/store-finder">
+                        <span class="serviceIcon">
+                            {% include 'location' %}
+                        </span>
+                        <span class="serviceTitle">
+                            Find your local store
+                        </span>
+                        <span class="serviceText">
+                            Find your nearest Minimax store.
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#popup" class="signUp popupLink">
+                        <span class="serviceIcon">
+                            {% include 'membership' %}
+                        </span>
+                        <span class="serviceTitle">
+                            Join Minimax Rewards
+                        </span>
+                        <span class="serviceText">
+                            Click here and join today.
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="footerMain">
+        <div class="container">
+
+            {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+            <ul class="socialLinks mobile">
+                <h5>Follow Us</h5>
+              {% for social in social_accounts %}
+                {%- assign social_handle = social | handleize -%}
+                {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+                {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+
+                {% if settings[social_link] != blank %}
+                  <li>
+                    <a target="_blank" href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                      {% include social_icon %}
+                      <span class="icon-fallback-text">{{ social }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+
+              {% endfor %}
+            </ul>
+
+            <span class="footerColumnWrapper">
+
+                <span class="footerColumn">
+                    <span >
+                        <h5>Here To Help</h5>
+                        <span class="expand">
+                            {% include 'plus' %}
+                        </span>
+                    </span>
+
+                    {%- assign footer_linklist = section.settings.footer_linklist -%}
+                    {% if linklists[footer_linklist].links.size > 0 %}
+                      <ul class="footerExpand">
+                        {% for link in linklists[footer_linklist].links %}
+                          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                </span>
+                <span class="footerColumn">
+                    <span>
+                        <h5>Shopping With Us</h5>
+                        <span class="expand">
+                            {% include 'plus' %}
+                        </span>
+                    </span>
+
+                    {%- assign footer2_linklist = section.settings.footer2_linklist -%}
+                    {% if linklists[footer2_linklist].links.size > 0 %}
+                      <ul class="footerExpand">
+                        {% for link in linklists[footer2_linklist].links %}
+                          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                </span>
+                <span class="footerColumn">
+                    <span>
+                        <h5>About Minimax</h5>
+                        <span class="expand">
+                            {% include 'plus' %}
+                        </span>
+                    </span>
+
+                    {%- assign footer3_linklist = section.settings.footer3_linklist -%}
+                    {% if linklists[footer3_linklist].links.size > 0 %}
+                      <ul class="footerExpand">
+                        {% for link in linklists[footer3_linklist].links %}
+                          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+
+                    {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+                    <ul class="socialLinks desktop">
+                        <h5>Follow Us</h5>
+
+                      {% for social in social_accounts %}
+                        {%- assign social_handle = social | handleize -%}
+                        {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+                        {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+
+                        {% if settings[social_link] != blank %}
+                          <li>
+                            <a target="_blank" href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                              {% include social_icon %}
+                              <span class="icon-fallback-text">{{ social }}</span>
+                            </a>
+                          </li>
+                        {% endif %}
+
+                      {% endfor %}
+                    </ul>
+                </span>
+                <span class="footerColumn">
+              
+                    <section class="subscribe footer">
+                        <div class="container">
+       				 </div>
+                    </section>
+                    <ul class="paymentMethods">
+                      <span><h5>We Accept</h5></span>
+                        <li class="afterPay">
+                            {% include 'afterpay-logo-black' %}
+                        </li> 
+
+                        <li class="mastercard">
+                            <img src="{{'master.svg' | asset_url }}" alt="Mastercard" />
+                        </li>
+                        <li class="paypal">
+                            <img src="{{'paypal.svg' | asset_url }}" alt="Paypal" />
+                        </li>
+                        <li class="visa">
+                            <img src="{{'visa.svg' | asset_url }}" alt="Visa" />
+                        </li>
+                    </ul>
+                    <!-- {% if section.settings.show_payment_icons %}
+                      {% unless shop.enabled_payment_types == empty %}
+                        {%- assign payment_icons_available = 'amazon_payments,american_express,apple_pay,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' -%}
+
+                        <span class="visually-hidden">{{ 'layout.footer.payment_methods' | t }}</span>
+                        <ul class="payment-icons">
+                          {% for type in shop.enabled_payment_types %}
+                            {% if payment_icons_available contains type %}
+                              <li>
+                                {%- assign icon_name = type | prepend: 'icon-' -%}
+                                {% include icon_name %}
+                                <span class="visually-hidden">{{ type | capitalize | replace: '_', ' ' }}</span>
+                              </li>
+                            {% endif %}
+                          {% endfor %}
+                        </ul>
+                      {% endunless %}
+                    {% endif %} -->
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="footerCopyright">
+        <div class="container">
+            <span class="footerLogoContainer">
+              <a href="/" itemprop="url" class="footer-logo">
+                {% include 'monogram' %}
+              </a>
+            </span>
+            <p class="copyrightText">
+              © Copyright 2020 Minimax. </p>
+          <span class="copyrightText">
+                <span style="color:#aaa;"><a href="https://secure.adppayroll.com.au/siteminderagent/forms/adplogin.fcc" target="_blank">&nbsp;Staff Access</a></span>
+            </span>       
+            <!-- <span class="siteBy">
+                <span>Site by <a href="https://www.wearedigital.com.au" target="_blank">WeAreDigital.</a></span>
+            </span> -->
+        </div>
+    </div>
+
+</footer>
+
+<section class="menuOverlayBlock"></section>
+
+<section id="miniCart" class="miniCart">
+    <div class="cart-view" data-cart-view="data-cart-view">
+        <div class="top">
+            <span class="close">{% include 'cross-small' %} Close</span>
+            <span class="title">Your Shopping Bag</span>
+            <span class="meta">Contains <strong><span class="totalQty" data-cart-render="item_count">0</span> items</strong> Totalling <span class="totalPrice" data-cart-render="total_price_money_with_currency">0.00</span></span>
+        </div>
+        <span class="products">
+            <table>
+                <!-- <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th colspan="2">Qty</th>
+                        <th>Line Price</th>
+                    </tr>
+                </thead> -->
+                <tbody>
+                    <tr rv-each-item="cart.items">
+                        <td>
+                            <img rv-src="item.image | productImageSize '240x240'" />
+                        </td>
+                        <td>
+                            <span class="productDetails">
+                                <p rv-text="item.title"></p>
+                                <ul rv-hide="item.propertyArray | empty">
+                                    <li rv-each-property="item.propertyArray < properties">
+                                        <small class="text-muted">{property.name}: {property.value}</small>
+                                    </li>
+                                </ul>
+                            </span>
+                            <span class="updatePrice">
+                                <span class="quantity">
+                                    <a class="cartMinus" href="#" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1" data-price="item.line_price">-</a>
+                                    <span rv-text="item.quantity"></span>
+                                    <a class="cartPlus" href="#" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">+</a>
+                                </span>
+                                <span class="total" rv-html="item.line_price | money Currency.currentCurrency"></span>
+                                <!-- <span rv-html="item.price | money Currency.currentCurrency"></span> -->
+                            </span>
+                        </td>
+                        <td>
+                            <a class="cartDelete" onclick="ga('send', 'event', 'Shopping Bag', 'Remove Click', '{{ product.title }}');" href="#" rv-data-cart-remove="index | plus 1" data-price="item.line_price" data-quantity="item.quantity">&times;</a>
+                        </td>
+                        <!-- <td class="noItems" rv-show="cart.item_count | lt 1">
+                            <span class="noItemsText" colspan="5">You don't have any items in your cart.</span>
+                        </td> -->
+                    </tr>
+
+
+
+                </tbody>
+                <tfoot rv-show="cart.item_count | gt 0">
+                    <tr>
+                        <td colspan="4" rv-html="cart.total_weight | weight_with_unit" style="visibility:hidden;"></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <!-- <img src="loader.gif" width="16" height="11" class="cart-visible-loading"/> -->
+        </span>
+        <span class="bagTotal">
+            <!--[if IE]>
+            <style>
+            .bagTotal {
+            position: absolute;
+            }
+            </style>
+            <![endif]-->
+          <span class="text">Bag Total</span>
+          <div class="custom_cart_total">
+            <span class="total cartTotal totals__subtotal-value" rv-html="cart.total_price | money Currency.currentCurrency" data-total="cart.total_price"></span>
+            <span class="discos_custom_display_total_price"></span>
+          </div>
+           
+            <a class="std btn" href="/cart">View Bag</a>
+        </span>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "First menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer2_linklist",
+        "label": "Second menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer3_linklist",
+        "label": "Third menu",
+        "default": "footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": false
+      }
+    ]
+  }
+
+{% endschema %}

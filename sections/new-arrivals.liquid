@@ -1,0 +1,108 @@
+{% include 'spurit_po2_section_snippet', product: null, products: collections[section.settings.collection].products %}
+<section class="newArrivals">
+    <div class="container">
+        {% if section.settings.pre_title != blank %}
+          <h6 class="preTitle">{{ section.settings.pre_title | escape }}</h6>
+        {% endif %}
+        {% if section.settings.title != blank %}
+          <h1 class="title">{{ section.settings.title | escape }}</h1>
+        {% endif %}
+
+        <div class="newArrivalsGrid">
+        {%- assign collection = collections[section.settings.collection] -%}
+            {% for product in collection.products limit: 8 %}
+
+            <div class="productWrapper">
+            <div class="iwishAddShop">{% include 'iwish_v2' with 'iwishCollection' %}</div>
+            <!-- <span class="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span> -->
+            {% assign current_variant = product.selected_or_first_available_variant %}
+
+                <a data-val="{{ current_variant.id }}" href="{{ product.url | within: collection }}" class="newArrivalProduct">
+                    <span class="imageWrapper">
+                        {% if product.metafields.accentuate.sale_flag == 'Yes' %}
+	                         {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color:{{ product.metafields.accentuate.flag_border }}; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% else %}
+	                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border-radius: 50%; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color: #fff; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% endif %}
+                          {% endif %}
+                        <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                        </span>
+                    </span>
+
+                    <span class="productInformation">
+    					<span class="contentDetails">
+                            <!-- {% for collection in product.collections %}
+                                <span class="productTag">{{ collection.title }}</span>
+                            {% endfor %} -->
+                            {% if product.metafields.accentuate.sale_promo_product %}
+                               {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+                                  <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                               {% else %}
+                                  <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                               {% endif %}
+                            {% endif %}
+    						<span class="productName">{{ product.title }}</span>
+
+                            <div data-price-wrapper class="price">
+                                  {% if product.compare_at_price_max > product.price %}
+                                      <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                                      <span class="comparison" data-compare-price>
+                                          <span class="was">
+                                              Was {{ product.compare_at_price_max | money }}
+                                          </span>
+                                          <span class="now" data-product-price>
+                                            Now {{ product.price | money }}
+                                          </span>
+                                    </span>
+                                  {% else %}
+                                      <span class="productPrice">{{ product.price | money }}</span>
+                                  {% endif %}
+                            </div>
+    					</span>
+	                </span>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="pageLink">
+            <a href="/collections/{{ section.settings.collection | escape }}" class="std btn secondary">
+                Shop All {{ section.settings.collection | escape }}
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+{% schema %}
+  {
+    "name": "Featured collection",
+    "settings": [
+        {
+          "type": "text",
+          "id": "pre_title",
+          "label": "Pre Title",
+          "default": "Minimax Selects"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Our Favourite New Arrivals"
+        },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured collection",
+        "category": "Collection"
+      }
+    ]
+  }
+
+{% endschema %}

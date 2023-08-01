@@ -1,0 +1,84 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Product Carousel",
+    "id":"productcarousel",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "product carousel",
+    "description": "Product Carousel",
+    "settings":[
+        {
+            "id" : "title",
+            "label" : "Title",
+            "info" : "Include a title",
+            "type" : "text"
+        },
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection",
+          "info": "Select a collection"
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'title' %}
+{% assign title = val %}
+{% include 'atb-render' field:'collection' %}
+{% assign collection_string = val %}
+
+<section class="productCarousel">
+    <div class="container">
+        {% if title != blank %}
+          <h1  class="title">{{ title | escape }}</h1>
+        {% endif %}
+
+        <div class="owl-carousel">
+        {%- assign collection = collections[collection_string] -%}
+            {% for product in collection.products %}
+
+            <div class="productWrapper">
+            <div class="iwishAddShop">{% include 'iwish_v2' with 'iwishCollection' %}</div>
+            <!-- <span class="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span> -->
+            {% assign current_variant = product.selected_or_first_available_variant %}
+
+                <a href="{{ product.url | within: collection }}" class="item">
+                    <span class="imageWrapper">
+                        {% if product.metafields.accentuate.sale_flag == 'Yes' %}
+	                         {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color:{{ product.metafields.accentuate.flag_border }}; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% else %}
+	                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border-radius: 50%; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color: #fff; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% endif %}
+                         {% endif %}
+                        <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                        </span>
+                    </span>
+
+                    <span class="productInformation">
+    					<span class="contentDetails">
+                            <!-- {% for collection in product.collections %}
+                                <span class="productTag">{{ collection.title }}</span>
+                            {% endfor %} -->
+                            {% if product.metafields.accentuate.sale_promo_product %}
+	                             {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                                <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                 {% else %}
+                                    <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                 {% endif %}
+                             {% endif %}
+    						<span class="productName">{{ product.title }}</span>
+                            <span class="productPrice">{{ product.price | money }}</span>
+    					</span>
+	                </span>
+                </a>
+
+            </div>
+
+        {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,1 @@
+var bcsffilter=new BCSfFilter;bcsffilter.init();"undefined"!=typeof bcSfFilterConfig&&void 0!==bcSfFilterConfig.general&&void 0!==bcSfFilterConfig.general.isInitFilter&&!0===bcSfFilterConfig.general.isInitFilter&&bcsffilter.initFilter();bcsffilter.initSearchBox();

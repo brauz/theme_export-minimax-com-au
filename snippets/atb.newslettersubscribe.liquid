@@ -1,0 +1,43 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Newsletter Subscribe",
+    "id":"newslettersubscribe",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "newsletter subscribe",
+    "description": "Newsletter Subscribe",
+    "settings":[
+        {
+            "id" : "text",
+            "label" : "Text",
+            "info" : "Include text",
+            "type" : "text"
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'text' %}
+{% assign text = val %}
+
+<section class="subscribe">
+	<div class="container">
+        <div class="subscribeWrapper">
+            <span class="subscribeText">
+                {{ text }}
+            </span>
+            <p class="successMessage">Thanks for signing up</p>
+            <form class="subscribeForm" action="https://minimax.us13.list-manage.com/subscribe/post&SIGNUP=Minimax-Website" method="POST">
+                <input type="hidden" name="u" value="91301c23f3f505201479d940f">
+                <input type="hidden" name="id" value="4f0f9de340">
+
+                <input type="email" autocapitalize="off" name="MERGE0" id="MERGE0" placeholder="Email Address" size="32">
+				<input id="SIGNUP" name="SIGNUP" value="Minimax Website" type="hidden">
+                <input class="submitButton" type="submit" value="Join" onclick="ga('send', 'event', 'Register', 'Submit');">
+            </form>
+            <p class="errorMessage">Please enter a valid email address</p>
+        </div>
+    </div>
+</section>

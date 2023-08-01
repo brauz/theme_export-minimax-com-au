@@ -1,0 +1,66 @@
+
+<section class="ourBrands">
+<br>
+        <h1>Our Brands</h1>
+
+        <div class="searchType">
+            <div class="container">
+                <span class="alphabetical active">Brands A - Z</span>
+                <span class="category">Collections</span>
+            </div>
+        </div>
+        
+        {% section 'brand-collections' %}
+
+        <div class="brandsAZ active">
+            <div class="alphabet active">
+                <div class="container">
+                  {% assign AZ = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" | split: ',' %}
+                  {% assign brandsGroups = shop.metaobjects.accentuate_brands_list_a_to_z.accentuate_brands_list_a_to_z-default %}
+                  
+                  {% for brandLetter in AZ %}
+                    {% assign groupKey = "brands_" | append: brandLetter | downcase %}
+                    {% assign collectionList = brandsGroups[groupKey].value %}
+                    {% assign listIsAvailable = false %}
+                  {%- paginate collectionList by 250 -%}
+                    {% for collection in collectionList  %}
+                      {% if collection.products_count > 0 %}
+                        {% assign listIsAvailable = true %}
+                        {% continue %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endpaginate %}
+                    <span class="category {% if listIsAvailable %}available{% else %}notAvailable{% endif %}">{{ brandLetter }}</span>
+                  {% endfor %}                  
+                </div>
+            </div>
+            <div class="brandList">
+                <div class="container">
+                    <div class="brandListWrapper">
+                     
+                    </div>
+                    <div class="brandsHidden hidden">
+                      {% for brandLetter in AZ %}
+                        {% assign groupKey = "brands_" | append: brandLetter | downcase %}
+                        {% assign collectionList = brandsGroups[groupKey].value %}
+                        {% assign listIsAvailable = false %}
+                        {%- paginate collectionList by 250 -%}
+                          {% for collection in collectionList  %}
+                            {% if collection.products_count > 0 %}
+                                <span>{{- collection.title | link_to: collection.url }}</span>
+                            {% endif %}
+                          {% endfor %}
+                        {% endpaginate %}
+                      {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<section class="productCarousel">
+    <div id="awarp-recently-viewed-products" data-cart-products="{% for line in cart.items %}{{ line.product_id }},{% endfor %}"></div>
+</section>
+
+{% include 'atb' zone:"Bottom"%}

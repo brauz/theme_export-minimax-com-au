@@ -1,0 +1,11 @@
+<svg id="icon-filter_24x24" data-name="icon-filter 24x24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="Rectangle_485" data-name="Rectangle 485" width="24" height="24" fill="none"/>
+  <g id="Group_15381" data-name="Group 15381" transform="translate(2.999 5)">
+    <path id="Path_1556" data-name="Path 1556" d="M119.086,877.876a.75.75,0,0,0,.75-.75V872a.75.75,0,0,0-1.5,0v5.126A.75.75,0,0,0,119.086,877.876Z" transform="translate(-116.139 -871.25)"/>
+    <path id="Path_1557" data-name="Path 1557" d="M124.944,877.841a.75.75,0,0,0-.75.75v6.591a.75.75,0,0,0,1.5,0v-6.591A.75.75,0,0,0,124.944,877.841Z" transform="translate(-116.139 -871.25)"/>
+    <path id="Path_1558" data-name="Path 1558" d="M130.8,879.341a.75.75,0,0,0,.75-.75V872a.75.75,0,0,0-1.5,0v6.591A.75.75,0,0,0,130.8,879.341Z" transform="translate(-116.139 -871.25)"/>
+    <path id="Path_1559" data-name="Path 1559" d="M121.283,879.306h-4.394a.75.75,0,1,0,0,1.5h1.447v4.376a.75.75,0,0,0,1.5,0v-4.376h1.447a.75.75,0,0,0,0-1.5Z" transform="translate(-116.139 -871.25)"/>
+    <path id="Path_1560" data-name="Path 1560" d="M127.142,874.911h-1.448V872a.75.75,0,0,0-1.5,0v2.911h-1.446a.75.75,0,0,0,0,1.5h4.394a.75.75,0,1,0,0-1.5Z" transform="translate(-116.139 -871.25)"/>
+    <path id="Path_1561" data-name="Path 1561" d="M133,880.771h-4.394a.75.75,0,1,0,0,1.5h1.447v2.911a.75.75,0,0,0,1.5,0v-2.911H133a.75.75,0,0,0,0-1.5Z" transform="translate(-116.139 -871.25)"/>
+  </g>
+</svg>

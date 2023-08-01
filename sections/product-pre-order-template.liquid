@@ -1,0 +1,370 @@
+{% include 'spurit_po2_section_snippet', product: null, products: collections[section.settings.collection].products %}
+<div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope_ itemtype="http://schema.org/Product">
+    <div class="container">
+      {%- assign current_variant = product.selected_or_first_available_variant -%}
+      {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+
+      <meta itemprop="name" content="{{ product.title }}{% unless product.has_only_default_variant %} - {{ current_variant.title }}{% endunless %}">
+      <meta itemprop="url" content="{{ shop.url }}{{ current_variant.url }}">
+      <meta itemprop="brand" content="{{ product.vendor }}">
+      <meta itemprop="image" content="{{ featured_image | img_url: '600x600' }}">
+      <meta itemprop="description" content="{{ product.description | strip_html | escape }}">
+   
+      <div class="productHeader">
+          <a class="vendorName" href="/collections/vendors?q={{ product.vendor }}">
+              <span>{{ product.vendor }}</span>
+          </a>
+           <h1>{{ product.title }}</h1>
+
+        
+      </div>
+
+      
+	
+      <div class="productMain">
+          {% unless customer %}<p class="iWishLoginMsg" style="display: none;">Your current wishlist is not saved. Please {{ 'Login' | customer_login_link }} to save it.</p>{% endunless %}
+          <div class="left">
+
+	  
+              <span class="productFeaturedImage">
+                  {% include 'iwish_v2' with 'iwishproduct' %}
+                  <img src="{{ featured_image | img_url: '1440x1440' }}" alt="{{ featured_image.alt | escape }}" data-product-featured-image>
+              </span>
+
+              {% if product.images.size > 1 %}
+                <div class="productThumbnails desktop">
+                    <ul>
+                      {% for image in product.images %}
+                        <li>
+                          <a href="{{ image.src | img_url: '1440x1440' }}" data-product-single-thumbnail>
+                            <img src="{{ image.src | img_url: '160x160' }}" alt="{{ image.alt | escape }}">
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <div class="productThumbnails mobile{% if product.images.size <= 1 %} single{% endif %}">
+                  	{% include 'iwish_v2' with 'iwishproduct' %}
+                    {% include 'magiczoomplus' %}
+                    <div style="display: none;">
+                        <div class="owl-carousel product">
+                            {% for image in product.images %}
+                            <div class="item">
+                                <span class="imageWrapper">
+                                    <span class="imageContainer">
+                                        <a class="zoomCloseMobile">X</a>
+                                        <img src="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}">
+                                    </span>
+                                </span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+          </div>
+
+          <div class="right">
+              <div class="productDetails">
+
+                  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+                    <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+                    <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
+
+                    <form action="/cart/add" method="post" enctype="multipart/form-data" data-cart-submit>
+
+                      <select name="id" class="no-js" data-product-select>
+                        {% for variant in product.variants %}
+                          <option
+                            {% if variant == current_variant %}selected="selected"{% endif %}
+                            {% unless variant.available %}{% endunless %}
+                            value="{{ variant.id }}">
+                              {{ variant.title }}
+                          </option>
+                        {% endfor %}
+                      </select>
+                     
+                      
+                      <div data-price-wrapper class="price">
+                            {% if product.compare_at_price_max > product.price %}
+                                <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                                <span class="comparison" data-compare-price>
+                                  {% if current_variant.compare_at_price > current_variant.price %}
+                                    Was {{ current_variant.compare_at_price | money }}
+                                  {% endif %}
+                              </span>
+                            {% endif %}
+                            {% if current_variant.compare_at_price > current_variant.price %}
+                                <span data-product-price class="nowPrice">
+                                  Now {{ current_variant.price | money }}
+                                </span>
+                            {% else %}
+                                <span data-product-price>
+                                  {{ current_variant.price | money }}
+                                </span>
+                            {% endif %}
+                      </div>
+  
+<p style="font-size:14px" align="left">or make 4 interest-free payments<br>of<strong><span id="afterpay_instalments">
+  {{product.price|divided_by:4|money}}</span></strong> fortnightly with <br>
+<img style="vertical-align:bottom; margin-top:10px;" width="120" alt="Afterpay"src="https://www.afterpay.com.au/wp-content/themes/afterpay/assets/img/logo_scroll.png"/>
+   <a
+style="display:block;margin-bottom:20px;"
+target="_blank"
+href="https://www.afterpay.com.au/terms">
+<span style="font-size:12px"><u>More info</u></span></a>
+</p>
+        
+                      
+                      {% if product.metafields.accentuate.sale_promo_product %}
+                         {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+                            <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                         {% else %}
+                            <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                         {% endif %}
+                      {% endif %}
+
+                      <div class="productDescription">
+                        {{ product.description | split: '~section 2~' | first }}
+                                                                       
+       
+                        <p style="font-size:12px; color:grey;">Item Code: {% assign current_variant = product.selected_or_first_available_variant %}
+                          <span class="variant-sku">{{ current_variant.sku }}</span></p>
+                        
+                         </div>
+                      
+       
+
+                      
+                      {% unless product.has_only_default_variant %}
+                        {% for option in product.options_with_values %}
+                          <div class="selector-wrapper js">
+                              <span class="quantity">
+                                <label for="SingleOptionSelector-{{ forloop.index0 }}">
+                                  {{ option.name }}
+                                </label>
+
+                                <select
+                                  id="SingleOptionSelector-{{ forloop.index0 }}"
+                                  data-single-option-selector
+                                  data-index="option{{ option.position }}">
+                                  {% for value in option.values %}
+                                    <option
+                                      value="{{ value | escape }}"
+                                      {% if option.selected_value == value %}selected="selected"{% endif %}>
+                                        {{ value }}
+                                    </option>
+                                  {% endfor %}
+                                </select>
+                            </span>
+                          </div>
+                        {% endfor %}
+                      {% endunless %}
+
+                      {% if variant.inventory_quantity %}
+                          <span class="quantity">
+                              <label for="Colour">{{ 'products.product.colour' | t }}</label>
+                              <input type="text" id="Colour" name="color">
+                          </span>
+
+                          <span class="quantity">
+                              <label for="Size">{{ 'products.product.size' | t }}</label>
+                              <input type="text" id="Size" name="size">
+                          </span>
+                      {% endif %}
+
+                      <span class="quantity">
+                          <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+                          <select id="quantity" name="quantity">
+            				{% for i in (1..10) %}
+                  			<!-- <option selected="true" style="display:none;"></option> -->
+                			<option value="{{ i }}">{{ i }}</option>
+            				{% endfor %}
+                		   </select>
+                      </span>
+
+                      <span class="addToCart test ">
+                          <button  onclick="ga('send', 'event', 'Shopping Bag', 'Add Click', '{{ product.title }}');"
+                            type="submit"
+                            name="add"
+                            data-add-to-cart
+                            {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+                              <span data-add-to-cart-text>
+                                {% if current_variant.available %}
+                                  {{ 'Pre-Order' | json  |  remove: "" }}
+                                {% else %}
+                                  {{ 'products.product.sold_out' | t }}
+                                {% endif %}
+                              </span>
+                          </button>
+                      </span>
+                      <div class="shareBlock">                         
+
+                         <!-- <div id="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></div> -->
+
+                          <a class="share">
+                              <span class="saveProduct">Share</span>
+                              {% include 'share' %}
+                          </a>
+                          <span class="shareOptions">
+                            {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+                          </span>
+           
+                        {% if customer and cart.attributes['registry_id'] and cart.attributes['registry_admin'] %}
+	{% include 'snippet-giftreggie-registry-button-visible' %}
+{% endif %}
+                      </div>
+                    </form>
+
+                  </div>
+
+                  {% unless product == empty %}
+                    <script type="application/json" data-product-json>
+                      {{ product | json }}
+                    </script>
+                  {% endunless %}
+              </div>
+          </div>
+    </div>
+</div>
+
+<section class="productExtra">
+    <div class="titleBlock">
+        <ul class="tabs">
+            <li class="tab-link current" data-tab="tab-1">
+                Product Details
+            </li>
+            <li class="tab-link" data-tab="tab-2">
+                Shipping and Delivery
+            </li>
+            <li class="tab-link" data-tab="tab-3">
+                Reviews
+            </li>
+        </ul>
+    </div>
+    <div class="informationWrapper">
+        <div class="container">
+            <div id="tab-1" class="tab-content current">
+                <div class="column">
+                    {{ product.metafields.accentuate.product_details }}
+                </div>
+
+                <div class="column">
+                    {{ product.metafields.accentuate.product_detail_column_two }}
+                </div>
+            </div>
+            <div id="tab-2" class="tab-content">
+                <div class="column">
+                    {{ shop.metafields.accentuate.shipping_and_delivery }}
+                </div>
+            </div>
+            <div id="tab-3" class="tab-content">
+                <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="productExtra mobile">
+    <div class="informationWrapper">
+        <div class="container">
+            <div>
+                <span class="title current" data-tab="tab-1-mobile">Product Details {% include 'plus' %}{% include 'minus' %}</span>
+                <div id="tab-1-mobile" class="tab-content-mobile current">
+                    <div class="column">
+                        <span>
+                            {{ product.metafields.accentuate.product_details }}
+                        </span>
+                    </div>
+                    <div class="column">
+                        <span>
+                            {{ product.metafields.accentuate.product_detail_column_two }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span class="title" data-tab="tab-2-mobile">Shipping and Delivery {% include 'plus' %}{% include 'minus' %}</span>
+                <div id="tab-2-mobile" class="tab-content-mobile">
+                    <div class="column">
+                        <span>
+                            {{ shop.metafields.accentuate.shipping_and_delivery }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span class="title" data-tab="tab-3-mobile">Reviews {% include 'plus' %}{% include 'minus' %}</span>
+                <div id="tab-3-mobile" class="tab-content-mobile reviews">
+                    <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+                    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="productCarousel">
+{% include 'related-products' %}
+</section>
+
+<section class="productCarousel">
+    <div class="container">
+        {% include 'dtk_recentviewed_display' %}
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+    }
+
+    ],
+    "name": "Product Carousel",
+    "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Kitchenware Specials"
+        },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product Page Carousel",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+
+  
+<script src="https://apis.google.com/js/platform.js?onload=renderBadge" async defer></script>
+
+<script>
+  window.renderBadge = function() {
+    var ratingBadgeContainer = document.createElement("div");
+    document.body.appendChild(ratingBadgeContainer);
+    window.gapi.load('ratingbadge', function() {
+      window.gapi.ratingbadge.render(ratingBadgeContainer, {"merchant_id": 116843049});
+    });
+  }
+</script>

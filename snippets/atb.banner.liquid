@@ -1,0 +1,251 @@
+<!-- Section / Block Type: Image -->
+
+{% comment %}
+	ATB-SCHEMA{
+	"name":"Banner",
+	"id":"banner",
+	"price": 0,
+	"banner":"//i.imgur.com/AooID5E.png",
+	"icon": "//i.imgur.com/p5V0jO0.png",
+	"screenshots" : [
+		"//i.imgur.com/OcChZrR.png",
+		"//i.imgur.com/OcChZrR.png",
+		"//i.imgur.com/OcChZrR.png"
+	],
+	"tags": "banner,image,timber,bootstrap",
+	"description": "Robust banner with highly configurable options for background image, parallax, text overlay, titles and buttons. Use this to build a beautiful lookbook.",
+	"settings":[
+		{ 
+			"id" : "title",
+			"label" : "Title",
+			"info" : "The title goes here",
+			"default" : "Image block title",
+			"type" : "text"
+		},
+		{ 
+			"id" : "content",
+			"label" : "Content",
+			"info" : "The content goes here",
+			"type" : "text"
+		},
+		{ 
+			"id" : "button_title",
+			"label" : "Button title",
+			"info" : "Add a title for your button here",
+			"type" : "text"
+		},
+		{ 
+			"id" : "button_link",
+			"label" : "Button link",
+			"info" : "Add a link here. i.e https:\/\/www.apps.sltwtr.com",
+			"type" : "text"
+		},
+		{ 
+			"id" : "image",
+			"label" : "Image",
+			"info" : "Upload a background image here",
+			"type" : "image"
+		},
+		{ 
+			"id" : "height",
+			"label" : "Height",
+			"info" : "Define block height",
+			"default" : "100",
+			"options": [
+				{
+					"label": "100%",
+					"value": "100"
+				},
+				{
+					"label": "75%",
+					"value": "75"
+				},
+				{
+					"label": "50%",
+					"value": "50"
+				},
+				{
+					"label": "25%",
+					"value": "25"
+				}
+			],
+			"type" : "select"
+		},
+		{ 
+			"id" : "img_contain",
+			"label" : "Contain or Cover",
+			"info" : "Choose if you want to contain the image in this block, or use cover for full width / height",
+			"default" : "cover",
+			"options": [
+				{
+					"label": "Contain",
+					"value": "contain"
+				},
+				{
+					"label": "Cover",
+					"value": "cover"
+				}
+			],
+			"type" : "select"
+		},
+		{ 
+			"id" : "parallax",
+			"label" : "Parallax",
+			"info" : "Include cool parallax scrolling on image",
+			"default" : "true",
+			"options": [
+				{
+					"label": "True",
+					"value": "true"
+				},
+				{
+					"label": "False",
+					"value": "false"
+				}
+			],
+			"type" : "select"
+		},
+		{ 
+			"id" : "position",
+			"label" : "Image Position",
+			"info" : "Choose the alignment of the image",
+			"default" : "center center",
+			"options": [
+				{
+					"label": "Bottom left",
+					"value": "bottom left"
+				},
+				{
+					"label": "Center left",
+					"value": "center left"
+				},
+				{
+					"label": "Top left",
+					"value": "top left"
+				},
+				{
+					"label": "Bottom center",
+					"value": "bottom center"
+				},
+				{
+					"label": "Center center",
+					"value": "center center"
+				},
+				{
+					"label": "Top center",
+					"value": "top center"
+				},
+				{
+					"label": "Bottom right",
+					"value": "bottom right"
+				},
+				{
+					"label": "Center right",
+					"value": "center right"
+				},
+				{
+					"label": "Top right",
+					"value": "top right"
+				}
+			],
+			"type" : "select"
+		},
+		{ 
+			"id" : "text_align",
+			"label" : "Text align",
+			"info" : "Choose the alignment of the text",
+			"default" : "center",
+			"options": [
+				{
+					"label": "Left",
+					"value": "left"
+				},
+				{
+					"label": "Center",
+					"value": "center"
+				},
+				{
+					"label": "Right",
+					"value": "right"
+				}
+			],
+			"type" : "select"
+		},
+		{ 
+			"id" : "text_color",
+			"label" : "Text Color",
+			"default" : "#FFFFFF",
+			"info" : "Choose a color for the text",
+			"type" : "colorpicker"
+		},
+		{ 
+			"id" : "button_color",
+			"label" : "Button color",
+			"default" : "#FFFFFF",
+			"info" : "Choose a color for the button",
+			"type" : "colorpicker"
+		},
+		{ 
+			"id" : "button_text_color",
+			"label" : "Button text color",
+			"default" : "#000000",
+			"info" : "Choose a color for the button text",
+			"type" : "colorpicker"
+		}
+	]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'title' %}
+{% assign title = val %}
+{% include 'atb-render' field:'content' %}
+{% assign des = val %}
+{% include 'atb-render' field:'button_title' %}
+{% assign button_text = val %}
+{% include 'atb-render' field:'button_link' %}
+{% assign url = val %}
+{% include 'atb-render' field:'image' %}
+{% assign bg-img = val %}
+{% include 'atb-render' field:'height' %}
+{% assign height = val %}
+{% include 'atb-render' field:'img_contain' %}
+{% assign img_contain = val %}
+{% include 'atb-render' field:'parallax' %}
+{% assign parallax = val %}
+{% include 'atb-render' field:'block_position' %}
+{% assign block_position = val %}
+{% include 'atb-render' field:'text_align' %}
+{% assign text_align = val %}
+{% include 'atb-render' field:'text_color' %}
+{% assign text_color = val %}
+{% include 'atb-render' field:'button_color' %}
+{% assign button_color = val %}
+{% include 'atb-render' field:'background_color' %}
+{% assign background_color = val %}
+{% include 'atb-render' field:'button_text_color' %}
+{% assign button_text_color = val %}
+
+<style type="text/css">
+	.atb--type__image .btn:hover, .atb--type__image .btn:focus {
+		opacity: .8;
+	}
+</style>
+
+<section class="atb--type__image">
+	<div style="background-image: url({{ bg-img }}); {% if parallax == 'true' %}background-attachment: {{ parallax }};{% endif %} background-size: {{ img_contain }}; height:{{height}}vh; background-position: {{block_position}}; width: 100%;">
+  		<img style="display: none" alt="{{ title }}" src="{{ bg-img }}">
+  		<div style="display: flex; align-items: center; text-align: {{ text_align }}; height: 100%; width: 100%;">
+  			<div style="margin: auto; color: {{ text_color }};">
+	      		{% if title != blank %}
+	      			<h4 class="title">{{ title }}</h4>
+	      		{% endif %}
+				{% if des != blank %}
+					<p>{{ des }}</p>
+				{% endif %}
+				{% if button_text != blank %}
+					<a class="btn" href="{{ url }}" style="background-color: {{ button_color }}; color: {{ button_text_color }};">{{ button_text }}</a>
+				{% endif %}
+			</div>
+  		</div>
+  	</div>
+</section>

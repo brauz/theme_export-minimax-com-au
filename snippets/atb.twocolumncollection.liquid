@@ -1,0 +1,385 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Two Column Collection",
+    "id":"twocolumncollection",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "two column collection",
+    "description": "Two Column Collection",
+    "settings":[
+        {
+            "id" : "imageone",
+            "label" : "Image One",
+            "info" : "Include an image",
+            "type" : "image"
+        },
+        {
+          "type": "select",
+          "id": "background_colour_one",
+          "label": "Background Colour",
+          "options": [
+            {
+              "value": "#ffffff",
+              "label": "White"
+            },
+            {
+              "value": "#f7f7f7",
+              "label": "Light Grey"
+            },
+            {
+              "value": "#e5e5e5",
+              "label": "Darker Grey"
+            }
+          ],
+            "default": "#f7f7f7"
+        },
+        {
+            "id" : "titleone",
+            "label" : "Title One",
+            "info" : "Include a title",
+            "type" : "text"
+        },
+        {
+            "id" : "linkone",
+            "label" : "Link One",
+            "info" : "Include a link",
+            "type" : "text"
+        },
+        {
+            "id" : "shoppablebuttontextone",
+            "label" : "Shoppable Button Text",
+            "info" : "Text to feature in button, leave empty if no featured products",
+            "type" : "text"
+        },
+        {
+            "type": "product",
+            "id": "columnoneproductone",
+            "label": "Column One Product One",
+            "default": "",
+            "info": "Pick up to four featured products"
+        },
+        {
+            "type": "product",
+            "id": "columnoneproducttwo",
+            "label": "Column One Product Two",
+            "default": ""
+        },
+        {
+            "type": "product",
+            "id": "columnoneproductthree",
+            "label": "Column One Product Three",
+            "default": ""
+        },
+        {
+            "type": "product",
+            "id": "columnoneproductfour",
+            "label": "Column One Product Four",
+            "default": ""
+        },
+        {
+            "id" : "imagetwo",
+            "label" : "Image Two",
+            "info" : "Include an image",
+            "type" : "image"
+        },
+        {
+          "type": "select",
+          "id": "background_colour_two",
+          "label": "Background Colour",
+          "options": [
+            {
+              "value": "#ffffff",
+              "label": "White"
+            },
+            {
+              "value": "#f7f7f7",
+              "label": "Light Grey"
+            },
+            {
+              "value": "#e5e5e5",
+              "label": "Darker Grey"
+            }
+          ],
+            "default": "#f7f7f7"
+        },
+        {
+            "id" : "titletwo",
+            "label" : "Title Two",
+            "info" : "Include a title",
+            "type" : "text"
+        },
+        {
+            "id" : "linktwo",
+            "label" : "Link Two",
+            "info" : "Include a link",
+            "type" : "text"
+        },
+        {
+            "id" : "shoppablebuttontexttwo",
+            "label" : "Shoppable Button Text",
+            "info" : "Text to feature in button, leave empty if no featured products",
+            "type" : "text"
+        },
+        {
+            "type": "product",
+            "id": "columntwoproductone",
+            "label": "Column Two Product One",
+            "default": "",
+            "info": "Pick up to four featured products"
+        },
+        {
+            "type": "product",
+            "id": "columntwoproducttwo",
+            "label": "Column Two Product Two",
+            "default": ""
+        },
+        {
+            "type": "product",
+            "id": "columntwoproductthree",
+            "label": "Column Two Product Three",
+            "default": ""
+        },
+        {
+            "type": "product",
+            "id": "columntwoproductfour",
+            "label": "Column Two Product Four",
+            "default": ""
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'imageone' %}
+{% assign imageone = val %}
+{% include 'atb-render' field:'background_colour_one' %}
+{% assign backgroundcolourone = val %}
+{% include 'atb-render' field:'titleone' %}
+{% assign titleone = val %}
+{% include 'atb-render' field:'linkone' %}
+{% assign linkone = val %}
+{% include 'atb-render' field:'shoppablebuttontextone' %}
+{% assign shoppablebuttontextone = val %}
+{% include 'atb-render' field:'columnoneproductone' %}
+{% assign columnoneproductone = val %}
+{% include 'atb-render' field:'columnoneproducttwo' %}
+{% assign columnoneproducttwo = val %}
+{% include 'atb-render' field:'columnoneproductthree' %}
+{% assign columnoneproductthree = val %}
+{% include 'atb-render' field:'columnoneproductfour' %}
+{% assign columnoneproductfour = val %}
+
+{% include 'atb-render' field:'imagetwo' %}
+{% assign imagetwo = val %}
+{% include 'atb-render' field:'background_colour_two' %}
+{% assign backgroundcolourtwo = val %}
+{% include 'atb-render' field:'titletwo' %}
+{% assign titletwo = val %}
+{% include 'atb-render' field:'linktwo' %}
+{% assign linktwo = val %}
+{% include 'atb-render' field:'shoppablebuttontexttwo' %}
+{% assign shoppablebuttontexttwo = val %}
+{% include 'atb-render' field:'columntwoproductone' %}
+{% assign columntwoproductone = val %}
+{% include 'atb-render' field:'columntwoproducttwo' %}
+{% assign columntwoproducttwo = val %}
+{% include 'atb-render' field:'columntwoproductthree' %}
+{% assign columntwoproductthree = val %}
+{% include 'atb-render' field:'columntwoproductfour' %}
+{% assign columntwoproductfour = val %}
+
+<style>
+    section.atbcollection {
+        float:left;
+        width: 100%;
+    }
+</style>
+
+<section class="two atbcollection">
+    <div class="container">
+        <span class="column">
+            <span class="atbImageContainer">
+                <span class="atbImage" style="background-image: url({{ imageone }});"></span>
+                {% if shoppablebuttontextone != blank %}
+                    <span class="shoppableOverlay">
+                        <a href="#" class="shoppableButton">{{ shoppablebuttontextone }}</a>
+                        <div class="shoppableContainer">
+                            <div class="owl-carousel twoColumnCarousel">
+                                {% if columnoneproductone != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[columnoneproductone] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if columnoneproducttwo != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[columnoneproducttwo] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if columnoneproductthree != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[columnoneproductthree] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if columnoneproductfour != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[columnoneproductfour] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                            </div>
+                            <a href="#" class="shoppableClose"></a>
+                        </div>
+                    </span>
+                {% endif %}
+            </span>
+            <span class="text" style="background-color:{{ backgroundcolourone }};">
+                <span class="title">{{ titleone }}</span>
+                <a href="{{ linkone }}" class="std btn secondary">Shop all</a>
+            </span>
+        </span>
+
+        <span class="column">
+            <span class="atbImageContainer">
+                <span class="atbImage" style="background-image: url({{ imagetwo }});"></span>
+                {% if shoppablebuttontexttwo != blank %}
+                    <span class="shoppableOverlay">
+                        <a href="#" class="shoppableButton">{{ shoppablebuttontexttwo }}</a>
+                        <div class="shoppableContainer">
+                            <div class="owl-carousel twoColumnCarousel">
+                                {% if columntwoproductone != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[columntwoproductone] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if columntwoproducttwo != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[columntwoproducttwo] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if columntwoproductthree != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[columntwoproductthree] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if columntwoproductfour != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[columntwoproductfour] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                            </div>
+                            <a href="#" class="shoppableClose"></a>
+                        </div>
+                    </span>
+                {% endif %}
+            </span>
+            <span class="text" style="background-color:{{ backgroundcolourtwo }};">
+                <span class="title">{{ titletwo }}</span>
+                <a  href="{{ linktwo }}" class="std btn secondary">Shop all</a>
+            </span>
+        </span>
+    </div>
+</section>

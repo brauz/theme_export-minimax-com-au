@@ -1,0 +1,49 @@
+{% if template == 'product' %}
+	<div class='pds-donate-source' data-page='product' product-vendor='{{product.vendor}}'></div>
+{% endif %}
+{% if template == 'cart' %}
+	<div class='pds-donate-source' data-page='cart'></div>
+{% endif %}
+
+<style>
+  .pds-donate-source {
+    margin: 20px 0;
+    width: 30%;
+    display: block;
+}
+.pds-donate-source .pds-donation-data .pds-donation-img, .pds-donate-source .pds-donation-desc-wrap {
+    display: block;
+    vertical-align: top;
+}
+.pds-donate-source .pds-app-wrapper {
+    padding: 20px;
+    margin: 0 !important;
+}
+select.pds-dropdown {
+  border: 1px solid;
+  width: 50%;
+}
+h3.pds-donattion {
+  text-align: center;
+  font-size: 26px;
+  display: none;
+}
+  .pds-donate-source .pds-donation-data .pds-donation-img {
+    max-width: 100px;
+    margin-right: 10px;
+}
+.pds-donation-desc-wrap {
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.2px;
+}
+
+@media screen and (max-width: 768px) {
+  .pds-donate-source {
+    margin: 20px 0;
+    width: 100%;
+    display: block;
+}
+}
+</style>
+

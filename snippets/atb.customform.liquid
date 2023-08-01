@@ -1,0 +1,29 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Custom Form",
+    "id":"customform",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "custom form",
+    "description": "Custom Form",
+    "settings":[
+        {
+            "id" : "text",
+            "label" : "Form ID",
+            "info" : "Include form id",
+            "type" : "text"
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'text' %}
+{% assign text = val %}
+
+<section class="customForm">
+    <div class="container">
+        <div data-esc-form="{{ text }}" data-customer="{{ customer.id }}" data-page="{{ shop.secure_url }}{{ page.url }}"></div>
+    </div>
+</section>

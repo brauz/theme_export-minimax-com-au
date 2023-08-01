@@ -1,0 +1,58 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Call to Action Button",
+    "id":"calltoaction",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "call to action",
+    "description": "Call to Action Button",
+    "settings":[
+        {
+            "id" : "text",
+            "label" : "Button Text",
+            "info" : "Include button text",
+            "type" : "text"
+        },
+        {
+            "id" : "link",
+            "label" : "Link",
+            "info" : "Include link",
+            "type" : "text"
+        },
+        {
+            "type": "select",
+            "id": "linktab",
+            "label": "Open Link In",
+            "options": [
+            {
+              "value": "_self",
+              "label": "Same Tab"
+            },
+            {
+              "value": "_blank",
+              "label": "New Tab"
+            }
+            ],
+            "default": "_self",
+            "info": ""
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'linktab' %}
+{% assign linktab = val %}
+{% include 'atb-render' field:'link' %}
+{% assign link = val %}
+{% include 'atb-render' field:'text' %}
+{% assign text = val %}
+
+<section class="callToAction">
+    <div class="container">
+        <span class="btnBlock">
+            <a class="std btn secondary" href="{{ link }}" target="{{ linktab }}">{{ text }}</a>
+        </span>
+    </div>
+</section>

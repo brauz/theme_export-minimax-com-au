@@ -1,0 +1,209 @@
+{% paginate search.results by 10 %}
+
+<div class="container">
+    <div class="productHeader">
+        <h1>
+          {% if search.performed %}
+            {% if search.results_count == 0 %}
+              {{ 'general.search.no_results_html' | t: terms: search.terms }}
+            {% else %}
+              {{ 'general.search.results_for_html' | t: terms: search.terms }}
+            {% endif %}
+          {% else %}
+            {{ 'general.search.title' | t }}
+          {% endif %}
+        </h1>
+
+        <form action="/search" method="get" role="search">
+            <label for="Search" class="label-hidden">
+              {{ 'general.search.placeholder' | t }}
+            </label>
+            <input type="search"
+               name="q"
+               id="Search"
+               value="{{ search.terms | escape }}"
+               placeholder="{{ 'general.search.placeholder' | t }}">
+            <button type="submit" class="btn">
+              {% include 'icon-search' %}
+              <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+            </button>
+        </form>
+    </div>
+</div>
+
+{% if search.performed %}
+
+<div class="container">
+    <div class="filterBlock">
+       <span class="filter desktop">Filter By</span>
+       <span class="filter mobile">Refine</span>
+       <span class="clear">{% include 'cross-small' %} clear</span>
+       <span class="showNoProducts">Show: 20 per page {% include 'chevron-down' %}</span>
+       <span class="sortBy">Sort by: latest {% include 'chevron-down' %}</span>
+    </div>
+
+    <div class="filterWidget">
+        <div class="filterType">
+            <div class="filterTitle">
+                <span>Brand (3)</span>
+                {% include 'minus' %}
+            </div>
+            <div class="filterOptionWrapper">
+                <span class="filterOption">
+                    {% include 'full' %}
+                    Brand Name
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Brand Name
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Brand Name
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Brand Name
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Brand Name
+                </span>
+            </div>
+        </div>
+
+        <!-- <div class="filterType">
+            <div class="filterTitle">
+                <span>Category (3)</span>
+                {% include 'minus' %}
+            </div>
+            <div class="filterOptionWrapper">
+                <span class="filterOption">
+                    {% include 'full' %}
+                    Category Name
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Category Name
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Category Name
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Category Name
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Category Name
+                </span>
+            </div>
+        </div>
+
+        <div class="filterType">
+            <div class="filterTitle">
+                <span>Colour</span>
+                {% include 'minus' %}
+            </div>
+            <div class="filterOptionWrapper">
+                <span class="filterOption">
+                    {% include 'full' %}
+                    Colour 1
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Colour 2
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Colour 3
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Colour 4
+                </span>
+                <span class="filterOption">
+                    {% include 'empty' %}
+                    Colour 5
+                </span>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="productBlock">
+          {% for item in search.results %}
+
+          <div class="productWrapper">
+          <!-- <span class="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span> -->
+          {% assign current_variant = product.selected_or_first_available_variant %}
+                <a data-val="{{ current_variant.id }}" href="{{ item.url | within: collection }}" class="newArrivalProduct">
+                  {% if item.featured_image %}
+                      <span class="imageWrapper">
+                          {% if product.metafields.accentuate.sale_flag == 'Yes' %}
+                               {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+                                   <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color:{{ product.metafields.accentuate.flag_border }}; ">{{ product.metafields.accentuate.flag_text }}</span>
+                               {% else %}
+                                   <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border-radius: 50%; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color: #fff; ">{{ product.metafields.accentuate.flag_text }}</span>
+                               {% endif %}
+                          {% endif %}
+                          <span class="imageContainer" style="background-image:url('{{ item.featured_image.src | img_url: '1024x1024' }}');">
+                          </span>
+                      </span>
+                  {% endif %}
+
+                  <span class="productInformation">
+                      <span class="contentDetails">
+                          {% if product.metafields.accentuate.sale_promo_product %}
+                              {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+                                 <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                              {% else %}
+                                 <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                              {% endif %}
+                           {% endif %}
+
+                          <span class="productName">{{ item.title }}</span>
+
+                          {% if item.object_type == 'product' %}
+                            <div class="price">
+                              {% if item.compare_at_price > item.price %}
+                                {% if item.price_varies %}
+                                  {% assign sale_price = item.price | money %}
+                                  {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                                {% else %}
+                                  {{ 'products.product.on_sale' | t }}
+                                  <span itemprop="price" class="productPrice">{{ item.price | money }}</span>
+                                {% endif %}
+                                <span class="visually-hidden" class="productPrice">{{ 'products.product.regular_price' | t }}</span>
+
+                                <span class="was">{{ item.compare_at_price | money }}</span>
+
+                              {% else %}
+                                {% if item.price_varies %}
+                                  {% assign price = item.price | money %}
+                                  <span itemprop="price">{{ 'products.product.from_text_html' | t: price: price }}</span>
+                                {% else %}
+                                  <span itemprop="price">{{ item.price | money }}</span>
+                                {% endif %}
+                              {% endif %}
+                              {% unless item.available %}
+                              {{ 'products.product.sold_out' | t }}
+                              {% endunless %}
+                          </div>
+                          {% else %}
+                            <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
+                          {% endif %}
+                      </span>
+                  </span>
+              </a>
+            </div>
+          {% endfor %}
+    </div>
+</div>
+
+    {% if paginate.pages > 1 %}
+      {% include 'pagination' %}
+    {% endif %}
+  {% endif %}
+
+{% endpaginate %}

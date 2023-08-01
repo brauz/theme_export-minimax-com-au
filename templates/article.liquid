@@ -1,0 +1,363 @@
+{% include 'atb' zone:"Top"%}
+{% comment %}
+  When a comment is submitted, the browser is redirected to a page that includes
+  the new comment id in its URL.
+  #comments is a required ID and is used as an anchor link by Shopify.
+{% endcomment %}
+
+{%- assign number_of_comments = article.comments_count -%}
+
+{% comment %}
+  If a comment was just submitted but requires moderation, we have an extra comment to count.
+{% endcomment %}
+{% if comment and comment.status != 'published' %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+<style>
+   .studioengine p {
+    font-family: "Brown-Light",sans-serif !important;
+  }
+   .studioengine h1 strong, .studioengine h2 strong, .studioengine h3 strong, .studioengine h4 strong, .studioengine h5 strong {
+     font-family: "Hoefler Text A","Hoefler Text B",serif !important;
+   }
+</style>
+
+<article role="article" itemscope itemtype="http://schema.org/Article">
+    <div class="articleTop">
+        <div class="container">
+            {% if article.tags.size > 0 %}
+                <ul>
+                    {% for tag in article.tags %}
+                    <li>
+                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <div role="banner">
+                <h1>{{ article.title }}</h1>
+                {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+                <span class="author">{{ article.author }}</span>
+                <span class="date">Posted {{ article.published_at | time_tag: '%b %d, %Y' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="articleContent">
+        <div class="container">
+        <div class="articleText">
+                <div class="rte" itemprop="articleBody">
+                {{ article.content }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+
+  {% if blog.comments_enabled? %}
+    <h3>{{ 'blogs.comments.with_count' | t: count: number_of_comments }}</h3>
+
+    {% paginate article.comments by 5 %}
+
+    <div id="comments">
+      {% if comment and comment.status and paginate.current_page == 1 %}
+        <p class="form-success">
+          {% if blog.moderated? and comment.status != 'published' %}
+            {{ 'blogs.comments.success_moderated' | t }}
+          {% else %}
+            {{ 'blogs.comments.success' | t }}
+          {% endif %}
+        </p>
+      {% endif %}
+
+      {% if number_of_comments > 0 %}
+        <ul>
+          {% comment %}
+            Display comment from URL parameters if it is waiting moderation
+          {% endcomment %}
+          {% if comment and comment.status != 'published' %}
+            <li id="{{ comment.id }}">
+              <div class="rte">
+                {{ comment.content }}
+              </div>
+              {% capture date %}{{ comment.created_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+              <p>{{ 'blogs.article.comment_meta_html' | t: author: comment.author, date: date }}</p>
+            </li>
+          {% endif %}
+
+          {% for comment in article.comments %}
+            <li id="{{ comment.id }}">
+              <div class="rte">
+                {{ comment.content }}
+              </div>
+              {% capture date %}{{ comment.created_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+              <p>{{ 'blogs.article.comment_meta_html' | t: author: comment.author, date: date }}</p>
+            </li>
+
+          {% endfor %}
+        </ul>
+
+        {% if paginate.pages > 1 %}
+          {% include 'pagination' %}
+        {% endif %}
+      {% endif %}
+    </div>
+
+    {% endpaginate %}
+
+    {% form 'new_comment', article %}
+      <h3>{{ 'blogs.comments.title' | t }}</h3>
+
+      {{ form.errors | default_errors }}
+
+      <label for="CommentAuthor" class="label-hidden">
+        {{ 'blogs.comments.name' | t }}
+      </label>
+      <input type="text"
+             name="comment[author]"
+             id="CommentAuthor"
+             class="{% if form.errors contains 'author' %}input-error{% endif %}"
+             placeholder="{{ 'blogs.comments.name' | t }}"
+             value="{{ form.author }}"
+             autocapitalize="words">
+
+      <label for="CommentEmail" class="label-hidden">
+        {{ 'blogs.comments.email' | t }}
+      </label>
+      <input type="email"
+             name="comment[email]"
+             id="CommentEmail"
+             class="{% if form.errors contains 'email' %}input-error{% endif %}"
+             placeholder="{{ 'blogs.comments.email' | t }}"
+             value="{{ form.email }}"
+             spellcheck="false"
+             autocomplete="off"
+             autocapitalize="off">
+
+      <label for="CommentBody" class="label-hidden">
+        {{ 'blogs.comments.message' | t }}
+      </label>
+      <textarea
+        name="comment[body]"
+        id="CommentBody"
+        class="{% if form.errors contains 'body' %}input-error{% endif %}"
+        placeholder="{{ 'blogs.comments.message' | t }}">
+        {{ form.body }}
+      </textarea>
+
+      {% if blog.moderated? %}
+        <p>{{ 'blogs.comments.moderated' | t }}</p>
+      {% endif %}
+
+      <input type="submit" class="btn" value="{{ 'blogs.comments.post' | t }}">
+    {% endform %}
+
+  {% endif %}
+
+</article>
+
+<section class="productCarousel">
+    <div class="container">
+
+
+        {% if article.metafields.accentuate.featured_products %}
+            <h1 class="title">Our Favourite New Arrivals</h1>
+        {% elsif collections[article.metafields.accentuate.featured_collection].title != blank %}
+          <h1 class="title">{{ collections[article.metafields.accentuate.featured_collection].title }}</h1>
+        {% endif %}
+
+
+        <div class="owl-carousel">
+
+        {% if article.metafields.accentuate.featured_products %}
+            {%- assign selected_handles = article.metafields.accentuate.featured_products | split: '|' -%}
+            {%- for selected_handle in selected_handles -%}
+            <div class="productWrapper">
+                <div class="iwishAddShop">{% include 'iwish_v2' with 'iwishArticle' %}</div>
+                    <a href="{{ all_products[selected_handle].url }}" class="item">
+                        <span class="imageWrapper">
+                            {% if all_products[selected_handle].metafields.accentuate.sale_flag == 'Yes' %}
+    	                         {% if if all_products[selected_handle].metafields.accentuate.flag_colour == '#ffffff' %}
+    	                            <span class="saleSticker" style="display: block; background-color: {{ all_products[selected_handle].metafields.accentuate.flag_colour }}; border: 2px solid {{ all_products[selected_handle].metafields.accentuate.flag_border }}; color:{{ all_products[selected_handle].metafields.accentuate.flag_border }}; ">{{ all_products[selected_handle].metafields.accentuate.flag_text }}</span>
+                                 {% else %}
+    	                            <span class="saleSticker" style="display: block; background-color: {{ all_products[selected_handle].metafields.accentuate.flag_colour }}; border-radius: 50%; border: 2px solid {{ all_products[selected_handle].metafields.accentuate.flag_border }}; color: #fff; ">{{ all_products[selected_handle].metafields.accentuate.flag_text }}</span>
+                                 {% endif %}
+                            {% endif %}
+                            <span class="imageContainer" style="background-image:url('{{ all_products[selected_handle].featured_image | img_url: '1024x' }}');">
+                            </span>
+                        </span>
+
+                        <span class="productInformation">
+                            <span class="contentDetails">
+                                <!-- {% for collection in product.collections %}
+                                    <span class="productTag">{{ collection.title }}</span>
+                                {% endfor %} -->
+                                {% if all_products[selected_handle].metafields.accentuate.sale_promo_product %}
+    	                             {% if all_products[selected_handle].metafields.accentuate.flag_colour == '#ffffff' %}
+    	                                <span class="promoText" style="color: {{all_products[selected_handle].metafields.accentuate.flag_border }};">{{ all_products[selected_handle].metafields.accentuate.sale_promo_product }}</span>
+                                     {% else %}
+                                        <span class="promoText" style="color: {{ all_products[selected_handle].metafields.accentuate.flag_colour }};">{{ all_products[selected_handle].metafields.accentuate.sale_promo_product }}</span>
+                                     {% endif %}
+                                 {% endif %}
+                                <span class="productName">{{ all_products[selected_handle].vendor }} {{ all_products[selected_handle].title }}</span>
+                                <div data-price-wrapper class="price">
+                                      {% if all_products[selected_handle].compare_at_price_max > all_products[selected_handle].price %}
+                                          <span class="visually-hidden" data-compare-text>{{ 'all_products[selected_handle].regular_price' | t }}</span>
+                                          <span class="comparison" data-compare-price>
+                                              <span class="was">
+                                                  Was {{ all_products[selected_handle].compare_at_price_max | money }}
+                                              </span>
+                                              <span class="now" data-product-price>
+                                                Now {{ all_products[selected_handle].price | money }}
+                                              </span>
+                                        </span>
+                                      {% else %}
+                                          <span class="productPrice">{{ all_products[selected_handle].price | money }}</span>
+                                      {% endif %}
+                                </div>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                {%- assign collection = collections[article.metafields.accentuate.featured_collection] -%}
+                    {% for product in collection.products %}
+
+
+                    <div class="productWrapper">
+                        <div class="iwishAddShop">{% include 'iwish_v2' with 'iwishCollection' %}</div>
+                        <!-- <span class="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span> -->
+
+                        <a href="{{ product.url | within: collection }}" class="item">
+                            <span class="imageWrapper">
+                                {% if product.metafields.accentuate.sale_flag == 'Yes' %}
+	                               {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                                  <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color:{{ product.metafields.accentuate.flag_border }}; ">{{ product.metafields.accentuate.flag_text }}</span>
+                                   {% else %}
+	                                  <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border-radius: 50%; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color: #fff; ">{{ product.metafields.accentuate.flag_text }}</span>
+                                   {% endif %}
+                                {% endif %}
+                                <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                </span>
+                            </span>
+
+                            <span class="productInformation">
+                                <span class="contentDetails">
+                                    <!-- {% for collection in product.collections %}
+                                        <span class="productTag">{{ collection.title }}</span>
+                                    {% endfor %} -->
+                                    {% if product.metafields.accentuate.sale_promo_product %}
+                                        {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+                                            <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                        {% else %}
+                                            <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                        {% endif %}
+                                    {% endif %}
+                                    <span class="productName">{{ product.title }}</span>
+                                    <div data-price-wrapper class="price">
+                                          {% if product.compare_at_price_max > product.price %}
+
+                                              <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                                              <span class="comparison" data-compare-price>
+                                                  <span class="was">
+                                                      Was {{ product.compare_at_price_max | money }}
+                                                  </span>
+                                                  <span class="now" data-product-price>
+                                                    Now {{ product.price | money }}
+                                                  </span>
+                                            </span>
+                                          {% else %}
+                                              <span class="productPrice">{{ product.price | money }}</span>
+                                          {% endif %}
+                                    </div>
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="featuredBlog article">
+    <div class="container">
+
+        {% assign current_found = false %}
+        {% assign done = false %}
+        {% for a in blog.articles %}
+        	{% if current_found and done == false %}
+        		{% assign next_article = a %}
+        		{% assign done = true %}
+        	{% endif %}
+        	{% unless done %}
+        		{% if a.id == article.id %}
+        			{% assign current_found = true %}
+        		{% else %}
+        			{% assign prev_article = a %}
+        		{% endif %}
+        	{% endunless %}
+        {% endfor %}
+
+        {% if prev_article %}
+        <div class="blogWrapper previous">
+            <div class="half image" style="background-image: url( {{ prev_article.image | img_url: 'master' }} );">
+            </div>
+            <div class="half text">
+                <div class="v-wrap">
+                    <div class="v-box">
+                        <div class="contentWrapper">
+                            {% for tag in prev_article.tags %}
+                                <h6 style="display: inline-block;">{{ tag }}{% unless forloop.last %}, {% endunless %}</h6>
+                            {% endfor %}
+                            <h2>
+                                <a href="{{ prev_article.url }}">{{ prev_article.title }}</a>
+                            </h2>
+
+                            <a href="{{ prev_article.url }}" class="std link prev">
+                                Previous
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if next_article %}
+        <div class="blogWrapper previous">
+            <div class="half image" style="background-image: url( {{ next_article.image | img_url: 'master' }} );">
+            </div>
+            <div class="half text">
+                <div class="v-wrap">
+                    <div class="v-box">
+                        <div class="contentWrapper">
+                            {% for tag in next_article.tags %}
+                                <h6 style="display: inline-block;">{{ tag }}{% unless forloop.last %}, {% endunless %}</h6>
+                            {% endfor %}
+                            <h2>
+                                <a href="{{ next_article.url }}">{{ next_article.title }}</a>
+                            </h2>
+
+                            <a href="{{ next_article.url }}" class="std link">
+                                Next
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% include 'atb' zone:"Bottom"%}

@@ -1,0 +1,219 @@
+{% include 'atb' zone:"Top"%}
+{% assign products_per_page = 60 %}
+{% paginate collection.products by products_per_page %}
+
+    {% if collection.image %}
+        <div class="collectionFeatureImage" style="background-image:url('{{ collection.image | img_url: 'master' }}');"></div>
+    {% endif %}
+    <div class="grey-wrapper">
+      <div class="container">
+        {% comment %} <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+          <ol class="breadcrumbs__list">
+            <li class="breadcrumbs__item">
+              <a class="breadcrumbs__link" href="/">Home</a>
+            </li>
+            <li class="breadcrumbs__item">
+              <a class="breadcrumbs__link" href="/">Collections</a>
+            </li>
+            <li class="breadcrumbs__item">
+              {{ collection.title | link_to: collection.url }}
+            </li>
+          </ol>
+        </nav> {% endcomment %}
+        <div class="collectionHeader">
+            <h1 class="boost-pfs-filter-collection-header">{{ collection.title }}</h1>
+
+            {% if collection.metafields.accentuate.cta_title != blank %}
+            <div class="collection-cta">
+
+              <div class="collection-cta-text">
+                <h2 class="collection-cta-title">{{ collection.metafields.accentuate.cta_title }}</h2>
+                <div class="collection-cta-linkwrap">
+                  <span class="collection-cta-subtitle">{{ collection.metafields.accentuate.cta_subtitle }}</span>
+                </div>
+              </div>
+
+              <div class="collection-cta-img">
+                {% for banner_img in collection.metafields.accentuate.cta_banner_image | where: "media_type", "image" %}
+                  <img src="{{ banner_img[0].cloudinary_src }}" alt="{{ collection.metafields.accentuate.cta_title }}" />
+                {% endfor %}
+              </div>
+
+            </div>
+            {% endif %}
+
+            {% if collection.metafields.accentuate.item_title != blank %}
+            <ul class="collection-submenu">
+            {% for item in collection.metafields.accentuate.item_title %}
+              <li class="submenu-item">
+                <a href="{{ collection.metafields.accentuate.url_link[forloop.index0] }}" >
+                  <img src="{{ collection.metafields.accentuate.item_thumbnail[forloop.index0][0].cloudinary_src }}" alt="{{ item }}"/>
+                  {{ collection.metafields.accentuate.item_title[forloop.index0] }}
+                </a>
+              </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if collection.description != blank %}
+              <div class="boost-pfs-filter-collection-description rte">
+                {{ collection.description }}
+              </div>
+              <div class="readmore-shader">
+                <button class="collection-readmore">
+                  Read More
+                </button>
+              </div>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+
+
+  <div class="limespot-wrapper limespot-wrapper__collection">
+    <div class="limespot-container">
+      {% render 'skeleton-limespot--collection' %}
+    </div>
+  </div>
+
+  <div class="productCollectionGrid">
+      <div class="container">
+          <div class="filterBlock">
+              
+            <div id="bc-sf-filter-top-show-limit">
+              <div class="filter-title">Filter</div>
+            </div>
+            {% comment %} <div class="boost-pfs-filter-toolbar-item boost-pfs-filter-toolbar-count">
+              <span class="boost-pfs-filter-total-product">{%- include 'boost-pfs-filter-skeleton', width: 1 -%}</span>
+            </div> {% endcomment %}
+            {% if paginate.next %}
+        	   <div class="boost-pfs-filter-bottom-pagination pagination"></div>
+            {% endif %}
+          
+            <div class="boost-pfs-filter-top-sorting"></div>
+
+          </div>
+
+          <div class="filterWidget">
+            <span class="seeResults">See Results</span>
+            <div class="boost-pfs-filter-tree-mobile-button">{%- include 'boost-pfs-filter-skeleton', type: 'button' -%}</div>
+            <div class="boost-pfs-filter-tree boost-pfs-filter-tree-v">{% include 'boost-pfs-filter-skeleton', type: 'filter-tree' %}</div>
+          </div>
+
+          <div class="boost-pfs-filter-products productBlock">
+
+                {% for product in collection.products %}
+                <div class="productWrapper">
+                  <div class="iwishAddShop">{% include 'iwish_v2' with 'iwishCollection' %}</div>
+                  {% assign current_variant = product.selected_or_first_available_variant %}
+                  <a data-val="{{ current_variant.id }}" href="{{ product.url | within: collection }}" class="newArrivalProduct">
+
+                      <span class="imageWrapper">
+                           {% if product.metafields.accentuate.sale_flag == 'Yes' %}
+	                         {% if product.metafields.accentuate.flag_colour == '#2d2d2d' %}
+	                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color:{{ product.metafields.accentuate.flag_border }}; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% else %}
+	                           <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border-radius: 50%; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color: #2d2d2d; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% endif %}
+                           {% endif %}
+                          <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');"></span>
+                      </span>
+
+                      <span class="productInformation">
+                          <span class="contentDetails">
+                              {% if product.metafields.accentuate.sale_promo_product %}
+	                              {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                                <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                {% else %}
+                                  <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                {% endif %}
+                              {% endif %}
+                              <span class="productName">{{ product.title }}</span>
+                            {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product %}
+
+                              <div data-price-wrapper class="price">
+                                    {% if product.compare_at_price_max > product.price %}
+
+                                        <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                                        <span class="comparison" data-compare-price>
+                                            <span class="now" data-product-price>
+                                              {{ product.price | money }}
+                                            </span>
+                                            <span class="was">
+                                              {{ product.compare_at_price_max | money }}
+                                            </span>
+                                      </span>
+                                    {% else %}
+                                        <span class="productPrice">{{ product.price | money }}</span>
+                                    {% endif %}
+                              </div>
+                          </span>
+                      </span>
+                  </a>
+                </div>
+              {% endfor %}
+      		</div>
+
+            {% if paginate.next %}
+        	   <div class="boost-pfs-filter-bottom-pagination pagination"></div>
+            {% endif %}
+        		<div class="boost-pfs-filter-load-more"></div>
+{% endpaginate %}
+</div></div>
+
+<script>
+  // Declare boostPFSThemeConfig variable
+  var boostPFSThemeConfig = {
+    label: {
+      refine: "{{ 'product_filter_search.refine' | t }}",
+      refine_mobile: "{{ 'product_filter_search.refine_mobile' | t }}",
+      clear: "{{ 'product_filter_search.clear' | t }}",
+      clear_all: "{{ 'product_filter_search.clear_all' | t }}",
+      apply: "{{ 'product_filter_search.apply' | t }}",
+      breadcrumb_home: {% if product_filter_search.breadcrumb_home != blank %} {{ 'product_filter_search.breadcrumb_home' | t }}" {% else %} "Home" {% endif %},
+      default_collection_header: {% assign temp =  'product_filter_search.default_collection_header' | t %} {% unless temp contains 'translation missing'  %} "{{ collection.title }}" {% else %} "Products" {% endunless %},
+      load_more: {% assign temp = 'product_filter_search.load_more' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Load more" {% endunless %},
+      show_limit: {% assign temp = 'product_filter_search.show_limit' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Show" {% endunless %},
+      sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} "Sort by" {% else %} "Sort by" {% endunless %},
+      sorting_best_selling: {% assign temp = 'collections.sorting.best_selling' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Best Selling" {% endunless %},
+      sorting_featured: {% assign temp = 'collections.sorting.featured' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Featured" {% endunless %},
+      sorting_title_ascending: {% assign temp = 'collections.sorting.az' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Alphabetically, A-Z" {% endunless %},
+      sorting_title_descending: {% assign temp = 'collections.sorting.za' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Alphabetically, Z-A" {% endunless %},
+      sorting_price_ascending: {% assign temp = 'collections.sorting.price_ascending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Lowest Price" {% endunless %},
+      sorting_price_descending: {% assign temp = 'collections.sorting.price_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Highest Price" {% endunless %},
+      sorting_date_ascending: {% assign temp = 'collections.sorting.date_ascending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Date, Old to New" {% endunless %},
+      sorting_date_descending: {% assign temp = 'collections.sorting.date_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Date, New to Old" {% endunless %},
+      sorting_sale_descending: {% assign temp = 'collections.sorting.sale_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "% Off" {% endunless %},
+      sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Relevance" {% endunless %},
+      search_result_header: {% assign temp = 'product_filter_search.search_result_header' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} {% raw %}'Search Results for "{{ key }}"'{% endraw %} {% endunless %},
+      search_result_number: {% assign temp = 'product_filter_search.search_result_number' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} {% raw %}'Showing {{ number }} results for "{{ key }}"'{% endraw %} {% endunless %},
+    },
+    label_basic: {
+      sale: {% if product_filter_search.sale != blank %} {{ 'product_filter_search.sale' | t }}" {% else %} "Sale" {% endif %},
+      sold_out: {% if product_filter_search.sold_out != blank %} {{ 'product_filter_search.sold_out' | t }}" {% else %} "Sold Out" {% endif %},
+      from: {% if product_filter_search.from != blank %} {{ 'product_filter_search.from' | t }}" {% else %} "from" {% endif %},
+      regular: {{ 'products.product.regular_price' | t | json }},
+    },
+    custom: {
+      products_per_page: {{ products_per_page }},
+    },
+    customer: {
+      tags: {{ customer.tags | json }},
+      email: "{{ customer.email }}",
+      id: "{{ customer.id }}"
+    }
+  };
+</script>
+
+{% include 'atb' zone:"Bottom"%}
+
+{% if collection.metafields.accentuate.seo_content != blank %}
+<div class="grey-wrapper">
+    <div class="container">
+        <div class="seo-content">
+
+        {{ collection.metafields.accentuate.seo_content }}
+        </div>
+    </div>
+</div>
+{% endif %}

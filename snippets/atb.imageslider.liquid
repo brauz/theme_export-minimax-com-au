@@ -1,0 +1,59 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Image Slider",
+    "id":"imageslider",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "image slider",
+    "description": "Image Slider",
+    "settings":[
+        {
+            "id" : "image",
+            "label" : "Image",
+            "info" : "Select an image",
+            "type" : "image",
+            "repeatable": "block"
+        },
+        {
+            "id" : "link",
+            "label" : "Link",
+            "info" : "Select an link",
+            "type" : "text",
+            "repeatable": "block"
+        }
+     ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'image' %}
+{% assign image = val %}
+
+{% include 'atb-render' field:'link' %}
+{% assign link = val %}
+
+
+<section class="flexibleSlider bs1">
+    <div class="container">
+        <div class="flexslider flexSliderDesktop">
+            <ul class="slides">
+                {% for block in image %}
+              	  {% if image[forloop.index0] != blank %}
+                    <li>
+                      {% if link[forloop.index0] != blank %}
+                         <a href="{{link[forloop.index0]}}" >
+                      {% endif %}
+                            <img src="{{image[forloop.index0]}}" class="" />
+                      {% if link[forloop.index0] != blank %}
+                         </a>
+                      {% endif %}
+                    </li>
+              	  {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+

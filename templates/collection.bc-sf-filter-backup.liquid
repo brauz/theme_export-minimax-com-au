@@ -1,0 +1,209 @@
+{% paginate collection.products by 3 %}
+
+    <div class="collectionFeatureImage" style="background-image:url('{{ collection.image | img_url: 'master' }}');">
+
+    </div>
+
+    <div class="container">
+
+        <div class="productHeader">
+
+            <h1>{{ collection.title }}</h1>
+
+            {% if collection.description != blank %}
+              <div class="rte">
+                {{ collection.description }}
+              </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+    {% if collection.all_tags.size > 0 %}
+      <ul>
+        {% for tag in collection.all_tags %}
+          {% if current_tags contains tag %}
+            <li class="active">
+              {{ tag | link_to_remove_tag: tag }}
+            </li>
+          {% else %}
+            <li>
+              {{ tag | link_to_tag: tag }}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+  <div class="limespot-wrapper limespot-wrapper__collection">
+    <div class="limespot-container">
+      {% render 'skeleton-limespot--collection' %}
+    </div>
+  </div>
+
+  <div class="productCollectionGrid">
+      <div class="container">
+          <div class="filterBlock">
+             <span class="filter desktop">Filter By</span>
+             <span class="filter mobile">Refine</span>
+             <span class="clear">{% include 'cross-small' %} clear</span>
+             <span class="showNoProducts">Show: 20 per page {% include 'chevron-down' %}</span>
+             <span class="sortBy">Sort by: latest {% include 'chevron-down' %}<div id="bc-sf-filter-top-sorting"></div></span>
+          </div>
+
+          <div class="filterWidget">
+
+              <div class="filterType">
+
+                  <div class="filterTitle">
+                      <span>Brand (3)</span>
+                      {% include 'minus' %}
+                  </div>
+                  <div class="filterOptionWrapper">
+                      <span class="filterOption">
+                          {% include 'full' %}
+                          Brand Name
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Brand Name
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Brand Name
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Brand Name
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Brand Name
+                      </span>
+                  </div>
+              </div>
+
+              <!-- <div class="filterType">
+                  <div class="filterTitle">
+                      <span>Category (3)</span>
+                      {% include 'minus' %}
+                  </div>
+                  <div class="filterOptionWrapper">
+                      <span class="filterOption">
+                          {% include 'full' %}
+                          Category Name
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Category Name
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Category Name
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Category Name
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Category Name
+                      </span>
+                  </div>
+              </div> -->
+
+              <!-- <div class="filterType">
+                  <div class="filterTitle">
+                      <span>Colour</span>
+                      {% include 'minus' %}
+                  </div>
+                  <div class="filterOptionWrapper">
+                      <span class="filterOption">
+                          {% include 'full' %}
+                          Colour 1
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Colour 2
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Colour 3
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Colour 4
+                      </span>
+                      <span class="filterOption">
+                          {% include 'empty' %}
+                          Colour 5
+                      </span>
+                  </div>
+              </div> -->
+          </div>
+
+          <div class="productBlock">
+
+                {% for product in collection.products %}
+                <div class="productWrapper">
+                <!-- <span class="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span> -->
+                  <div class="iwishAddShop">{% include 'iwish_v2' with 'iwishCollection' %}</div>
+                {% assign current_variant = product.selected_or_first_available_variant %}
+                  <a data-val="{{ current_variant.id }}" href="{{ product.url | within: collection }}" class="newArrivalProduct">
+
+                      <span class="imageWrapper">
+                          {% if product.metafields.accentuate.sale_flag == 'Yes' %}
+	                         {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color:{{ product.metafields.accentuate.flag_border }}; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% else %}
+	                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border-radius: 50%; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color: #fff; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% endif %}
+                          {% endif %}
+                          <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');"></span>
+                      </span>
+
+                      <span class="productInformation">
+                          <span class="contentDetails">
+                              <!-- {% for collection in product.collections %}
+                                  <span class="productTag">{{ collection.title }}</span>
+                              {% endfor %} -->
+
+                              {% if product.metafields.accentuate.sale_promo_product %}
+	                             {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                                <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                 {% else %}
+                                    <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                 {% endif %}
+                              {% endif %}
+                              <span class="productName">{{ product.title }}</span>
+{% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product %}
+                              <div data-price-wrapper class="price">
+                                    {% if product.compare_at_price_max > product.price %}
+
+                                        <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                                        <span class="comparison" data-compare-price>
+                                            <span class="was">
+                                                Was {{ product.compare_at_price_max | money }}
+                                            </span>
+                                            <span class="now" data-product-price>
+                                              Now {{ product.price | money }}
+                                            </span>
+                                      </span>
+                                    {% else %}
+                                        <span class="productPrice">{{ product.price | money }}</span>
+                                    {% endif %}
+                              </div>
+                          </span>
+                      </span>
+                  </a>
+              </div>
+              {% endfor %}
+
+
+
+          {% if paginate.pages > 1 %}
+            {% include 'pagination' %}
+          {% endif %}
+      </div>
+
+{% endpaginate %}

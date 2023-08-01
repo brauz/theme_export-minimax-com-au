@@ -1,0 +1,103 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Featured Products",
+    "id":"featuredproducts",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "featured products",
+    "description": "Featured Products",
+    "settings":[
+        {
+            "id" : "pretitle",
+            "label" : "Pre Title",
+            "info" : "Include a pre-title",
+            "type" : "text"
+        },
+        {
+            "id" : "title",
+            "label" : "Title",
+            "info" : "Include a title",
+            "type" : "text"
+        },
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "Collection",
+          "info": "Select a collection"
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'pretitle' %}
+{% assign pretitle = val %}
+{% include 'atb-render' field:'title' %}
+{% assign title = val %}
+{% include 'atb-render' field:'collection' %}
+{% assign collection_string = val %}
+
+<section class="newArrivals">
+    <div class="container">
+        {% if pretitle != blank %}
+          <h6 class="preTitle">{{ pretitle | escape }}</h6>
+        {% endif %}
+        {% if title != blank %}
+          <h1 class="title">{{ title | escape }}</h1>
+        {% endif %}
+
+        <div class="newArrivalsGrid">
+        {%- assign collection = collections[collection_string] -%}
+            {% for product in collection.products limit: 4 %}
+
+            <div class="productWrapper">
+            <div class="iwishAddShop">{% include 'iwish_v2' with 'iwishCollection' %}</div>
+            <!-- <span class="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span> -->
+            {% assign current_variant = product.selected_or_first_available_variant %}
+
+                <a data-val="{{ current_variant.id }}" href="{{ product.url | within: collection }}" class="newArrivalProduct">
+                    <span class="imageWrapper">
+                        <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                        </span>
+                    </span>
+
+                    <span class="productInformation">
+    					<span class="contentDetails">
+                            <!-- {% for collection in product.collections %}
+                                <span class="productTag">{{ collection.title }}</span>
+                            {% endfor %} -->
+                            {% if product.metafields.accentuate.sale_promo_product %}
+	                             {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                                <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                 {% else %}
+                                    <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                 {% endif %}
+                            {% endif %}
+    						<span class="productName">{{ product.title }}</span>
+
+                            <div data-price-wrapper class="price">
+                                  {% if product.compare_at_price_max > product.price %}
+                                      <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                                      <span class="comparison" data-compare-price>
+                                          <span class="was">
+                                              Was {{ product.compare_at_price_max | money }}
+                                          </span>
+                                          <span class="now" data-product-price>
+                                            Now {{ product.price | money }}
+                                          </span>
+                                    </span>
+                                  {% else %}
+                                      <span class="productPrice">{{ product.price | money }}</span>
+                                  {% endif %}
+                            </div>
+    					</span>
+	                </span>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+		<div class="pageLink">
+        </div>	
+    </div>
+</section>

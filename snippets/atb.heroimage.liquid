@@ -1,0 +1,53 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Hero Image",
+    "id":"heroimage",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "hero image",
+    "description": "Hero Image",
+    "settings":[
+        {
+            "id" : "image",
+            "label" : "Image",
+            "info" : "Select image",
+            "type" : "image"
+        },
+        {
+            "type": "select",
+            "id": "linktab",
+            "label": "Image Layout",
+            "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "inner",
+              "label": "Inner"
+            }
+            ],
+            "default": "full",
+            "info": ""
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'linktab' %}
+{% assign linktab = val %}
+{% include 'atb-render' field:'image' %}
+{% assign image = val %}
+
+<section class="heroImage">
+    {% if linktab == 'full' %}
+        <img src="{{ image }}" />
+    {% endif %}
+    {% if linktab == 'inner' %}
+        <div class="container">
+            <img src="{{ image }}" />
+        </div>
+    {% endif %}
+</section>

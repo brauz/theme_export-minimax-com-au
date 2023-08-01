@@ -1,0 +1,74 @@
+<section class="myAccount">
+    <div class="container">
+
+<!-- <h1>{{ 'customer.register.title' | t }}</h1> -->
+        <div class="createCustomer">
+            <span class="createAccount">
+              {{ 'layout.customer.create_account' | t }}
+            </span>
+
+            <a href="/account" class="alreadyRegistered">
+              Already Registered?
+            </a>
+
+            <span class="newCustomerInfo">
+                <h4>SIGN UP TO MINIMAX</h4>
+                <p>- Earn rewards every time you shop</p>
+                <p>- Fast and easy checkout</p>
+                <p>- Track and manage your orders</p>
+            </span>
+
+            {% form 'create_customer' %}
+
+            <label for="FirstName" class="label-hidden">
+                {{ 'customer.register.first_name' | t }}
+            </label>
+            <input type="text"
+                name="customer[first_name]"
+                id="FirstName"
+                placeholder="{{ 'customer.register.first_name' | t }}"
+                autofocus
+                {% if form.first_name %}value="{{ form.first_name }}"{% endif %}>
+
+            <label for="LastName" class="label-hidden">
+                {{ 'customer.register.last_name' | t }}
+            </label>
+            <input type="text"
+                name="customer[last_name]"
+                id="LastName"
+                placeholder="{{ 'customer.register.last_name' | t }}"
+                {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+
+            <label for="Email" class="label-hidden">
+                {{ 'customer.register.email' | t }}
+            </label>
+            <input type="email"
+                name="customer[email]"
+                id="Email"
+                class="{% if form.errors contains 'email' %}input-error{% endif %}"
+                placeholder="{{ 'customer.register.email' | t }}"
+                value="{% if form.email %}{{ form.email }}{% endif %}"
+                spellcheck="false"
+                autocomplete="off"
+                autocapitalize="off">
+
+            <label for="CreatePassword" class="label-hidden">
+                {{ 'customer.register.password' | t }}
+            </label>
+            <input type="password"
+                name="customer[password]"
+                id="CreatePassword"
+                class="{% if form.errors contains 'password' %}input-error{% endif %}"
+                placeholder="{{ 'customer.register.password' | t }}">
+
+            <p>
+                <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn" onclick="ga('send', 'event', 'Register', 'Submit');">
+            </p>
+
+            {{ form.errors | default_errors }}
+
+            <a href="{{ shop.url }}" class="returnToStore">{{ 'customer.register.cancel' | t }} {% include 'chevron-right' %}</a>
+            {% endform %}
+        </div>
+    </div>
+</section>

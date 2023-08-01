@@ -1,0 +1,24 @@
+{% assign xo_gallery = "xo_gallery_" | append: section.settings.gallery_id %}
+  {% include xo_gallery %}
+  {% schema %}
+    {
+      "name": "XO Gallery",
+      "class": "xo-gallery-wrapper",
+      "settings": [
+        {
+          "type": "select",
+          "id": "gallery_id",
+          "label": "Gallery id",
+          "default": "1825",
+          "info": "Please Save after change gallery to preview",
+          "options": [{"label":"Homepage Brands","value":"1823"},{"label":"Homepage Brands 2","value":"1824"},{"label":"Cookware Brands","value":"1825"}]
+        }
+      ],
+      "presets": [
+          {
+            "name": "XO Gallery",
+            "category": "Image"
+          }
+        ]
+    }
+  {% endschema %}

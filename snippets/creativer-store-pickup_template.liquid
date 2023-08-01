@@ -1,0 +1,62 @@
+<style>.lds-ellipsis{display:inline-block;position:relative;width:103px;top:0;right:0;height:50px}.lds-ellipsis div{position:absolute;top:27px;width:11px;height:11px;border-radius:50%;background:#282828;animation-timing-function:cubic-bezier(0,1,1,0)}.lds-ellipsis div:nth-child(1){left:6px;animation:lds-ellipsis1 .6s infinite}.lds-ellipsis div:nth-child(2){left:6px;animation:lds-ellipsis2 .6s infinite}.lds-ellipsis div:nth-child(3){left:26px;animation:lds-ellipsis2 .6s infinite}.lds-ellipsis div:nth-child(4){left:45px;animation:lds-ellipsis3 .6s infinite}@keyframes lds-ellipsis1{0%{transform:scale(0)}100%{transform:scale(1)}}@keyframes lds-ellipsis3{0%{transform:scale(1)}100%{transform:scale(0)}}@keyframes lds-ellipsis2{0%{transform:translate(0,0)}100%{transform:translate(19px,0)}}
+.cr-delivery-method{cursor: pointer;} .cr-delivery-method img{width: 50px;margin-top: 0;position: relative;top: 12px;}  .cr-delivery-method.selected{border-color: #b5b5b5;background-color: #f7f7f7;}  #pickup-container.v2{align-items:baseline!important;}  .cr-delivery-methods{width: 100%;text-align: center;margin: 0;padding: 0;display: flex;} .cr-delivery-method{border-radius: 5px;border: 1px solid #eee;background-color: #fff;list-style: none;display: inline-block;flex-grow: 1;flex-basis: 0;padding: 0;margin: 0 9px 0 0;} .cr-delivery-method-text{color: #282828;}
+</style>
+
+<div id="pickup-container" class="v2 hide" style="display: none;flex-direction: column; margin-bottom: 1rem;margin-top: 1rem;">
+    <div class="pickup-loading"></div>
+    <div id="pickup-header"></div>
+    <div class="cr-delivery-methods">
+        <div class="cr-delivery-method cr-shipping-method selected">
+            <img src="{{ 'cr-shipping-icon.png' | asset_url }}" class="pickup-icon">
+            <p class="cr-delivery-method-text">Shipping</p>
+        </div>
+        <div class="js-toggle-pickup pickup-button cr-delivery-method">
+            <img src="{{ 'cr-store-pickup-icon.png' | asset_url }}">
+            <p class="cr-delivery-method-text">Pickup In Store</p>
+        </div>
+    </div>
+
+    <div class="delivery-method-desc">Please click the checkout button to continue.</div>
+
+    <!-- Name of person picking up etc -->
+    <div id="pickup-details" style="display:none;">
+        <div class="js-stores-position-1"></div>
+
+
+            <label id="pickup-name-label"for="pickup-name">Name of Person Collecting</label>
+            <!--<input style="margin-bottom: 0px;" type="text" id="pickup-name" name="pickup-name" placeholder="Your Name">-->
+
+            <input style="margin-bottom: 0;" type="hidden" id="pickup-name" name="pickup-name" placeholder="Your Name">
+            <div style="display: flex;">
+                <div style="margin-right: 10px;">
+                    <input style="margin-bottom: 0px;" type="text" id="pickup-first-name" name="pickup-first-name" placeholder="First name">
+                </div>
+                <div>
+                    <input style="margin-bottom: 0px;" type="text" id="pickup-last-name" name="pickup-last-name" placeholder="Last name">
+                </div>
+            </div>
+
+            <label id="pickup-number-label" for="pickup-number">Contact Number</label>
+            <input type="text" id="pickup-number" name="pickup-number" placeholder="" />
+
+            <label id="pickup-email-label" for="pickup-email">Email address</label>
+            <input type="text" id="pickup-email" name="pickup-email" placeholder="your email address" />
+
+
+
+
+        <div class="js-stores-position-2"></div>
+
+        <div class="js-storepickup-message"></div>
+        <input type="hidden" id="pickup-attribute" name="attributes[pickup]" value="0">
+        <input type="hidden" id="pickup-information" name="attributes[Pickup_Information]" value="">
+        <input type="hidden" id="pickup-selected-store" name="attributes[Pickup_Store]" value="">
+
+            <input type="hidden" id="note-pickup-name" name="attributes[Pickup_name]" value="">
+
+            <input type="hidden" id="note-pickup-phone" name="attributes[Pickup_phone]" value="">
+
+
+
+    </div>
+</div>

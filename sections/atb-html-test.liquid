@@ -1,0 +1,52 @@
+<!-- Section / Block Type: HTML -->
+
+{% comment %}
+	ATB-SCHEMA{
+	"name":"Basic HTML",
+	"id":"global-html",
+	"price": 0,
+	"banner":"//i.imgur.com/3xH5C0o.png",
+	"icon": "//advancedthemebuilder.com/atb/ui/icon_html.png",
+	"screenshots" : [
+		"//i.imgur.com/OcChZrR.png",
+		"//i.imgur.com/OcChZrR.png",
+		"//i.imgur.com/OcChZrR.png"
+	],
+	"tags": "text,html,wysiwyg,universal,global",
+	"description": "Add any content to any page using a robust Wysiwyg text editor. You can add images, format your text, even add your own html.",
+	"settings":[
+        {
+          "type": "text",
+          "id": "section_id",
+          "label": "Section ID",
+          "info": "Enter a unique ID with only letters and numbers, no spaces",
+          "default": ""
+        },
+		{ 
+			"id" : "html",
+			"label" : "HTML",
+			"info" : "You can add text or html here",
+			"type" : "html"
+		}
+	]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'section_id' %}
+{% assign section_id = val %}
+{% include 'atb-render' field:'html' %}
+{% assign html = val %}
+
+<div id="shopify-section-{{section_id}}" class="shopify-section index-section">
+	<section id="{{section_id}}_html" class="atb--type__html">
+      
+	</section>
+</div>
+
+
+<script>
+  var theHtmlString = '{{html}}'
+  var theHtmlEl = document.getElementById('{{section_id}}_html')
+  theHtmlEl.innerHTML = theHtmlString                                     
+  
+</script>

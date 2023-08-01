@@ -1,0 +1,72 @@
+{% comment %} Please don’t update this content {% endcomment %}
+
+{% layout none %}
+{
+  "product":
+    {
+      "id":{{ product.id }},
+      "metafields":[
+        
+              {% comment %}
+                Single Metafield
+              {% endcomment %}
+              {% assign v_sale_promo_product = product.metafields.accentuate["sale_promo_product"] %}
+              {% if v_sale_promo_product != blank %}
+                {
+                  "namespace": "accentuate",
+                  "key": "sale_promo_product",
+                  "value": {{ v_sale_promo_product | json }}
+                },
+              {% endif %}
+        
+              {% comment %}
+                Single Metafield
+              {% endcomment %}
+              {% assign v_sale_flag = product.metafields.accentuate["sale_flag"] %}
+              {% if v_sale_flag != blank %}
+                {
+                  "namespace": "accentuate",
+                  "key": "sale_flag",
+                  "value": {{ v_sale_flag | json }}
+                },
+              {% endif %}
+        
+              {% comment %}
+                Single Metafield
+              {% endcomment %}
+              {% assign v_flag_colour = product.metafields.accentuate["flag_colour"] %}
+              {% if v_flag_colour != blank %}
+                {
+                  "namespace": "accentuate",
+                  "key": "flag_colour",
+                  "value": {{ v_flag_colour | json }}
+                },
+              {% endif %}
+        
+              {% comment %}
+                Single Metafield
+              {% endcomment %}
+              {% assign v_flag_border = product.metafields.accentuate["flag_border"] %}
+              {% if v_flag_border != blank %}
+                {
+                  "namespace": "accentuate",
+                  "key": "flag_border",
+                  "value": {{ v_flag_border | json }}
+                },
+              {% endif %}
+        
+              {% comment %}
+                Single Metafield
+              {% endcomment %}
+              {% assign v_flag_text = product.metafields.accentuate["flag_text"] %}
+              {% if v_flag_text != blank %}
+                {
+                  "namespace": "accentuate",
+                  "key": "flag_text",
+                  "value": {{ v_flag_text | json }}
+                },
+              {% endif %}
+        
+      ]
+    }
+}

@@ -1,0 +1,52 @@
+<section class="subscribe">
+	<div class="container">
+        <div class="subscribeWrapper">
+            {% for block in section.blocks %}
+            <span class="subscribeText">
+                {{ block.settings.text }}
+            </span>
+            {% endfor %}
+            <p class="successMessage">Thanks for signing up</p>
+            <form class="subscribeForm" action="https://minimax.us13.list-manage.com/subscribe/post?u=91301c23f3f505201479d940f&amp;id=4f0f9de340&SIGNUP=Website" method="POST">
+                <input type="hidden" name="u" value="91301c23f3f505201479d940f">
+                <input type="hidden" name="id" value="4f0f9de340">
+
+                <input type="email" autocapitalize="off" name="MERGE0" id="MERGE0" placeholder="Email Address" size="32">
+				<input id="SIGNUP" name="SIGNUP" value="Minimax Website" type="hidden">
+                <input class="submitButton" type="submit" value="Join" onclick="ga('send', 'event', 'Register', 'Submit');">
+            </form>
+            <p class="errorMessage">Please enter a valid email address</p>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Subscribe",
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Subscribe",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "Earn rewards every time you shop!!"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Subscribe",
+        "category": "Subscribe",
+        "blocks": [
+          {
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

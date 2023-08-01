@@ -1,0 +1,68 @@
+{% if template contains 'product' %}
+	<script>
+		_stockinstore.clickcollect = {
+			onLoaded:function(data){
+				if(typeof(stockInStoreGlobal)!=='undefined'){
+					var getSelectedStoreCode = stockInStoreGlobal.getCookie("_SISSTORECODEINFO");
+					if(getSelectedStoreCode!==""){
+						sisGetCartToken(function(token){
+							if(token!==null){
+								sisUpdateCartAttributes(token,getSelectedStoreCode,function(data){
+								})
+							}
+						})
+					}
+				}
+			},
+			onStoreSelected:function(data){
+ 				if(data.selectedstore!==null){
+					sisGetCartToken(function(token){
+						if(token!==null){
+							sisUpdateCartAttributes(token,data.selectedstore.code,function(data){
+							})										
+						}
+					})
+				}
+			}
+		}
+		var sisGetCartToken = function(pcallback){
+			fetch('/cart.js')
+			.then(response => response.json())
+			.then(data => {
+				if(pcallback != null) return pcallback.call(this,data.token);	
+				
+			})
+			.catch((error) => {
+				if(pcallback != null) return pcallback.call(this,null);	
+			});
+		}
+		var sisUpdateCartAttributes = function(token,storecode,pcallback){
+			var formData = {
+				attributes: {
+					'storeCode': storecode,
+					'orderIdentifier':token
+				}
+			};
+			fetch('/cart/update.js', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			})
+			.then(response => response.json())
+			.then(data => {
+				var orderInfo = {};
+				var pdata = {};
+				orderInfo.storeCode = storecode;
+				orderInfo.orderIdentifier = token
+				pdata.orderInfo = orderInfo;
+				stockInStore.sendEvents(null,null,'sis','_trackEvent', 'Stock In Store', 'Click', 'Stores - CnC Select Store',JSON.stringify(pdata));
+				if(pcallback != null) return pcallback.call(this,data);	
+			})
+			.catch((error) => {
+				if(pcallback != null) return pcallback.call(this,null);	
+			});		
+		}
+	</script>
+{% endif %}

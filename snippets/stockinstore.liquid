@@ -1,0 +1,14 @@
+{% if template contains 'product' %}
+	<script type="text/javascript" defer>
+		var _stockinstore = _stockinstore || [];
+		_stockinstore.push({ "site":"10081","applicationurl": ("https:" == document.location.protocol ? "https://" : "http://") + "stockinstore.net","assetsurl": ("https:" == document.location.protocol ? "https://" : "http://") + "assets.stockinstore.net"});
+		(function() {
+			var ma = document.createElement("script");
+			ma.type = "text/javascript"; ma.async = 1;
+			ma.src = _stockinstore[0].assetsurl + "/widgets/stockinstore-global.js";
+			var mas = document.getElementsByTagName("script")[0];
+			mas.parentNode.insertBefore(ma, mas);
+		})();
+	</script>
+	<div data-sis-widget-description="stockinstore" data-sis-widget-id="88"></div>
+{% endif %}

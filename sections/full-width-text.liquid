@@ -1,0 +1,34 @@
+
+<section class="fullwidth">
+    <div class="container">
+        <h2 class="title">{{ section.settings.title | escape }}</h2>
+    	<p>{{ section.settings.text }}</p>
+    </div>
+</section>
+
+
+{% schema %}
+{
+    "name": "Full Width Text",
+    "settings":[
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+            "id" : "text",
+            "label" : "Text",
+            "info" : "Include text",
+            "type" : "textarea"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Full Width Text",
+            "category": "Text"
+        }
+    ]
+}
+
+{% endschema %}

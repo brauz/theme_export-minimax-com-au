@@ -1,0 +1,241 @@
+{% comment %}
+	Recently Viewed - Libraries
+{% endcomment %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+<script>
+function createCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name,"",-1);
+}
+</script>
+
+{% comment %}
+	Recently Viewed - Product Handles
+{% endcomment %}
+
+{% assign no_update = false %}
+{% assign new_views = "" %}
+{% if customer and template contains 'product' %}
+	{% if customer.metafields.dtk_recentviewed.products %}
+		{% if customer.metafields.dtk_recentviewed.products contains handle %}
+			{% assign no_update = true %}
+		{% else %}
+              {% assign new_views = customer.metafields.dtk_recentviewed.products | append: ',' | append: handle %}
+		{% endif %}
+	{% else %}
+		{% assign new_views = handle %}
+	{% endif %}
+{% endif %}
+
+{% comment %}
+	Recently Viewed - Count
+{% endcomment %}
+
+<script type="text/javascript">
+  {% if no_update == false %}
+    {% if customer %}
+      $.ajax({
+        type: "POST",
+        url: "/tools/dtk/recentViews",
+        headers: {
+          "Access-Control-Allow-Origin":"*"
+        },
+        data: {
+          "shopName":"{{ shop.domain | split: '.' | first }}",
+          "clientId":"{{ customer.id }}",
+          "values":"{{ new_views }}"
+        }
+      }).done(function (data) {
+        console.log(data);
+        createCookie("_dtk_rv_products", "{{ new_views }}");
+      });
+    {% else %}
+      var firstHit = false;
+      var type = "";
+      var url = window.location.pathname;
+
+      if( url.indexOf("products/") != -1 ) {
+        var values = readCookie("_dtk_rv_products");
+
+        if (values) {
+          if ( values.indexOf(",") !== -1 && values.indexOf("{{ product.id }}") == -1) {
+                                                            values = values.split(',');
+              values.push("{{ product.id }}");
+              } else if (values.indexOf("{{ product.id }}") !== -1) {
+              values = values.split(',');
+          for(var x in values)values[x] == "{{ product.id }}" ? values.push( values.splice(x,1)[0] ) : 0;
+        } else if (values.indexOf(",") !== -1) {
+          values = values.split(',');
+        } else {
+          if (values != '{{ product.id }}') {
+          	values = [values, "{{ product.id }}"];
+          }
+        }
+          createCookie("_dtk_rv_products", values.join(","));
+        } else {
+          firstHit = true;
+          values = ["{{ product.id }}"];
+          createCookie("_dtk_rv_products", "{{ product.id }}");
+        }
+      }
+    {% endif %}
+  {% endif %}
+</script>
+
+{% comment %}
+	Recently Viewed - Retrive, Request and Display
+{% endcomment %}
+
+<script type="text/javascript">
+	if($('[data-dtk-recentviewed="container"]').length > 0) {
+
+      var returnData = [];
+      var activeRequests = 0;
+      var firstHit = false;
+      var values = readCookie("_dtk_rv_products");
+
+
+      if (values) {
+        if ( values.indexOf(",") !== -1 && values.indexOf("{{ product.id }}") == -1) {
+        	values = values.split(',');
+        } else if (values.indexOf(",") !== -1 && values.indexOf("{{ product.id }}") !== -1) {
+            values = values.split(',');
+    	} else if (values.indexOf("{{ product.id }}") !== -1) {
+            values = values.split(',');
+      		firstHit = true;
+        } else if (values.indexOf(",") !== -1) {
+        	values = values.split(',');
+      	} else {
+        	if (values != "{{ product.id }}") {
+            	values = [values, "{{ product.id }}"];
+            } else {
+              firstHit = true;
+              values = ["{{ product.id }}"];
+            }
+        }
+      }
+
+      if(!firstHit) {
+          $.each(values, function(key, value) {
+            if(value != "{{ product.id }}") {
+               $.getJSON({
+        		 type: "POST",
+                 //url: '/products/' + value + '.js',
+                 url: '/tools/dtk/getProduct',
+                 headers: {
+                 	"Access-Control-Allow-Origin":"*"
+                 },
+                 data: {
+                   "shopName":"{{ shop.domain | split: '.' | first }}",
+                   "clientId": value
+                 },
+                 beforeSend: handleBefore,
+                 complete: function (data) {
+                    var arr = data.responseJSON.metafields;
+                    var obj = {};
+                    var meta = {};
+
+                    for(var i = 0; i < arr.length; i++) {
+                      var o = arr[i];
+                      var keys = '';
+                      var values = '';
+
+                      for(var key in o) {
+                        if(typeof o[key] != 'function'){
+                          obj[key] = o[key];
+
+                          if(key == 'key') {
+                            keys = o[key]
+                          }
+                          if(key == 'value') {
+                            values = o[key]
+                          }
+                        }
+                      }
+
+                      meta[keys] = values;
+                    }
+
+              		data.responseJSON.metafields = meta;
+
+                  	console.log(data.responseJSON);
+                    handleComplete(data.responseJSON);
+                 },
+                 error: handleError
+               });
+          	 }
+          });
+      }
+
+      function handleBefore() {
+        activeRequests++;
+        Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
+
+            if (arguments.length < 3)
+                throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+
+            var operator = options.hash.operator || "==";
+
+            var operators = {
+                '==':       function(l,r) { return l == r; },
+                '===':      function(l,r) { return l === r; },
+                '!=':       function(l,r) { return l != r; },
+                '<':        function(l,r) { return l < r; },
+                '>':        function(l,r) { return l > r; },
+                '<=':       function(l,r) { return l <= r; },
+                '>=':       function(l,r) { return l >= r; },
+                'typeof':   function(l,r) { return typeof l == r; }
+            }
+
+            if (!operators[operator])
+                throw new Error("Handlerbars Helper 'compare' doesn't know the operator "+operator);
+
+            var result = operators[operator](lvalue,rvalue);
+
+            if( result ) {
+                return options.fn(this);
+            } else {
+                return options.inverse(this);
+            }
+
+        });
+      }
+
+      function handleError() {
+        activeRequests--;
+      }
+
+      function handleComplete(data) {
+        returnData.push(data);
+
+        if (!--activeRequests) {
+          var source   	= $('[data-dtk-recentviewed="template"]').html();
+          var template 	= Handlebars.compile(source);
+          var html 		= template(returnData.reverse());
+          $('[data-dtk-recentviewed="items"]').html(html);
+          $('[data-dtk-recentviewed="container"]').show();
+        }
+      }
+    }
+</script>

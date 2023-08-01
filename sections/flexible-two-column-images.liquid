@@ -1,0 +1,50 @@
+<section class="twoColumnCampaignBlock">
+	<div class="container">
+		<div class="twoColumnBlockWrapper">
+
+            {% for block in section.blocks %}
+				{% if block.settings.campaign_image %}
+                    <a href="{{ block.settings.campaign_link_url }}" class="column">
+						<img src="{{ block.settings.campaign_image | img_url: 'master' }}" data-thumb-alt="" />
+    				</a>
+				{% endif %}
+            {% endfor %}
+
+		</div>
+	</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Two Column Campaign Block",
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Two Column Campaign Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "campaign_image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "campaign_link_url",
+            "label": "Campaign link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Two Column Campaign Block",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

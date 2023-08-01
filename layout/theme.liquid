@@ -1,0 +1,479 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+{% render 'taginstall-head' %}
+{% include 'limespot' %}
+<style>
+  .template-blog .featuredBlog .contentWrapper > p{
+    display:none !important;
+  }
+  {% if template contains 'index' %}
+    .featuredBlog .contentWrapper > p{
+    display:none !important;
+  }
+    {% endif %}}
+</style>
+<!-- Pinterest Tag -->
+<script>
+!function(e){if(!window.pintrk){window.pintrk = function () {
+window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
+      n=window.pintrk;n.queue=[],n.version="3.0";var
+      t=document.createElement("script");t.async=!0,t.src=e;var
+      r=document.getElementsByTagName("script")[0];
+      r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
+pintrk('load', '2613561328581', {em: '<user_email_address>'});
+pintrk('page');
+</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt=""
+      src="https://ct.pinterest.com/v3/?tid=2613561328581&pd[em]=<hashed_email_address>&noscript=1" />
+</noscript>
+<!-- end Pinterest Tag -->
+
+
+  
+<script>
+var _prum = [['id', '5a03a56cfe3f8505df87124f'],
+             ['mark', 'firstbyte', (new Date()).getTime()]];
+(function() {
+    var s = document.getElementsByTagName('script')[0]
+      , p = document.createElement('script');
+    p.async = 'async';
+    p.src = '//rum-static.pingdom.net/prum.min.js';
+    s.parentNode.insertBefore(p, s);
+})();
+</script>
+  
+  <!-- Start Alexa Certify Javascript -->
+<script type="text/javascript">
+_atrk_opts = { atrk_acct:"fpHmr19jYF20V1", domain:"minimax.com.au",dynamic: true};
+(function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+</script>
+<noscript><img src="https://certify.alexametrics.com/atrk.gif?account=fpHmr19jYF20V1" style="display:none" height="1" width="1" alt="" /></noscript>
+<!-- End Alexa Certify Javascript -->  
+  
+
+  <meta name="ahrefs-site-verification" content="443f7f07274bdb6e71cd55fdbf8788d4543397078f46c79b399189af9c2cb262">
+  <meta name="google-site-verification" content="G9RXHpVUY8ad8SnwRa1JZlJxGklteO_q13HGupkuhJ8" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+  {% if request.path contains "/account/login" %}
+    <meta name="robots" content="noindex">
+  {% endif %}
+
+  {% if request.path contains "/apps/fireamp/collections/doiy?pageNo=1&sort_by=title-ascending " %}
+    <meta name="robots" content="noindex">
+  {% endif %}
+<!--   <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6091996/7608992/css/fonts.css" /> -->
+
+
+  {% if settings.favicon != blank %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+
+  {% capture seo_title %}
+    {{ page_title }}
+    {% if current_tags %}
+      {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {% endif %}
+    {% if current_page != 1 %}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {% endif %}
+    {% unless page_title contains shop.name %}
+      &ndash; {{ shop.name }}
+    {% endunless %}
+  {% endcapture %}
+  <title>{{ seo_title }}</title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% include 'social-meta-tags' %}
+
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <script>
+    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+
+    window.theme = {
+      strings: {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }}
+      },
+      moneyFormat: {{ shop.money_format | json }}
+    };
+
+  </script>
+
+
+  {% liquid
+    assign theme_js_url = 'theme.js' | asset_url
+    unless  request.design_mode
+      assign theme_js_url = theme_js_url  | append: '&enable_js_minification=1'
+    endunless
+  %}
+
+  {% if template.directory == 'customers' %}
+    <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+    <!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+  {% endif %}
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lt IE 9]><script src="{{ 'vendor.js' | asset_url }}"></script><![endif]-->
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ theme_js_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lt IE 9]><script src="{{ theme_js_url }}"></script><![endif]-->
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'custom.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lt IE 9]><script src="{{ 'custom.js' | asset_url }}"></script><![endif]-->
+
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+  {{ content_for_header }}
+
+  {% include 'bold-common' %}
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHHqv1QD53JbJvI0rCAOWvyZWrWiQpSAo&callback=initMap&libraries=places" defer=""></script>
+
+  {% include 'magiczoomplus.headers' %}
+
+
+  
+{% if template contains 'product' %}
+  <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/products/{{product.handle}}" >
+{% endif %}
+{% if template contains 'collection' %}
+  {% assign collectionpageurl = content_for_header| split:'"pageurl":"' | last | split:'"' | first %}
+  {% assign collectionHandle = collectionpageurl | split : "collections\/" | last %}
+  {% if collectionpageurl contains '?' or collectionHandle contains '/' %}
+  {% else %}
+  <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/collections/{{collection.handle}}" >
+  {% endif %}
+{% endif %}
+{% if template contains 'blog' %}  
+  {% if blog.handle == "new-blog" %}
+  {% else %}
+      <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/blogs/{{blog.handle}}" >
+  {% endif %}
+{% endif %}
+{% if template contains 'article' %}
+      <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/blogs/{{article.handle}}" >
+{% endif %} 
+<!-- BEGIN XO GALLERY -->
+{% include "xo-gallery" %}
+<!-- END XO GALLERY -->
+{% include 'sca-quick-view-init' %}
+ {% include "tabarnapp_cm" %} 
+
+ <script>window.performance.mark(window.markNames.head.end);</script>
+
+
+{% include 'sca.storepickup' %}
+{% include 'booster-common' %}
+{{ 'ndnapps-easyfaqs.css' | asset_url | stylesheet_tag }}
+
+ <!-- Hotjar Tracking Code for www.minimax.com.au -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:2381984,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+  
+<!-- Add lazy load for images using lazysizes -->
+{{ 'lazysizes.min.js' | asset_url | script_tag }}
+
+
+                  {% include 'bss-product-labels-configs' %}
+                    
+<!--begin-boost-pfs-filter-css-->
+  {% render 'boost-pfs-style' %}
+<!--end-boost-pfs-filter-css-->
+
+<script>
+  function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+</script>
+
+
+  {% render 'shogun-head' %}
+
+<script>(() => {const installerKey = 'docapp-discount-auto-install'; const urlParams = new URLSearchParams(window.location.search); if (urlParams.get(installerKey)) {window.sessionStorage.setItem(installerKey, JSON.stringify({integrationId: urlParams.get('docapp-integration-id'), divClass: urlParams.get('docapp-install-class'), check: urlParams.get('docapp-check')}));}})();</script>
+
+<script>(() => {const previewKey = 'docapp-discount-test'; const urlParams = new URLSearchParams(window.location.search); if (urlParams.get(previewKey)) {window.sessionStorage.setItem(previewKey, JSON.stringify({active: true, integrationId: urlParams.get('docapp-discount-inst-test')}));}})();</script>
+<!--Gem_Page_Header_Script-->
+{% render 'gem-app-header-scripts' %}
+<!--End_Gem_Page_Header_Script-->
+
+  <style>
+    .gryffeditor select {
+      background-image: url({{'down-chevron.png' | asset_url}}) !important;
+      background-size: 10px;
+    }
+  </style>
+
+  <script async src='https://schemaplus-cdn.s3.amazonaws.com/loader-4fc2bc8e70a12214600cb462b26dc62b-minimaxau.min.js'></script>
+
+
+<script>(() => {const installerKey = 'docapp-shipping-auto-install'; const urlParams = new URLSearchParams(window.location.search); if (urlParams.get(installerKey)) {window.sessionStorage.setItem(installerKey, JSON.stringify({integrationId: urlParams.get('docapp-integration-id'), divClass: urlParams.get('docapp-install-class'), check: urlParams.get('docapp-check')}));}})();</script>
+
+<script>(() => {const previewKey = 'docapp-shipping-test'; const urlParams = new URLSearchParams(window.location.search); if (urlParams.get(previewKey)) {window.sessionStorage.setItem(previewKey, JSON.stringify({active: true, integrationId: urlParams.get('docapp-shipping-inst-test')}));}})();</script>
+  {% render 'judgeme_core' %}
+{% include 'upsellio' %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  
+</head>
+             
+
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }} {% if shop.metafields.accentuate.promo_banner_text_header == blank %}promoHidden{% endif %}">
+{% if page.handle == 'handle-for-contact' %}
+        <meta name ="robots" content="noindex,nofollow"/>
+    {% else %}
+        <meta name="robots" content="index,follow">
+    {% endif %}
+{% capture the_snippet_content %}{% include 'socialshopwave-helper' %}{% endcapture %}
+            {% unless the_snippet_content contains 'Liquid error' %}
+              {{ the_snippet_content }}
+            {% endunless %}
+  
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W4JN66G"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  {% section 'header' %}
+
+  <main role="main" id="MainContent">
+    {{ content_for_layout }}
+<limespot></limespot>
+
+  </main>
+
+  {% section 'footer' %}
+
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js' | script_tag }}
+  {% comment %}{{ '//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' | script_tag }}{% endcomment %}
+  {{ 'ose-scripts.js' | asset_url | script_tag }}
+  <!-- initialise Cart.js once the page has loaded -->
+    <script type="text/javascript">
+        jQuery(function() {
+            CartJS.init({{ cart | json }});
+
+            $('select.quantity').on('change', function () {
+                var v_id = $(this).attr('data-item-id');
+                CartJS.updateItemById(v_id, $(this).val());
+                setTimeout(function(){
+                    location.reload();
+                },500);
+            });
+        });
+
+
+    </script>
+    <!-- end of initialise Cart.js -->
+
+
+
+
+  <!-- <input type="hidden" name="sw_customer_id" id="sw_customer_id" value="{% if customer %}{{ customer.id}}{% else %}0{% endif %}" /> -->
+  {% include 'social-login' %}
+
+
+  {% include 'iwish_v2' with 'iwishfooter' %}
+  {% include 'recent-viewed-products-js' %}
+
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Blog",
+    "url": "https://www.minimax.com.au/blogs/minimax-style"
+  }
+</script>
+
+  
+{% include 'scm-bannerslider' %}
+
+{%include 'sc-pb-25052016'%}
+
+
+{% include 'sca-quick-view-template' %} 
+  
+
+  
+  
+  <script>
+  window.performance.mark(window.markNames.body.start);
+  </script>
+  
+  <script>
+    window.addEventListener("load", function(){
+      Object.keys(window.markNames).forEach((name) => {
+        mark = window.markNames[name]
+        performance.measure(mark.name, mark.start, mark.end);
+      });
+      window.requestIdleCallback(() => {
+        var getShopifyResourceByType = (type) => {
+          return performance.getEntriesByType('resource').filter((resource) => {
+            return resource.name.indexOf('cdn.shopify.com') != -1 
+                   && resource.initiatorType === type;
+          })
+        };
+
+        // You can send this information to whatever analytics vendor
+        // For now, we are just outputting in console
+        console.log('############ PERFORMANCE METRICS ############');
+        console.log(performance.getEntriesByType('measure'));
+        console.log(performance.getEntriesByType('paint'));
+      });
+    });
+    window.performance.mark(window.markNames.body.end);
+  </script>
+  
+  
+
+
+<!-- Back in Stock helper snippet -->
+{% render 'back-in-stock-helper' %}
+<!-- End Back in Stock helper snippet -->
+{% include 'booster-discounts' %}
+<script src='{{ 'ndnapps-easyfaqs.js' | asset_url }}' defer='defer'></script>
+
+{{'tiny-img-link-preloader.js' | asset_url | script_tag }}
+
+<!--begin-boost-pfs-js-->
+  {% render 'boost-pfs' %}
+<!--end-boost-pfs-js-->
+
+<script>
+    window.dmPt("cartInsight", {
+      "programID": 16758,
+      "cartDelay": 1,
+      "cartID": dmPt.cartId,
+      "cartPhase": "CUSTOMER_LOGIN",
+      "currency": "{{ shop.currency }}",
+      "subtotal": {{ cart.total_price }}/100,
+      "discountAmount": {{ cart.original_total_price | minus: cart.total_price }}/100,
+      "taxAmount": 0,
+      "grandTotal": {{ cart.total_price }}/100,
+      "cartUrl": "{{ shop.url }}/cart/{% for item in cart.items %}{{item.variant_id}}:{{ item.quantity }}{% if forloop.last == false %},{% endif %}{% endfor %}", // Your website must be able to provide a unique URL to a basket
+      "lineItems": [
+        {% for item in cart.items %}
+          {
+            "sku": "{{ item.sku }}",
+            "name": "{{ item.title }}",
+            "description": "{{ item.product.description | strip_html | escape | strip_newlines }}",
+            "category": "{% for collection in item.product.collections %}{{ collection.title }} {% endfor %}",
+            "other": "{% for tag in product.tags %}{{ tag }} {% endfor %}",
+            "unitPrice": {{ item.original_price }}/100,
+            "salePrice": {{ item.price }}/100,
+            "quantity": {{ item.quantity }},
+            "totalPrice": {{ item.line_price }}/100,
+            "imageUrl": "{{ item.image | img_url: 'small' | prepend:'https:'}}",
+            "productUrl": "{{ shop.url }}{{ item.url}}",
+          } {% if forloop.last == false %},{% endif %}
+        {% endfor %}
+      ]
+    });
+</script>
+<!--stockinstore product page snippet - Start-->
+    {% include 'stockinstore' %}
+  	{% include 'stockinstore-clickcollect-product' %}
+<!--stockinstore product page snippet - End-->
+  
+<!--stockinstore product json - Start-->
+    {% include 'stockinstore-json-product-snippet' %}
+<!--stockinstore product json - End-->  
+{% render 'preorder-now' %}
+  
+<!--Gorgias Chat Widget Start-->
+<script id="gorgias-chat-widget-install-v3" 
+    src="https://config.gorgias.chat/bundle-loader/01GYCC3ER0SE1Z77BKAE18D8RC?source=shopify1click">
+</script>
+<script id="gorgias-chat-shopify-install">!function(_){_.SHOPIFY_PERMANENT_DOMAIN="{{shop.permanent_domain}}",_.SHOPIFY_CUSTOMER_ID="{{customer.id}}",_.SHOPIFY_CUSTOMER_EMAIL="{{customer.email}}"}(window||{});
+</script>
+<!--Gorgias Chat Widget End-->
+<!--Gem_Page_Footer_Script-->
+{% render 'gem-app-footer-scripts', GEM_FOOTER_SCRIPT: GEM_FOOTER_SCRIPT %}
+<!--End_Gem_Page_Footer_Script-->
+
+<script src="//email.minimax.com.au/resources/sharing/popoverv2.js?sharing=lp-popover&domain=email.minimax.com.au&id=6VG9-63J%2Fsubscribe"&delay=30&mobile=&keydismiss=true&width=600"></script>
+{% if content_for_header contains 'product_label' %}{% include 'bss-product-label-js' %}{% include 'bss-label-style-css' %}{% include 'bss-product-label-fonts' %}{% endif %}
+<style>
+  .gempage div.mfp-wrap, .gempage div.mfp-bg {
+    display: block !important;
+}
+</style>
+  {% render  'freegifts-snippet' %} 
+ {% if content_for_header contains "dev.giftkart.app" %}{% include "giftkart_script.cart" %}{% endif %}
+{% render 'taginstall-body' %}
+ 
+ {% comment %} Dotdigital CartInsight: Start {% endcomment %}{% if content_for_header contains "https:\/\/r3-t.trackedlink.net\/shopify\/wbt.js" and customer.email %} {% assign track_non_subscribed = false %} {% if customer.accepts_marketing or track_non_subscribed %} <script> window.dmPtId = function() { window.dmPt('identify', '{{ customer.email }}'); } </script> {% endif %} {% endif %}{% comment %} Dotdigital CartInsight: End {% endcomment %}
+</body>
+</html>
+<script>$( document ).ready(function() {$('.reviews-tab-jdgm').on('click', function() { var myVar = setInterval(function() {if (jdgm.$('.jdgm-rev-widg__reviews').data('masonry')) {jdgm.$('.jdgm-rev-widg__reviews').masonry('layout');}}, 200 ); function stopColor() {clearInterval(myVar);}});});</script>
+<script>
+  jdgmSettings.revTabSelector = '.reviews-tab-jdgm';
+</script>
+<script> 
+  window.addEventListener('load', (event) => {
+   if (window.location.search.includes('judgeme_token') || window.location.hash.includes('judgeme')) {
+	revTabInterval = setInterval(function(){ 
+      jdgm._openReviewTab();
+      jdgm.openForm(jdgm.visibleRevWidget());
+      jdgm._appendCustomForm(jdgm.visibleRevWidget());
+      jdgm._scrollDownToWidget();
+
+    var observer = new IntersectionObserver(function(entries) {
+    if(entries[0].isIntersecting === true)
+        clearInterval(revTabInterval);
+	}, { threshold: [0] });
+	observer.observe(document.querySelector("#judgeme_product_reviews"));
+		}, 1000);
+    }
+  });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+      for(i=0; i< document.querySelector(".pagination").childElementCount; i++){
+        if(document.querySelector(".pagination").children[i].className !=="disabled"){
+          document.querySelector(".pagination").children[i].children[0].setAttribute("onclick", "location.href='" + 	document.querySelector(".pagination").children[i].children[0].href + "'")
+        }
+      }
+    });
+  </script>

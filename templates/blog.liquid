@@ -1,0 +1,202 @@
+{% include 'atb' zone:"Top"%}
+{% paginate blog.articles by 6 %}
+
+  {%- assign blog_title = blog.title -%}
+
+  <div class="blogListingHeader">
+      <div class="container">
+          {% if current_tags %}
+            {% capture blog_title %}{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}{% endcapture %}
+          {% endif %}
+
+          <h1>{{ blog_title }}</h1>
+
+          {% if blog.all_tags.size > 0 %}
+            <!-- <h2>{{ 'blogs.general.categories' | t }}</h2> -->
+
+            <ul>
+                <li class="tagDropdown">
+                    <a href="#" class="tagDropdown">Show Categories</a>
+                </li>
+              {% for tag in blog.all_tags %}
+
+                {% if current_tags contains tag %}
+                  <li class="listActive">{{ tag }}</li>
+                {% else %}
+                  <li>{{ tag | link_to_tag: tag }}</li>
+                {% endif %}
+
+              {% endfor %}
+            </ul>
+          {% endif %}
+      </div>
+  </div>
+
+
+  {% comment %}
+
+  Article Previews
+  ====================
+  {% endcomment %}
+
+  <!-- <section class="blogHeroSlider">
+  	<div class="slideContainer">
+  		<div class="flexslider flexSliderDesktop">
+  			<ul class="slides">
+                  {% for article in blog.articles limit:3 %}
+                      <li class="heroImages flex-active-slide" style="background-image: url( {{ article.image.src | img_url: 'master' }} );" data-thumb-alt="">
+                          <div class="container">
+          					<div class="v-wrap">
+          						<div class="v-box">
+                                    <div class="contentWrapper">
+                                        {% for tag in article.tags %}
+                                            <h6 style="display: inline-block;">{{ tag }}{% unless forloop.last %}, {% endunless %}</h6>
+                                        {% endfor %}
+
+                                        <h2>
+                                          <a href="{{ article.url }}">{{ article.title }}</a>
+                                        </h2>
+                                        <p>
+
+                                            {% if article.excerpt == blank %}
+
+                                            {{ article.content | strip_html | truncate: 200 }}
+                                            {% else %}
+
+                                            {% endif %}
+
+                                        </p>
+                                        <a href="{{ article.url }}" class="std link">
+                                            Read More
+                                        </a>
+                                    </div>
+          						</div>
+          					</div>
+                        </div>
+      				</li>
+                  {% endfor %}
+  			</ul>
+  		</div>
+  </section> -->
+  {% if blog.metafields.accentuate.blog_hero_image %}
+      <div class="collectionFeatureImage" style="background-image:url('{{ blog.metafields.accentuate.blog_hero_image }}');"></div>
+  {% endif %}
+
+  {% if blog.metafields.accentuate.blog_text %}
+      <div class="container">
+          <div class="blogIntroduction">
+              {{ blog.metafields.accentuate.blog_text }}
+          </div>
+      </div>
+  {% endif %}
+
+
+  <section class="featuredBlog">
+      <div class="container">
+          {% for article in blog.articles %}
+          <div class="blogWrapper">
+              <div class="half image" style="background-image: url( {{ article.image.src | img_url: 'master' }} );">
+              </div>
+              <div class="half text">
+                  <div class="v-wrap">
+                      <div class="v-box">
+                          <div class="contentWrapper">
+                              {% for tag in article.tags %}
+                                  <h6 style="display: inline-block;">{{ tag }}{% unless forloop.last %}, {% endunless %}</h6>
+                              {% endfor %}
+                              <h2>
+                                <a href="{{ article.url }}">{{ article.title }}</a>
+                              </h2>
+                              <p>
+
+                                  {% if article.excerpt == blank %}
+
+                                  {{ article.content | strip_html | truncate: 200 }}
+                                  {% else %}
+
+                                  {% endif %}
+
+                              </p>
+                              <a href="{{ article.url }}" class="std link">
+                                  Read More
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </section>
+
+  <section class="featuredBlogPaginate">
+    <div class="container">
+    </div>
+</section>
+
+  {% if paginate.next %}
+  <div class="paginateLink">
+     <br> <div id="more"><a href="{{ paginate.next.url }}" class="std btn secondary loadMore">Load More Articles</a></div>
+      <!-- <a href="#" class="backTop">Back To Top</a> -->
+  </div>
+  {% endif %}
+
+
+
+  <!-- {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+  {% endif %} -->
+
+
+    <!-- {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %} -->
+
+    <!-- <p>
+      {{ 'blogs.article.author_on_date_html' | t: author: article.author, date: date }}
+    </p> -->
+
+    <!-- {% if article.image %}
+      <a href="{{ article.url }}">
+        {{ article | img_url: '1024x1024' | img_tag: article.title }}
+      </a>
+    {% endif %} -->
+
+    <!-- <div class="rte">
+      {% if article.excerpt.size > 0 %}
+        {{ article.excerpt }}
+      {% else %}
+        <p>
+          {{ article.content | strip_html | truncatewords: 100 }}
+        </p>
+      {% endif %}
+    </div> -->
+
+    <!-- {% if blog.comments_enabled? or article.tags.size > 0 %}
+      <ul>
+        {% if blog.comments_enabled? %}
+          <li>
+            <a href="{{ article.url }}#comments">
+              {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+            </a>
+          </li>
+        {% endif %}
+
+        {% if article.tags.size > 0 %}
+          {% for tag in article.tags %}
+            <li>
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+              {% unless forloop.last %}, {% endunless %}
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    {% endif %} -->
+
+    <!-- <p>
+      <a href="{{ article.url }}">{{ 'blogs.article.read_more' | t }} &rarr;</a>
+    </p> -->
+
+
+
+{% endpaginate %}
+
+{% include 'atb' zone:"Bottom"%}

@@ -1,0 +1,493 @@
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnthreeproductfour], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnthreeproductthree], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnthreeproducttwo], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnthreeproductone], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columntwoproductfour], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columntwoproductthree], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columntwoproducttwo], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columntwoproductone], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnoneproductfour], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnoneproductthree], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnoneproducttwo], products: null %}
+{% include 'spurit_po2_section_snippet', product: all_products[section.settings.columnoneproductone], products: null %}
+<section class="three atbcollection">
+    <div class="container">
+        <span class="column">
+            <span class="atbImageContainer">
+                <span class="atbImage" style="background-image: url({{ section.settings.imageone | img_url: 'master' }});"></span>
+                {% if section.settings.shoppablebuttontextone != blank %}
+                    <span class="shoppableOverlay">
+                        <a href="#" class="shoppableButton">{{ section.settings.shoppablebuttontextone }}</a>
+                        <div class="shoppableContainer">
+                            <div class="owl-carousel threeColumnCarousel">
+                                {% if section.settings.columnoneproductone != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnoneproductone] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                    <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columnoneproducttwo != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnoneproducttwo] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columnoneproductthree != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnoneproductthree] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columnoneproductfour != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnoneproductfour] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                            </div>
+                            <a href="#" class="shoppableClose"></a>
+                        </div>
+                    </span>
+                {% endif %}
+            </span>
+            <span class="text" style="background-color:{{ section.settings.background_colour_one | escape }};">
+                <span class="title">{{ section.settings.titleone | escape }}</span>
+                <a href="{{ section.settings.linkone | escape }}" class="std btn secondary">Shop all</a>
+            </span>
+        </span>
+        <span class="column">
+            <span class="atbImageContainer">
+                <span class="atbImage" style="background-image: url({{ section.settings.imagetwo | img_url: 'master' }});"></span>
+                {% if section.settings.shoppablebuttontexttwo != blank %}
+                    <span class="shoppableOverlay">
+                        <a href="#" class="shoppableButton">{{ section.settings.shoppablebuttontexttwo }}</a>
+                        <div class="shoppableContainer">
+                            <div class="owl-carousel threeColumnCarousel">
+                                {% if section.settings.columntwoproductone != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columntwoproductone] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columntwoproducttwo != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columntwoproducttwo] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columntwoproductthree != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columntwoproductthree] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columntwoproductfour != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columntwoproductfour] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                            </div>
+                            <a href="#" class="shoppableClose"></a>
+                        </div>
+                    </span>
+                {% endif %}
+            </span>
+            <span class="text" style="background-color:{{ section.settings.background_colour_two | escape }};">
+                <span class="title">{{ section.settings.titletwo | escape }}</span>
+                <a href="{{ section.settings.linktwo | escape }}" class="std btn secondary">Shop all</a>
+            </span>
+        </span>
+        <span class="column">
+            <span class="atbImageContainer">
+                <span class="atbImage" style="background-image: url({{ section.settings.imagethree | img_url: 'master' }});"></span>
+                {% if section.settings.shoppablebuttontextthree != blank %}
+                    <span class="shoppableOverlay">
+                        <a href="#" class="shoppableButton">{{ section.settings.shoppablebuttontextthree}}</a>
+                        <div class="shoppableContainer">
+                            <div class="owl-carousel threeColumnCarousel">
+                                {% if section.settings.columnthreeproductone != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnthreeproductone] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columnthreeproducttwo != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnthreeproducttwo] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columnthreeproductthree != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnthreeproductthree] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                                 {% if section.settings.columnthreeproductfour != blank %}
+                                     <div class="featuredProductWrapper">
+                                         {%- assign product = all_products[section.settings.columnthreeproductfour] -%}
+                                         {%- assign current_variant = product.selected_or_first_available_variant -%}
+                                         <a href="{{ product.url | within: collection }}" class="item">
+                                              <span class="imageWrapper">
+                                                  <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                                                  </span>
+                                              </span>
+                                              <span class="productInformation">
+                                                  <span class="contentDetails">
+                                                      <span class="productName">{{ product.title }}</span>
+                                                      <span class="productPrice">{{ product.price | money }}</span>
+                                                  </span>
+                                              </span>
+                                          </a>
+                                     </div>
+                                 {% endif %}
+                            </div>
+                            <a href="#" class="shoppableClose"></a>
+                        </div>
+                    </span>
+                {% endif %}
+            </span>
+            <span class="text" style="background-color:{{ section.settings.background_colour_three | escape }};">
+                <span class="title">{{ section.settings.titlethree | escape }}</span>
+                <a href="{{ section.settings.linkthree | escape }}" class="std btn secondary">Shop all</a>
+            </span>
+        </span>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Three Column Collection",
+        "settings":[
+        {
+          "type": "image_picker",
+          "id": "imageone",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "background_colour_one",
+          "label": "Background Colour",
+          "options": [
+            {
+              "value": "#ffffff",
+              "label": "White"
+            },
+            {
+              "value": "#f7f7f7",
+              "label": "Light Grey"
+            },
+            {
+              "value": "#e5e5e5",
+              "label": "Darker Grey"
+            }
+          ],
+			"default": "#f7f7f7"
+        },
+        {
+            "id" : "titleone",
+            "label" : "Title",
+            "type" : "text"
+        },
+        {
+            "id" : "linkone",
+            "label" : "Link",
+            "info" : "Include link",
+            "type" : "text"
+        },
+        {
+            "id" : "shoppablebuttontextone",
+            "label" : "Shoppable Button Text",
+            "info" : "Text to feature in button, leave empty if no featured products",
+            "type" : "text"
+        },
+        {
+            "type": "product",
+            "id": "columnoneproductone",
+            "label": "Column One Product One",
+            "info": "Pick up to four featured products"
+        },
+        {
+            "type": "product",
+            "id": "columnoneproducttwo",
+            "label": "Column One Product Two"
+        },
+        {
+            "type": "product",
+            "id": "columnoneproductthree",
+            "label": "Column One Product Three"
+        },
+        {
+            "type": "product",
+            "id": "columnoneproductfour",
+            "label": "Column One Product Four"
+        },
+        {
+          "type": "image_picker",
+          "id": "imagetwo",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "background_colour_two",
+          "label": "Background Colour",
+          "options": [
+            {
+              "value": "#ffffff",
+              "label": "White"
+            },
+            {
+              "value": "#f7f7f7",
+              "label": "Light Grey"
+            },
+            {
+              "value": "#e5e5e5",
+              "label": "Darker Grey"
+            }
+          ],
+			"default": "#f7f7f7"
+        },
+        {
+            "id" : "titletwo",
+            "label" : "Title",
+            "type" : "text"
+        },
+        {
+            "id" : "linktwo",
+            "label" : "Link",
+            "info" : "Include link",
+            "type" : "text"
+        },
+        {
+            "id" : "shoppablebuttontexttwo",
+            "label" : "Shoppable Button Text",
+            "info" : "Text to feature in button, leave empty if no featured products",
+            "type" : "text"
+        },
+        {
+            "type": "product",
+            "id": "columntwoproductone",
+            "label": "Column Two Product One",
+            "info": "Pick up to four featured products"
+        },
+        {
+            "type": "product",
+            "id": "columntwoproducttwo",
+            "label": "Column Two Product Two"
+        },
+        {
+            "type": "product",
+            "id": "columntwoproductthree",
+            "label": "Column Two Product Three"
+        },
+        {
+            "type": "product",
+            "id": "columntwoproductfour",
+            "label": "Column Two Product Four"
+        },
+        {
+          "type": "image_picker",
+          "id": "imagethree",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "background_colour_three",
+          "label": "Background Colour",
+          "options": [
+            {
+              "value": "#ffffff",
+              "label": "White"
+            },
+            {
+              "value": "#f7f7f7",
+              "label": "Light Grey"
+            },
+            {
+              "value": "#e5e5e5",
+              "label": "Darker Grey"
+            }
+          ],
+			"default": "#f7f7f7"
+        },
+        {
+            "id" : "titlethree",
+            "label" : "Title",
+            "type" : "text"
+        },
+        {
+            "id" : "linkthree",
+            "label" : "Link",
+            "info" : "Include link",
+            "type" : "text"
+        },
+        {
+            "id" : "shoppablebuttontextthree",
+            "label" : "Shoppable Button Text",
+            "info" : "Text to feature in button, leave empty if no featured products",
+            "type" : "text"
+        },
+        {
+            "type": "product",
+            "id": "columnthreeproductone",
+            "label": "Column Three Product One",
+            "info": "Pick up to four featured products"
+        },
+        {
+            "type": "product",
+            "id": "columnthreeproducttwo",
+            "label": "Column Three Product Two"
+        },
+        {
+            "type": "product",
+            "id": "columnthreeproductthree",
+            "label": "Column Three Product Three"
+        },
+        {
+            "type": "product",
+            "id": "columnthreeproductfour",
+            "label": "Column Three Product Four"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Three Column Collection",
+            "category": "Collection"
+        }
+    ]
+}
+
+{% endschema %}

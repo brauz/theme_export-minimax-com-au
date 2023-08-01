@@ -1,0 +1,256 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+{% include 'limespot' %}
+  
+  <!-- Pinterest Tag -->
+<script>
+!function(e){if(!window.pintrk){window.pintrk = function () {
+window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
+      n=window.pintrk;n.queue=[],n.version="3.0";var
+      t=document.createElement("script");t.async=!0,t.src=e;var
+      r=document.getElementsByTagName("script")[0];
+      r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
+pintrk('load', '2613561328581', {em: '<user_email_address>'});
+pintrk('page');
+</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt=""
+      src="https://ct.pinterest.com/v3/?tid=2613561328581&pd[em]=<hashed_email_address>&noscript=1" />
+</noscript>
+<!-- end Pinterest Tag -->
+  
+  <!-- Global site tag (gtag.js) - AdWords: 835069791 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-835069791"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-835069791');
+</script>
+
+  
+  <script>
+var _prum = [['id', '5a03a56cfe3f8505df87124f'],
+             ['mark', 'firstbyte', (new Date()).getTime()]];
+(function() {
+    var s = document.getElementsByTagName('script')[0]
+      , p = document.createElement('script');
+    p.async = 'async';
+    p.src = '//rum-static.pingdom.net/prum.min.js';
+    s.parentNode.insertBefore(p, s);
+})();
+</script>
+  
+  <!-- Start Alexa Certify Javascript -->
+<script type="text/javascript">
+_atrk_opts = { atrk_acct:"fpHmr19jYF20V1", domain:"minimax.com.au",dynamic: true};
+(function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+</script>
+<noscript><img src="https://certify.alexametrics.com/atrk.gif?account=fpHmr19jYF20V1" style="display:none" height="1" width="1" alt="" /></noscript>
+<!-- End Alexa Certify Javascript -->  
+  
+
+  <meta name="ahrefs-site-verification" content="443f7f07274bdb6e71cd55fdbf8788d4543397078f46c79b399189af9c2cb262">
+  <meta name="google-site-verification" content="G9RXHpVUY8ad8SnwRa1JZlJxGklteO_q13HGupkuhJ8" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6091996/7608992/css/fonts.css" />
+
+
+  {% if settings.favicon != blank %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+
+  {% capture seo_title %}
+    {{ page_title }}
+    {% if current_tags %}
+      {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {% endif %}
+    {% if current_page != 1 %}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {% endif %}
+    {% unless page_title contains shop.name %}
+      &ndash; {{ shop.name }}
+    {% endunless %}
+  {% endcapture %}
+  <title>{{ seo_title }}</title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% include 'social-meta-tags' %}
+
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+
+  <script>
+    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+
+    window.theme = {
+      strings: {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }}
+      },
+      moneyFormat: {{ shop.money_format | json }}
+    };
+
+  </script>
+
+  {% if template.directory == 'customers' %}
+    <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+    <!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+  {% endif %}
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lt IE 9]><script src="{{ 'vendor.js' | asset_url }}"></script><![endif]-->
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'theme.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lt IE 9]><script src="{{ 'theme.js' | asset_url }}"></script><![endif]-->
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'custom.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lt IE 9]><script src="{{ 'theme.js' | asset_url }}"></script><![endif]-->
+
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+  {{ content_for_header }}
+
+  {% include 'bold-common' %}
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHHqv1QD53JbJvI0rCAOWvyZWrWiQpSAo"></script>
+
+  <!--begin-bc-sf-filter-css-->
+   {% include 'bc-sf-filter-style' %}
+  <!--end-bc-sf-filter-css-->
+
+  {% include 'magiczoomplus.headers' %}
+  
+  <!--Start of Zendesk Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+$.src="https://v2.zopim.com/?5JmAKrthGKSeXkbciosEGhVIpkvu2YiD";z.t=+new Date;$.
+type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+</script>
+<!--End of Zendesk Chat Script-->
+
+  
+{% if template contains 'product' %}
+  <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/products/{{product.handle}}" >
+{% endif %}
+{% if template contains 'collection' %}
+  {% assign collectionpageurl = content_for_header| split:'"pageurl":"' | last | split:'"' | first %}
+  {% assign collectionHandle = collectionpageurl | split : "collections\/" | last %}
+  {% if collectionpageurl contains '?' or collectionHandle contains '/' %}
+  {% else %}
+  <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/collections/{{collection.handle}}" >
+  {% endif %}
+{% endif %}
+{% if template contains 'blog' %}  
+      <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/blogs/{{blog.handle}}" >
+{% endif %}
+{% if template contains 'article' %}
+      <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/blogs/{{article.handle}}" >
+{% endif %} 
+<!-- BEGIN XO GALLERY -->
+{{ 'xo-gallery.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'xo-gallery.js?shop=minimaxau.myshopify.com' | asset_url }}" defer></script>
+<!-- END XO GALLERY -->
+{% include 'sca-quick-view-init' %}
+ </head>
+
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }} {% if shop.metafields.accentuate.promo_banner_text_header == blank %}promoHidden{% endif %}">
+{% capture the_snippet_content %}{% include 'socialshopwave-helper' %}{% endcapture %}
+            {% unless the_snippet_content contains 'Liquid error' %}
+              {{ the_snippet_content }}
+            {% endunless %}
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  {% section 'header' %}
+
+  <main role="main" id="MainContent">
+    {{ content_for_layout }}
+<limespot></limespot>
+
+  </main>
+
+  {% section 'footer' %}
+
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js' | script_tag }}
+  {% comment %}{{ '//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' | script_tag }}{% endcomment %}
+
+  <!-- initialise Cart.js once the page has loaded -->
+    <script type="text/javascript">
+        jQuery(function() {
+            CartJS.init({{ cart | json }});
+
+            $('select.quantity').on('change', function () {
+                var v_id = $(this).attr('data-item-id');
+                CartJS.updateItemById(v_id, $(this).val());
+                setTimeout(function(){
+                    location.reload();
+                },500);
+            });
+        });
+
+
+    </script>
+    <!-- end of initialise Cart.js -->
+
+
+
+
+  <!-- <input type="hidden" name="sw_customer_id" id="sw_customer_id" value="{% if customer %}{{ customer.id}}{% else %}0{% endif %}" /> -->
+  {% include 'social-login' %}
+
+{% include 'bc-sf-filter' %}
+  {% include 'iwish_v2' with 'iwishfooter' %}
+  {% include 'dtk_recentviewed' %}
+{% include 'back-in-stock-helper' %}
+
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Blog",
+    "url": "https://www.minimax.com.au/blogs/minimax-style"
+  }
+</script>
+
+  <script type="application/ld+json">{"@context":"http://schema.org","@type":"Blog","url":"https://www.minimax.com.au/blogs/minimax-style"}</script><script type="application/ld+json">{"@context":"http://schema.org","@type":"Organization","name":"Minimax","url":"https://www.minimax.com.au","sameAs":["https://www.facebook.com/minimaxaus/","https://plus.google.com/b/109129668287352097348/","https://twitter.com/Minimax_Aus"]}</script>
+  
+{% include 'scm-bannerslider' %}
+{% include 'st-special-offers' %}
+
+{%include 'sc-pb-25052016'%}
+
+  <!-- Google Code for Remarketing Tag -->
+<!--------------------------------------------------
+Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+--------------------------------------------------->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 835069791;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/835069791/?guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+{% include 'sca-quick-view-template' %} 
+ </body>
+</html>

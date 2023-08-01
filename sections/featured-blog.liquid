@@ -1,0 +1,60 @@
+
+
+
+
+{%- assign article = articles[section.settings.featured_blog] -%}
+<section class="featuredBlog">
+    <div class="container">
+        <div class="half image" style="background-image: url( {{ article.image.src | img_url: 'master' }} );">
+        </div>
+        <div class="half text">
+            <div class="v-wrap">
+                <div class="v-box">
+                    <div class="contentWrapper">
+                        <h6>{{ article.tags }}</h6>
+                        <h2>{{ article.title }}</h2>
+                        <p>
+
+                            {% if article.excerpt == blank %}
+
+                            {{ article.content | strip_html | truncate: 200 }}
+                            {% else %}
+
+                            {% endif %}
+
+                        </p>
+                        <a href="{{ article.url }}" class="std link">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pageLink">
+            <a href="/blogs/minimax-style" class="std btn secondary">
+                Go to Minimax Style
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
+{% schema %}
+  {
+    "name": "Featured Blog",
+    "settings": [
+      {
+          "type": "article",
+          "id": "featured_blog",
+          "label": "Featured Blog"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Blog"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,44 @@
+
+<section class="threeColumnText">
+    <div class="container">
+        <div class="column">
+            <p>{{ section.settings.columnone }}</p>
+        </div>
+        <div class="column">
+            <p>{{ section.settings.columntwo }}</p>
+        </div>
+        <div class="column">
+            <p>{{ section.settings.columnthree }}</p>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Three Column Text",
+    "settings":[
+        {
+            "id" : "columnone",
+            "label" : "Column One Text",
+            "type" : "html"
+        },
+        {
+            "id" : "columntwo",
+            "label" : "Column Two Text",
+            "type" : "html"
+        },
+        {
+            "id" : "columnthree",
+            "label" : "Column Three Text",
+            "type" : "html"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Three Column Text",
+            "category": "Text"
+        }
+    ]
+}
+
+{% endschema %}

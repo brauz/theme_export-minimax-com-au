@@ -1,0 +1,56 @@
+<section class="threeColumnCampaignBlock">
+	<div class="container">
+		<div class="threeColumnBlockWrapper">
+
+            {% for block in section.blocks %}
+				{% if block.settings.campaign_image %}
+                    <a href="{{ block.settings.campaign_link_url }}">
+						<span class="column">
+							<span class="portraitContainer">
+								<span class="imageContainer" style="background-image:url({{ block.settings.campaign_image | img_url: 'master' }});">
+									<!-- <img src="{{ block.settings.campaign_image | img_url: 'master' }}" data-thumb-alt="" /> -->
+								</span>
+							</span>
+						</span>
+    				</a>
+				{% endif %}
+            {% endfor %}
+
+		</div>
+	</div>
+</section>
+
+{% schema %}
+  {
+    "name": "ThreeColumnCampaign Block",
+    "blocks": [
+      {
+        "type": "image",
+        "name": "ThreeColumnCampaign Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "campaign_image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "campaign_link_url",
+            "label": "Campaign link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "ThreeColumnCampaign Block",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

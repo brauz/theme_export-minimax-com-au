@@ -1,0 +1,42 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Two Column Text",
+    "id":"twocolumntext",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "two column text",
+    "description": "Two Column Text",
+    "settings":[
+        {
+            "id" : "columnone",
+            "label" : "Text",
+            "info" : "Include text",
+            "type" : "html"
+        },
+        {
+            "id" : "columntwo",
+            "label" : "Text",
+            "info" : "Include text",
+            "type" : "html"
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'columnone' %}
+{% assign columnone = val %}
+{% include 'atb-render' field:'columntwo' %}
+{% assign columntwo = val %}
+
+<section class="twoColumnText">
+    <div class="container">
+        <div class="column">
+            {{ columnone }}
+        </div>
+        <div class="column">
+            {{ columntwo }}
+        </div>
+    </div>
+</section>

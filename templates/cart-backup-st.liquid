@@ -1,0 +1,305 @@
+{% if cart.item_count > 0 %}
+    <div class="cartHeader">
+        <div class="container">
+            <h1>Your Shopping Bag</h1>
+            <h5>You've added {{ cart.item_count }} items totalling <span class="wh-original-cart-total"><span class='wh-original-price'>{{ cart.total_price | money }}</span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></h5>
+            <!-- <input type="submit" name="checkout" class="std btn" value="{{ 'cart.general.checkout' | t }}"> -->
+        </div>
+    </div>
+
+    <form class="cart" action="/cart" method="post" novalidate>
+        <div class="container">
+            <div class="responsive-table">
+
+                <span class="labelWrapper">
+                    <span class="product">Product Description</span>
+                    <span class="labelsRight">
+                        <span>{{ 'cart.label.quantity' | t }}</span>
+                        <span>{{ 'cart.label.price' | t }}</span>
+                        <span>{{ 'cart.label.total' | t }}</span>
+                    </span>
+                </span>
+
+                <div class="cartItems">
+
+                    {% for item in cart.items %}
+
+                    {% comment %}
+
+                    Cart Item Template
+                    =====================
+                    The data-label attributes on <td> elements are mobile-friendly
+                    helpers used for responsive-table labels
+                    {% endcomment %}
+
+                    <div class="cartItemsWrapper">
+                        <span class="left">
+                            <span data-label="{{ 'customer.order.product' | t }}">
+                                {% include 'iwish_v2' with 'iwishCart' %}
+                                <a onclick="ga('send', 'event', 'Shopping Bag', 'Remove Click', '{{ product.title }}');" href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="remove mobile">
+                                    {% include 'cross-small' %}
+                                </a>
+                                <a href="{{ item.url | within: collections.all }}">
+                                    <img src="{{ item | img_url: '240x240' }}" alt="{{ item.title | escape }}">
+                                </a>
+                            </span>
+                            <span>
+                                {% if item.product.metafields.accentuate.sale_promo_product %}
+                                    <span class="promoText">{{ item.product.metafields.accentuate.sale_promo_product }}</span>
+                                {% endif %}
+                                {% if item.product.metafields.accentuate.bonus_offer_on_product %}
+                                    <span class="promoText bonus">{{ item.product.metafields.accentuate.bonus_offer_on_product }}</span>
+                                {% endif %}
+
+                                <p class="vendor">{{ item.vendor }}</p>
+
+                                <a class="productName" href="{{ item.url }}">{{ item.product.title }}
+<span class='booster-cart-item-success-notes' data-key='{{item.key}}'></span><span class='booster-cart-item-upsell-notes' data-key='{{item.key}}'></span></a>
+
+                                {% unless item.product.has_only_default_variant %}
+                                <p class="variant">{{ item.variant.title }}</p>
+                                {% endunless %}
+
+
+                                {%- assign property_size = item.properties | size -%}
+
+                                {% if property_size > 0 %}
+                                {% for p in item.properties %}
+                                {% unless p.last == blank %}
+                                {{ p.first }}:
+
+                                {% if p.last contains '/uploads/' %}
+                                <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                                {% else %}
+                                {{ p.last }}
+                                {% endif %}
+
+                                {% endunless %}
+                                {% endfor %}
+                                {% endif %}
+
+                                {% include 'iwish_v2' with 'iwishCart' %}
+                                <a onclick="ga('send', 'event', 'Shopping Bag', 'Remove Click', '{{ product.title }}');" href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="remove desktop">
+                                    {% include 'cross-small' %}
+                                    <p>{{ 'cart.general.remove' | t }}</p>
+                                </a>
+                            </span>
+                        </span>
+                        <span class="right">
+                            <span data-label="{{ 'cart.label.quantity' | t }}" class="quantity">
+                                <!-- <tr rv-each-item="cart.items">
+                                    <a href="#" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">-</a>
+                                    <span rv-text="item.quantity"></span>
+                                    <a href="#" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">+</a>
+                                </tr> -->
+                                <!-- {% include 'plus' %} -->
+
+
+                               <select id="Quantity" class="quantity" data-item-id="{{ item.id }}">
+                                   {% for i in (1..5) %}
+                                       <option value="{{ i }}" {% if item.quantity == i %}selected{% endif %}>{{ i }}</option>
+                                   {% endfor %}
+                               </select>
+                                <!-- <input type="number"
+                                name="updates[]"
+                                id="updates_{{ item.key }}"
+                                value="{{ item.quantity }}"
+                                min="0"
+                                aria-label="{{ 'cart.general.item_quantity' | t }}"> -->
+                                <!-- {% include 'minus' %} -->
+                            </span>
+                            <span data-label="{{ 'cart.label.price' | t }}" class="price">
+                                {% if item.original_line_price != item.line_price %}
+                                <span class="visually-hidden">{{ 'cart.label.discounted_price' | t }}</span>
+                                <div class="pn-price-item" data-id="{{ item.key }}">{{ item.price | money }}</div>
+                                <span class="visually-hidden">{{ 'cart.label.original_price' | t }}</span>
+                                <s><div class="pn-price-item" data-id="{{ item.key }}">{{ item.original_price | money }}</div></s>
+                                {% else %}
+                                <div class="pn-price-item" data-id="{{ item.key }}">{{ item.price | money }}</div>
+                                {% endif %}
+                            </span>
+                            <span data-label="{{ 'cart.label.total' | t }}" class="total">
+                                <span class='booster-cart-item-line-price' data-key='{{item.key}}'><div class="pn-total-line-item" data-id="{{ item.key }}">{{ item.line_price | money }}</div></span>
+                            </span>
+                        </span>
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- <input class="update" type="submit" name="update" value="{{ 'cart.general.update' | t }}"> -->
+
+            {% if settings.cart_notes_enable %}
+            <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
+            <textarea name="note" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+            {% endif %}
+
+            <span class="subTotal">
+                <span>{{ 'cart.general.subtotal' | t }}</span>
+                <span><span class="wh-original-cart-total"><span class='wh-original-price'>{{ cart.total_price | money }}</span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></span>
+            </span>
+            {% if cart.total_discounts > 0 %}
+            <p class="savings">{{ 'cart.general.savings' | t }} {{ cart.total_discounts | money }}</p>
+            {% endif %}
+            <p class="shipping">{{ 'cart.general.shipping_at_checkout' | t }}</p>
+
+            <span class="subTotal total">
+                <span>{{ 'cart.label.total' | t }}</span>
+                <span><span class="wh-original-cart-total"><span class='wh-original-price'>{{ cart.total_price | money }}</span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></span>
+            </span>
+
+
+        </div>
+
+        <div class="cartOptions">
+            <div class="container">
+                <input type="submit" name="checkout" class="btn checkout mobile" value="{{ 'cart.general.checkout' | t }}">
+                <span class="continueShopping desktop">{% include 'chevron-left' %}{{ 'cart.general.continue_browsing_html' | t }}</span>
+                <span class="payment">
+                    <ul class="paymentMethods">
+                        <!-- <li class="afterPay">
+                            {% include 'afterpay-logo-black' %}
+                        </li> -->
+                        <li class="afterPay">
+                            <img src="{{'afterpay-logo.png' | asset_url }}" alt="AfterPay" />
+                        </li>
+                        <li class="visa">
+                            <img src="{{'visa.svg' | asset_url }}" alt="Visa" />
+                        </li>
+                        <li class="mastercard">
+                            <img src="{{'master.svg' | asset_url }}" alt="Mastercard" />
+                        </li>
+                        <li class="paypal">
+                            <img src="{{'paypal.svg' | asset_url }}" alt="Paypal" />
+                        </li>
+                    </ul>
+                    <input type="submit" name="checkout" class="btn checkout desktop" value="{{ 'cart.general.checkout' | t }}">
+                    <span class="continueShopping mobile">{% include 'chevron-left' %}{{ 'cart.general.continue_browsing_html' | t }}</span>
+                </span>
+            </div>
+        </div>
+    </form>
+    {% else %}
+
+    <div class="cartHeader">
+        <div class="container">
+            <h1>Your Shopping Bag</h1>
+
+            {% comment %}
+            Cart empty state
+            {% endcomment %}
+            <div class="supports-cookies">
+                <p>{{ 'cart.general.empty' | t }}</p>
+                <span class="continueShopping">{% include 'chevron-left' %}{{ 'cart.general.continue_browsing_html' | t }}</span>
+
+                <!-- <p>{{ 'cart.general.continue_browsing_html' | t }}</p> -->
+            </div>
+
+            {% comment %}
+            Cart no cookies state
+            ---------------------
+            Browser cookies are required to use the cart. If cookies aren't enabled in the
+            browser a message is displayed prompting the user to enable them.
+            {% endcomment %}
+            <div class="supports-no-cookies">
+                <p>{{ 'cart.general.cookies_required' | t }}</p>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+<section class="productCarousel">
+    <div class="container">
+        {% include 'dtk_recentviewed_display' %}
+    </div>
+</section>
+
+<section class="productCarousel">
+    <div class="container">
+
+        {% if collections[shop.metafields.accentuate.cart_featured_collection].title != blank %}
+          <h1 class="title">{{ collections[shop.metafields.accentuate.cart_featured_collection].title }}</h1>
+        {% endif %}
+
+
+        <div class="owl-carousel">
+
+            {%- assign collection = collections[shop.metafields.accentuate.cart_featured_collection] -%}
+                {% for product in collection.products %}
+
+
+                <div class="productWrapper">
+                    <div class="iwishAddShop">{% include 'iwish_v2' with 'iwishCollection' %}</div>
+                    <!-- <span class="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span> -->
+
+                    <a href="{{ product.url | within: collection }}" class="item">
+                        <span class="imageWrapper">
+                            {% if product.metafields.accentuate.sale_flag == 'Yes' %}
+	                         {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color:{{ product.metafields.accentuate.flag_border }}; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% else %}
+	                            <span class="saleSticker" style="display: block; background-color: {{ product.metafields.accentuate.flag_colour }}; border-radius: 50%; border: 2px solid {{ product.metafields.accentuate.flag_border }}; color: #fff; ">{{ product.metafields.accentuate.flag_text }}</span>
+                             {% endif %}
+                          {% endif %}
+                            <span class="imageContainer" style="background-image:url('{{ product.featured_image.src | img_url: '1024x1024' }}');">
+                            </span>
+                        </span>
+
+                        <span class="productInformation">
+                            <span class="contentDetails">
+                                <!-- {% for collection in product.collections %}
+                                    <span class="productTag">{{ collection.title }}</span>
+                                {% endfor %} -->
+                                {% if product.metafields.accentuate.sale_promo_product %}
+	                             {% if product.metafields.accentuate.flag_colour == '#ffffff' %}
+	                                <span class="promoText" style="color: {{ product.metafields.accentuate.flag_border }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                 {% else %}
+                                    <span class="promoText" style="color: {{ product.metafields.accentuate.flag_colour }};">{{ product.metafields.accentuate.sale_promo_product }}</span>
+                                 {% endif %}
+                                {% endif %}
+                                <span class="productName">{{ product.title }}</span>
+                                <span class="productPrice">{{ product.price | money }}</span>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% if shop.metafields.accentuate.cart_block_link_one %}
+<section class="three atbcollection">
+    <div class="container">
+        <a class="column" href="{{ shop.metafields.accentuate.cart_block_link_one }}">
+            <span class="atbImageContainer">
+                <span class="atbImage" style="background-image: url({{ shop.metafields.accentuate.cart_block_image_one }});"></span>
+            </span>
+            <span class="text">
+                <span class="title">{{ shop.metafields.accentuate.cart_block_text_one }}</span>
+                <span class="std btn secondary">Shop all</span>
+            </span>
+        </a>
+        <a class="column" href="{{ shop.metafields.accentuate.cart_block_link_two }}">
+            <span class="atbImageContainer">
+                <span class="atbImage" style="background-image: url({{ shop.metafields.accentuate.cart_block_image_two }});"></span>
+            </span>
+            <span class="text">
+                <span class="title">{{ shop.metafields.accentuate.cart_block_text_two }}</span>
+                <span class="std btn secondary">Shop all</span>
+            </span>
+        </a>
+        <a class="column" href="{{ shop.metafields.accentuate.cart_block_link_three }}">
+            <span class="atbImageContainer">
+                <span class="atbImage" style="background-image: url({{ shop.metafields.accentuate.cart_block_image_three }});"></span>
+            </span>
+            <span class="text">
+                <span class="title">{{ shop.metafields.accentuate.cart_block_text_three }}</span>
+                <span class="std btn secondary">Shop all</span>
+            </span>
+        </a>
+    </div>
+</section>
+{% endif %}

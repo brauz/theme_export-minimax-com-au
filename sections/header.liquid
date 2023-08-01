@@ -1,0 +1,1263 @@
+<style>
+    {% if section.settings.logo != blank %}
+    .site-header__logo-image {
+      max-width: {{ section.settings.logo_max_width }}px;
+    }
+    {% endif %}
+
+    {% if section.settings.align_logo == 'left' %}
+    .site-header__logo-image {
+      margin: 0;
+    }
+    {% endif %}
+
+</style>
+<div data-section-id="{{ section.id }}" data-section-type="header-section">
+
+
+
+    <header role="banner" class="">
+        {% if shop.metafields.accentuate.covid_safety_banner != blank %}
+            <div class="covid-19-banner">
+              <span class="subscribeTextWrapper">
+                  <span class="subscribeText">
+                      {{ shop.metafields.accentuate.covid_safety_banner }}
+                  </span>
+              </span>
+                <span class="close" style="visibility: hidden">
+                  {% include 'cross-small' %}
+              </span>
+            </div>
+        {% endif %}
+
+        <div class="white-header-menu">
+            <div class="white-header-left">
+                {% include 'icon-truck' %}
+                {{ shop.metafields.accentuate.global_text_header }}
+            </div>
+            <div class="white-header-right">
+                <ul class="menu-links">
+                    {% for link in linklists.ose-top-right-menu.links %}
+                        <li>{{ link.title | link_to: link.url }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="full-head-wrapper">
+            <div class="headerContainer">
+                <div class="container">
+            <span class="headerLeft">
+
+                <div class="buttonWrapper">
+                	<a class="nav">
+                		<span class="ham"></span>
+                	</a>
+                </div>
+
+                <a href="/pages/store-finder" class="storeLocator">{% include 'location-pin-new' %}<span>Store Finder</span></a>
+                <span class="wishlist-mobile">{% include 'iwish_v2' with 'iwishlink' %}</span>
+                
+            </span>
+                    <span class="logoContainer">
+                <a href="/" itemprop="url" class="site-logo">
+                  {% include 'logowithtagline' %}
+                </a>
+                <a href="/" itemprop="url" class="site-logo mobile">
+                  {% include 'mobile-logo' %}
+                </a>
+            </span>
+                    <span class="headerRight">
+                <a class="buttonAccount" href="/account" title="ACCOUNT">
+                  {% include 'account-icon' %}
+                  <span>My Account</span>
+                </a>
+                        <!-- <a class="wishlist" href="/a/wishlist">{% include 'heart-icon' %}</a> -->
+                
+                {% include 'iwish_v2' with 'iwishlink' %}
+                <a class="wishlist" href="/apps/iwish" title="wishlist">
+                  <span class="wishlist-text">Wishlist</span>
+                </a>
+                
+                <a class="cartButton" href="/cart" title="SHOPPING CART">
+                    {% include 'bag' %}
+                    {% if cart.item_count != 0 %}
+                        <span class="cartCounter" data-cart-render="item_count">{{ cart.item_count }}</span>
+                    {% endif %}
+                </a>
+            </span>
+                </div>
+            </div>
+            <nav class="headerNav" role="navigation">
+                <a href="/" itemprop="url" class="site-logo">
+                    {% include 'monogram' %}
+                </a>
+
+                <div class="container">
+                    <ul class="site-nav">
+                        {% for link in linklists[section.settings.main_linklist].links %}
+                            <li {% if link.active %}class="site-nav--active"{% endif %}>
+                                <a href="{{ link.url }}" class="site-nav__link {{ link.title }}">{{ link.title }}</a>
+                                <span class="activeState"></span>
+                            </li>
+                        {% endfor %}
+
+
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="megaMenu">
+
+                {% if linklists.ose-kitchenware-menu.links != blank %}
+                    <div class="block cookware">
+                        <div class="container">
+
+                            <div class="image-menu">
+                                {% for block in section.blocks %}
+                                    {% case block.type %}
+                                        {% when 'cookware_img' %}
+                                            <div class="image-menu-item">
+                                                <div class="image-menu-text">
+
+                                                    <p class="image-menu-title">{{ block.settings.title }}</p>
+                                                    <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                                </div>
+
+                                                <div class="image-menu-image">
+                                                    {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                                </div>
+                                            </div>
+
+                                    {% endcase %}
+                                {% endfor %}
+
+                            </div>
+
+
+                            <div class="menu menu-flex">
+                                {% if linklists.ose-cookware-menu.links != blank %}
+                                    {% for link in linklists.ose-cookware-menu.links %}
+                                        {% liquid
+                                            assign class = ""
+
+                                            case link.title
+                                                when "SHOP TYPE"
+                                                    assign class = "menuItem--break"
+                                                when "SHOP MATERIAL"
+                                                    assign class = "menuItem--break"
+                                                when "BAKEWARE"
+                                                    assign class = "menuItem--break"
+                                            endcase
+
+                                        %}
+                                        <ul class="menuColumn {{ class }}">
+                                            <li>{{ link.title | link_to: link.url }}</li>
+
+                                            {% if link.links != blank %}
+                                                {% for child_link in link.links %}
+                                                    <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+
+                            <div class="brand-menu">
+                                <div class="brand-menu-title">SHOP BRAND</div>
+                                <div class="brand-menu-tiles">
+
+                                    {% for block in section.blocks %}
+                                        {% case block.type %}
+                                            {% when 'cookware_brand' %}
+                                                <a class="brand-menu-tile" href="{{ block.settings.url }}">
+                                                    {{ block.settings.image | img_url | img_tag: block.settings.title }}
+                                                </a>
+                                        {% endcase %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if linklists.ose-kitchenware-menu.links != blank %}
+                    <div class="block kitchenware">
+                        <div class="container">
+
+                            <div class="image-menu">
+                                {% for block in section.blocks %}
+                                    {% case block.type %}
+                                        {% when 'kitchenware_img' %}
+                                            <div class="image-menu-item">
+                                                <div class="image-menu-text">
+
+                                                    <p class="image-menu-title">{{ block.settings.title }}</p>
+                                                    <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                                </div>
+
+                                                <div class="image-menu-image">
+                                                    {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                                </div>
+                                            </div>
+
+                                    {% endcase %}
+                                {% endfor %}
+
+                            </div>
+
+
+                            <div class="menu">
+                                {% if linklists.ose-kitchenware-menu.links != blank %}
+                                    {% for link in linklists.ose-kitchenware-menu.links %}
+                                        <ul class="menuColumn">
+                                            <li>{{ link.title | link_to: link.url }}</li>
+
+                                            {% if link.links != blank %}
+                                                {% for child_link in link.links %}
+                                                    <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+
+                            <div class="brand-menu">
+                                <div class="brand-menu-title">SHOP BRAND</div>
+                                <div class="brand-menu-tiles">
+
+                                    {% for block in section.blocks %}
+                                        {% case block.type %}
+                                            {% when 'kitchenware_brand' %}
+                                                <a class="brand-menu-tile" href="{{ block.settings.url }}">
+                                                    {{ block.settings.image | img_url | img_tag: block.settings.title }}
+                                                </a>
+                                        {% endcase %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if linklists.ose-appliances-menu.links != blank %}
+                    <div class="block appliances">
+                        <div class="container">
+
+                            <div class="image-menu">
+                                {% for block in section.blocks %}
+                                    {% case block.type %}
+                                        {% when 'appliances_img' %}
+                                            <div class="image-menu-item">
+                                                <div class="image-menu-text">
+
+                                                    <p class="image-menu-title">{{ block.settings.title }}</p>
+                                                    <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                                </div>
+
+                                                <div class="image-menu-image">
+                                                    {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                                </div>
+                                            </div>
+
+                                    {% endcase %}
+                                {% endfor %}
+
+                            </div>
+
+
+                            <div class="menu">
+                                {% if linklists.ose-appliances-menu.links != blank %}
+                                    {% for link in linklists.ose-appliances-menu.links %}
+                                        {% liquid
+                                            assign class = ""
+
+                                            if link.title == "Household Appliances"
+                                                assign class = "menuItem--break"
+                                            endif
+                                        %}
+                                        <ul class="menuColumn {{ class }}">
+                                            <li>{{ link.title | link_to: link.url }}</li>
+
+                                            {% if link.links != blank %}
+                                                {% for child_link in link.links %}
+                                                    <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+
+                            {% assign brandBlocksCount = section.blocks | where: "type", "appliances_brand" | size %}
+
+                            {% if brandBlocksCount > 0 %}
+                                <div class="brand-menu">
+                                    <div class="brand-menu-title">SHOP BRAND</div>
+                                    <div class="brand-menu-tiles">
+
+                                        {% for block in section.blocks %}
+                                            {% case block.type %}
+                                                {% when 'appliances_brand' %}
+                                                    <a class="brand-menu-tile" href="{{ block.settings.url }}">
+                                                        {{ block.settings.image | img_url | img_tag: block.settings.title }}
+                                                    </a>
+                                            {% endcase %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if linklists.ose-tabletop-menu.links != blank %}
+                    <div class="block tabletop">
+                        <div class="container">
+
+                            <div class="image-menu">
+                                {% for block in section.blocks %}
+                                    {% case block.type %}
+                                        {% when 'tabletop_img' %}
+                                            <div class="image-menu-item">
+                                                <div class="image-menu-text">
+
+                                                    <p class="image-menu-title">{{ block.settings.title }}</p>
+                                                    <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                                </div>
+
+                                                <div class="image-menu-image">
+                                                    {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                                </div>
+                                            </div>
+
+                                    {% endcase %}
+                                {% endfor %}
+
+                            </div>
+
+
+                            <div class="menu">
+                                {% if linklists.ose-tabletop-menu.links != blank %}
+                                    {% for link in linklists.ose-tabletop-menu.links %}
+                                        <ul class="menuColumn">
+                                            <li>{{ link.title | link_to: link.url }}</li>
+
+                                            {% if link.links != blank %}
+                                                {% for child_link in link.links %}
+                                                    <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+
+                            <div class="brand-menu">
+                                <div class="brand-menu-title">SHOP BRAND</div>
+                                <div class="brand-menu-tiles">
+
+                                    {% for block in section.blocks %}
+                                        {% case block.type %}
+                                            {% when 'tabletop_brand' %}
+                                                <a class="brand-menu-tile" href="{{ block.settings.url }}">
+                                                    {{ block.settings.image | img_url | img_tag: block.settings.title }}
+                                                </a>
+                                        {% endcase %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if linklists.ose-living-menu.links != blank %}
+                    <div class="block living">
+                        <div class="container">
+
+                            <div class="image-menu">
+                                {% for block in section.blocks %}
+                                    {% case block.type %}
+                                        {% when 'living_img' %}
+                                            <div class="image-menu-item">
+                                                <div class="image-menu-text">
+
+                                                    <p class="image-menu-title">{{ block.settings.title }}</p>
+                                                    <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                                </div>
+
+                                                <div class="image-menu-image">
+                                                    {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                                </div>
+                                            </div>
+
+                                    {% endcase %}
+                                {% endfor %}
+
+                            </div>
+
+
+                            <div class="menu">
+                                {% if linklists.ose-living-menu.links != blank %}
+                                    {% for link in linklists.ose-living-menu.links %}
+                                        <ul class="menuColumn">
+                                            <li>{{ link.title | link_to: link.url }}</li>
+
+                                            {% if link.links != blank %}
+                                                {% for child_link in link.links %}
+                                                    <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+
+                            <div class="brand-menu">
+                                <div class="brand-menu-title">SHOP BRAND</div>
+                                <div class="brand-menu-tiles">
+
+                                    {% for block in section.blocks %}
+                                        {% case block.type %}
+                                            {% when 'living_brand' %}
+                                                <a class="brand-menu-tile" href="{{ block.settings.url }}">
+                                                    {{ block.settings.image | img_url | img_tag: block.settings.title }}
+                                                </a>
+                                        {% endcase %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if linklists.christmas.links != blank %}
+                    <div class="block christmas">
+                        <div class="container">
+
+                            <div class="image-menu">
+                                {% for block in section.blocks %}
+                                    {% case block.type %}
+                                        {% when 'christmas_img' %}
+                                            <div class="image-menu-item">
+                                                <div class="image-menu-text">
+
+                                                    <p class="image-menu-title">{{ block.settings.title }}</p>
+                                                    <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                                </div>
+
+                                                <div class="image-menu-image">
+                                                    {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                                </div>
+                                            </div>
+
+                                    {% endcase %}
+                                {% endfor %}
+
+                            </div>
+
+
+                            <div class="menu">
+                                {% if linklists.christmas.links != blank %}
+                                    {% for link in linklists.christmas.links %}
+                                        <ul class="menuColumn">
+                                            <li>{{ link.title | link_to: link.url }}</li>
+
+                                            {% if link.links != blank %}
+                                                {% for child_link in link.links %}
+                                                    <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+
+                            <div class="brand-menu">
+                                <div class="brand-menu-title">SHOP BRAND</div>
+                                <div class="brand-menu-tiles">
+
+                                    {% for block in section.blocks %}
+                                        {% case block.type %}
+                                            {% when 'christmas_brand' %}
+                                                <a class="brand-menu-tile" href="{{ block.settings.url }}">
+                                                    {{ block.settings.image | img_url | img_tag: block.settings.title }}
+                                                </a>
+                                        {% endcase %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if linklists.ose-gifts-menu.links != blank %}
+                    <div class="block gifts">
+                        <div class="container">
+
+                            <div class="image-menu">
+                                {% for block in section.blocks %}
+                                    {% case block.type %}
+                                        {% when 'gift_img' %}
+                                            <div class="image-menu-item">
+                                                <div class="image-menu-text">
+
+                                                    <p class="image-menu-title">{{ block.settings.title }}</p>
+                                                    <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                                </div>
+
+                                                <div class="image-menu-image">
+                                                    {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                                </div>
+                                            </div>
+
+                                    {% endcase %}
+                                {% endfor %}
+
+                            </div>
+
+
+                            <div class="menu">
+                                {% if linklists.ose-gifts-menu.links != blank %}
+                                    {% for link in linklists.ose-gifts-menu.links %}
+                                        <ul class="menuColumn">
+                                            <li>{{ link.title | link_to: link.url }}</li>
+
+                                            {% if link.links != blank %}
+                                                {% for child_link in link.links %}
+                                                    <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <img src="{{'heart-icon-full.svg' | asset_url }}" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" />
+
+            <div class="search-bar">
+
+                <form action="/search" method="get" role="search" class="header-form">
+                    <span class="pipe"></span>
+                    <label for="Search" class="label-hidden">
+                        {{ 'general.search.placeholder' | t }}
+                    </label>
+
+                    <input type="search"
+                           name="q"
+                           id="Search"
+                           value="{{ search.terms | escape }}">
+                    <button type="submit" class="btn">
+                        {% include 'search' %}
+                        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </header>
+
+
+    <div id="mobileMenu">
+        <div class="close">
+            <span class="mobile-menu-logo">{% include 'mobile-logo' %}</span>
+            <span class="closeCross">{% include 'cross-small' %}</span>
+        </div>
+        <nav role="navigation">
+
+            <ul class="site-nav">
+                {% for link in linklists[section.settings.main_linklist].links %}
+                    {%- assign child_list_handle = link.title | handleize -%}
+                    {% if menus[child_list_handle].links != blank %}
+                        <li class="site-nav--has-submenu{% if link.active %} site-nav--active{% endif %}">
+                            <a href="{{ link.url }}" class="site-nav__link {{ link.title }}">
+                                {{ link.title }}
+                                {% include 'icon-arrow-down' %}
+                            </a>
+                            <ul class="site-nav__submenu">
+                                {% for childlink in menus[child_list_handle].links %}
+                                    <li {% if childlink.active %}class="site-nav--active"{% endif %}>
+                                        <a href="{{ childlink.url }}" class="site-nav__link {{ link.title }}">{{ childlink.title | escape }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li {% if link.active %}class="site-nav--active"{% endif %}>
+                            <a href="{{ link.url }}" class="site-nav__link {{ link.title }}">{{ link.title }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <div class="mobile-only-menus">
+                <div class="mo-title">{{ section.settings.menu_1_title }}</div>
+                {%- assign footer_linklist = section.settings.footer_linklist -%}
+                {% if linklists[footer_linklist].links.size > 0 %}
+                    <div class="mo-menu">
+                        {% for link in linklists[footer_linklist].links %}
+                            <div><a href="{{ link.url }}">{{ link.title }}</a></div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="mo-title">{{ section.settings.menu_2_title }}</div>
+                {%- assign footer_linklist2 = section.settings.footer2_linklist -%}
+                {% if linklists[footer_linklist2].links.size > 0 %}
+                    <div class="mo-menu">
+                        {% for link in linklists[footer_linklist2].links %}
+                            <div><a href="{{ link.url }}">{{ link.title }}</a></div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="mo-title">{{ section.settings.menu_3_title }}</div>
+                {%- assign footer_linklist3 = section.settings.footer3_linklist -%}
+                {% if linklists[footer_linklist3].links.size > 0 %}
+                    <div class="mo-menu">
+                        {% for link in linklists[footer_linklist3].links %}
+                            <div><a href="{{ link.url }}">{{ link.title }}</a></div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+
+
+        <div class="mobileMegaMenu">
+
+            <div class="block cookware">
+                <div class="back">
+                    <div class="backArrow">COOKWARE</div>
+                </div>
+
+                <div class="menu">
+                    {% if linklists.ose-cookware-menu.links != blank %}
+                        {% for link in linklists.ose-cookware-menu.links %}
+                            <ul class="menuColumn {{ class }}">
+                                <li>{{ link.title | link_to: link.url }}</li>
+
+                                {% if link.links != blank %}
+                                    {% for child_link in link.links %}
+                                        <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="image-menu">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'cookware_img' %}
+                                <div class="image-menu-item">
+                                    <div class="image-menu-text">
+
+                                        <p class="image-menu-title">{{ block.settings.title }}</p>
+                                        <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                    </div>
+
+                                    <div class="image-menu-image">
+                                        {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                    </div>
+                                </div>
+                        {% endcase %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+
+            <div class="block kitchenware">
+                <div class="back">
+                    <div class="backArrow">KITCHENWARE</div>
+                </div>
+                <div class="menu">
+                    {% if linklists.ose-kitchenware-menu.links != blank %}
+                        {% for link in linklists.ose-kitchenware-menu.links %}
+                            <ul class="menuColumn">
+                                <li>{{ link.title | link_to: link.url }}</li>
+
+                                {% if link.links != blank %}
+                                    {% for child_link in link.links %}
+                                        <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="image-menu">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'kitchenware_img' %}
+                                <div class="image-menu-item">
+                                    <div class="image-menu-text">
+
+                                        <p class="image-menu-title">{{ block.settings.title }}</p>
+                                        <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                    </div>
+
+                                    <div class="image-menu-image">
+                                        {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                    </div>
+                                </div>
+                        {% endcase %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <div class="block appliances">
+                <div class="back">
+                    <div class="backArrow">APPLIANCES</div>
+                </div>
+                <div class="menu">
+                    {% if linklists.ose-appliances-menu.links != blank %}
+                        {% for link in linklists.ose-appliances-menu.links %}
+                            <ul class="menuColumn">
+                                <li>{{ link.title | link_to: link.url }}</li>
+
+                                {% if link.links != blank %}
+                                    {% for child_link in link.links %}
+                                        <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="image-menu">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'appliances_img' %}
+                                <div class="image-menu-item">
+                                    <div class="image-menu-text">
+
+                                        <p class="image-menu-title">{{ block.settings.title }}</p>
+                                        <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                    </div>
+
+                                    <div class="image-menu-image">
+                                        {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                    </div>
+                                </div>
+                        {% endcase %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <div class="block tabletop">
+                <div class="back">
+                    <div class="backArrow">TABLETOP</div>
+                </div>
+                <div class="menu">
+                    {% if linklists.ose-tabletop-menu.links != blank %}
+                        {% for link in linklists.ose-tabletop-menu.links %}
+                            <ul class="menuColumn">
+                                <li>{{ link.title | link_to: link.url }}</li>
+
+                                {% if link.links != blank %}
+                                    {% for child_link in link.links %}
+                                        <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="image-menu">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'tabletop_img' %}
+                                <div class="image-menu-item">
+                                    <div class="image-menu-text">
+
+                                        <p class="image-menu-title">{{ block.settings.title }}</p>
+                                        <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                    </div>
+
+                                    <div class="image-menu-image">
+                                        {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                    </div>
+                                </div>
+                        {% endcase %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <div class="block living">
+                <div class="back">
+                    <div class="backArrow">LIVING</div>
+                </div>
+                <div class="menu">
+                    {% if linklists.ose-living-menu.links != blank %}
+                        {% for link in linklists.ose-living-menu.links %}
+                            <ul class="menuColumn">
+                                <li>{{ link.title | link_to: link.url }}</li>
+
+                                {% if link.links != blank %}
+                                    {% for child_link in link.links %}
+                                        <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="image-menu">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'living_img' %}
+                                <div class="image-menu-item">
+                                    <div class="image-menu-text">
+
+                                        <p class="image-menu-title">{{ block.settings.title }}</p>
+                                        <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                    </div>
+
+                                    <div class="image-menu-image">
+                                        {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                    </div>
+                                </div>
+                        {% endcase %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <div class="block gifts">
+                <div class="back">
+                    <div class="backArrow">GIFTS</div>
+                </div>
+                <div class="menu">
+                    {% if linklists.ose-gifts-menu.links != blank %}
+                        {% for link in linklists.ose-gifts-menu.links %}
+                            <ul class="menuColumn">
+                                <li>{{ link.title | link_to: link.url }}</li>
+
+                                {% if link.links != blank %}
+                                    {% for child_link in link.links %}
+                                        <li>{{ child_link.title | link_to: child_link.url }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="image-menu">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'gift_img' %}
+                                <div class="image-menu-item">
+                                    <div class="image-menu-text">
+
+                                        <p class="image-menu-title">{{ block.settings.title }}</p>
+                                        <a class="image-menu-button" href="{{ block.settings.url }}">Shop Now</a>
+
+                                    </div>
+
+                                    <div class="image-menu-image">
+                                        {{ block.settings.image | img_url: "x600" | img_tag: block.settings.title }}
+                                    </div>
+                                </div>
+                        {% endcase %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--GW WAS HERE 2017-2020-->
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "logo_max_width",
+      "label": "Custom logo width (in pixels)",
+      "default": "250"
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "Mobile-only menu 1 Title"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_linklist",
+      "label": "Mobile-only menu 1",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Mobile-only menu 2 Title"
+    },
+    {
+      "type": "link_list",
+      "id": "footer2_linklist",
+      "label": "Mobile-only menu 2",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_title",
+      "label": "Mobile-only menu 3 Title"
+    },
+    {
+      "type": "link_list",
+      "id": "footer3_linklist",
+      "label": "Mobile-only menu 3",
+      "default": "footer"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Christmas image link",
+      "type": "christmas_img",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Christmas brand",
+      "type": "christmas_brand",
+      "limit": 16,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Cookware image link",
+      "type": "cookware_img",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Cookware brand",
+      "type": "cookware_brand",
+      "limit": 16,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Kitchenware image link",
+      "type": "kitchenware_img",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Kitchenware brand",
+      "type": "kitchenware_brand",
+      "limit": 16,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Appliances image link",
+      "type": "appliances_img",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Appliances brand",
+      "type": "appliances_brand",
+      "limit": 16,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Tabletop image link",
+      "type": "tabletop_img",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Tabletop brand",
+      "type": "tabletop_brand",
+      "limit": 16,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Living image link",
+      "type": "living_img",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Living brand",
+      "type": "living_brand",
+      "limit": 16,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Gift image link",
+      "type": "gift_img",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

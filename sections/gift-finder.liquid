@@ -1,0 +1,190 @@
+{% include 'spurit_po2_section_snippet', product: null, products: collections[section.settings.collection].products %}
+<div class="container gift-container">
+  <div class="bc-gf">
+    <div class="bc-gf-body">
+      <div class="bc-gf-options"></div>
+      
+      <a href="#" id="bc-gf-button" class="std btn secondary">{{section.settings.button_text}}<img src="{{'play-button.png' | asset_img_url: '20x' }}" alt="Finder button image" style="display:none"/></a>
+    </div>
+  </div>
+</div>
+
+
+<select id="template" style="display:none;">
+  <option id="templateOption"></option>
+</select>
+
+<style>
+  .gift-container {
+	max-height: 440px;
+  }
+  
+  .bc-gf {
+    width: 100%;
+    padding: 10px 0 !important;
+    text-align: center;
+    position: relative;
+    height: 100%;
+    background: url(https:{{section.settings.background_image | img_url: 'original' }});
+    background-size: cover;   
+    font-family: "Brown-Light",sans-serif;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .bc-gf-body {
+    background-color: rgba(255,255,255,0.9);
+    width: 600px;
+    padding: 70px 10px;
+    display: inline-block;
+    color: {{section.settings.button_color}};
+    margin: 0;
+  }
+  
+  #bc-gf-button {
+    background-color: transparent;
+    color: black;
+  }
+  
+  #bc-gf-button:hover {
+    background-color: black;
+    color: white;
+  }
+   
+  #bc-gf-button img {
+    position: absolute;
+    top: 20px;
+  }
+  
+  .bc-gf-options {
+    font-size: 1.4em;
+    line-height: 1.6em;
+    margin-bottom: 40px;
+    font-family: "Brown-Light",sans-serif;
+  }
+  
+  .bc-gf-options select {
+    border-bottom: 1px dashed #000;
+    line-height: 1.2em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    background-image: none;
+    width: auto;
+  }
+  
+  .bc-gf-options select::-ms-expand {
+    display: none;
+  }
+  
+  @media (max-width: 767px) {
+    .bc-gf {
+      padding: 30px !important;
+      margin-bottom: 20px;
+      height: auto;
+      background-size: auto;      
+    }
+    
+    .bc-gf-body {     
+      width: 100%;
+      position: relative;
+    }
+    
+    .bc-gf-options {
+      font-size: 1em;      
+    }   
+    
+  }
+    
+</style>
+
+<script defer>
+  {% assign collection = collections[section.settings.collection] %} 
+  var placeholders = [
+    {% for block in section.blocks limit: section.blocks.size %}
+    '{{block.settings.placeholder}}',
+    {% endfor %}
+  ]; 
+  
+  
+  document.addEventListener("DOMContentLoaded", function() {
+    var url = 'https://services.mybcapps.com/bc-sf-filter/filter?shop=' + bcSfFilterConfig.shop.domain + '&page=1&limit=1&collection_scope={{collection.id}}&build_filter_tree=true';
+    
+    $.get(url, function(data) {
+      data.filter.options.forEach(function(option, idx) {
+        var options = option.values.map(function(val) { return '<option value="' + escape(val.key) + '">'+ val.key + '</option>' });
+        var defaultValue = idx > placeholders.length - 1 ? '[select]' : placeholders[idx];
+        options.push('<option selected="selected">' + defaultValue + '</option>');
+        
+        $('#templateOption').text( defaultValue );
+        
+        $('.bc-gf-options').append('<div><span>' + option.label + '</span> <select class="gf-select" id="gf-select-' + idx + '" data-filter-option-id="' + option.filterOptionId + '">' +  options.join('') + '</select></div>');
+      });
+    });   
+    
+    $('#bc-gf-button').click(function(e) {
+      e.preventDefault();
+      var query = '';
+      
+      $('.gf-select').each(function() {
+        var filter = $(this).data('filter-option-id');
+        var option = $(this).find('option:selected').val();
+        if (!placeholders.includes(option) && option !== '[select]') {
+        	query += filter + '=' + option + '&';
+        }
+      });
+      
+      window.location.href = '{{ collection.url }}?' + query;
+    });
+                   
+  });
+  
+</script>
+
+{% schema %}
+  {
+    "name": "Gift Finder",
+    "max_blocks": 10,
+    "settings": [
+      {
+        "label": "Collection",
+        "id": "collection",
+        "type": "collection"
+      },
+      {
+        "id": "background_image",
+        "type": "image_picker",
+        "label": "Background image"
+      },	 
+	  {
+        "id": "button_text",
+        "type": "text",
+        "label": "Button label",
+		"default": "Find a gift"
+      }
+	],
+    "blocks" : [
+  	  {
+        "type": "text",
+        "name": "Placeholders",
+        "settings": [
+          {
+            "label": "Text",
+            "id": "placeholder",
+            "type": "text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+	      "name": "Gift Finder",
+    	  "category": "Filter"
+      }
+    ]
+  }
+{% endschema %}
+

@@ -1,0 +1,111 @@
+{% assign products_per_page = 60 %}
+
+<div class="container">
+  <div class="productHeader">
+    <h1>
+      {% if search.performed %}
+      {% if search.results_count == 0 %}
+      {{ 'general.search.no_results_html' | t: terms: search.terms }}
+      {% else %}
+      {{ 'general.search.results_for_html' | t: terms: search.terms }}
+      {% endif %}
+      {% else %}
+      {{ 'general.search.title' | t }}
+      {% endif %}
+    </h1>
+
+  </div>
+</div>
+
+<div class="container">
+  <div class="filterBlock">
+    <div id="bc-sf-filter-top-sorting"></div>
+  </div>
+
+  <div class="filterWidget">
+    <div id="bc-sf-filter-tree-mobile"></div>
+    <div id="bc-sf-filter-tree">&nbsp;</div>
+  </div>
+
+  <div id="bc-sf-filter-products" class="productBlock"></div>
+  {% if paginate.next %}
+      <div id="bc-sf-filter-bottom-pagination" class="pagination"></div>
+  {% endif %}
+</div>
+
+<script>
+  // Declare bcSfFilterConfig variable
+  var bcSfFilterConfig = {
+    shop: {
+      apiUrl: 'https://services.mybcapps.com/bc-sf-filter/search',
+      name: '{{ shop.name | escape }}',
+      url: '{{ shop.url }}',
+      domain: '{{ shop.permanent_domain }}',
+      currency: '{{ shop.currency }}',
+      money_format: '{{ shop.money_format }}'
+    },
+    general: {
+      file_url: "{{ '' | file_url }}",
+      asset_url: "{{ 'bc-sf-filter.js' | asset_url }}",
+      collection_id: {{ collection.id | default: 0 }},
+      collection_handle: "{{ collection.handle }}",
+      {% for tag in collection.tags %}
+        {% assign tag_handle = tag | handle %}
+        {% for current_tag in current_tags %}
+          {% assign current_tag_handle = current_tag | handle %}
+          {% if current_tag_handle == tag_handle %}
+            {% assign current_tag_text = tag %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+      {% if current_tag_text != blank %}
+        collection_tags: ["{{ current_tag_text }}"],
+      {% endif %}
+      current_tags: {{ current_tags | json }},
+      default_sort_by: "{{ collection.default_sort_by }}",
+      swatch_extension: "png",
+      no_image_url: "{{ 'bc-sf-filter-no-image.gif' | asset_url }}",
+      search_term: "{{ search.terms | default: '' }}"
+    },
+    {% if shop.metafields.bc-sf-filter.settings != blank %}
+    settings: {{ shop.metafields.bc-sf-filter.settings }},
+    {% endif %}
+    label: {
+      refine: "{{ 'product_filter_search.refine' | t }}",
+      refine_mobile: "{{ 'product_filter_search.refine_mobile' | t }}",
+      clear: "{{ 'product_filter_search.clear' | t }}",
+      clear_all: "{{ 'product_filter_search.clear_all' | t }}",
+      apply: "{{ 'product_filter_search.apply' | t }}",
+      breadcrumb_home: {% if product_filter_search.breadcrumb_home != blank %} {{ 'product_filter_search.breadcrumb_home' | t }}" {% else %} "Home" {% endif %},
+      default_collection_header: {% assign temp =  'product_filter_search.default_collection_header' | t %} {% unless temp contains 'translation missing'  %} "{{ collection.title }}" {% else %} "Products" {% endunless %},
+      load_more: {% assign temp = 'product_filter_search.load_more' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Load more Products" {% endunless %},
+      show_limit: {% assign temp = 'product_filter_search.show_limit' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Show" {% endunless %},
+      sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} "Sort by" {% else %} "Sort by" {% endunless %},
+      sorting_best_selling: {% assign temp = 'collections.sorting.best_selling' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Best Selling" {% endunless %},
+      sorting_featured: {% assign temp = 'collections.sorting.featured' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Featured" {% endunless %},
+      sorting_title_ascending: {% assign temp = 'collections.sorting.az' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Alphabetically, A-Z" {% endunless %},
+      sorting_title_descending: {% assign temp = 'collections.sorting.za' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Alphabetically, Z-A" {% endunless %},
+      sorting_price_ascending: {% assign temp = 'collections.sorting.price_ascending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Lowest Price" {% endunless %},
+      sorting_price_descending: {% assign temp = 'collections.sorting.price_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Highest Price" {% endunless %},
+      sorting_date_ascending: {% assign temp = 'collections.sorting.date_ascending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Date, Old to New" {% endunless %},
+      sorting_date_descending: {% assign temp = 'collections.sorting.date_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Date, New to Old" {% endunless %},
+      sorting_sale_descending: {% assign temp = 'collections.sorting.sale_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "% Off" {% endunless %},
+      sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Relevance" {% endunless %},
+      search_result_header: {% assign temp = 'product_filter_search.search_result_header' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} {% raw %}'Search Results for "{{ key }}"'{% endraw %} {% endunless %},
+      search_result_number: {% assign temp = 'product_filter_search.search_result_number' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} {% raw %}'Showing {{ number }} results for "{{ key }}"'{% endraw %} {% endunless %},
+    },
+    label_basic: {
+      sale: {% if product_filter_search.sale != blank %} {{ 'product_filter_search.sale' | t }}" {% else %} "Sale" {% endif %},
+      sold_out: {% if product_filter_search.sold_out != blank %} {{ 'product_filter_search.sold_out' | t }}" {% else %} "Sold Out" {% endif %},
+      from: {% if product_filter_search.from != blank %} {{ 'product_filter_search.from' | t }}" {% else %} "from" {% endif %},
+    },
+    custom: {
+      products_per_page: {{ products_per_page }},
+    },
+    customer: {
+      tags: {{ customer.tags | json }},
+      email: "{{ customer.email }}",
+      id: "{{ customer.id }}"
+    }
+  };
+</script>

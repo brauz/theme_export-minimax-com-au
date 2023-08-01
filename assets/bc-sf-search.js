@@ -1,0 +1,1 @@
+var bcSfSearchSettings={search:{}};BCSfFilter.prototype.customizeSuggestion=function(suggestionElement,searchElement,searchBoxId){};

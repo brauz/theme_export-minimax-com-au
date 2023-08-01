@@ -1,0 +1,80 @@
+{{ 'bss-file-configdata.js' | asset_url | script_tag }} {{ 'bss-file-configdata-banner.js' | asset_url | script_tag}} {{ 'bss-file-configdata-popup.js' | asset_url | script_tag}}<script>
+                if (typeof BSS_PL == 'undefined') {
+                    var BSS_PL = {};
+                }
+                var bssPlApiServer = "https://product-labels-pro.bsscommerce.com";
+                BSS_PL.customerTags = {% if customer %}'{%for tag in customer.tags%}{{ tag }},{% endfor %}'{% else %}'null'{% endif %};
+                BSS_PL.customerId = {% if customer %}'{{customer.id}}'{% else %}'null'{% endif %};
+                BSS_PL.configData = configDatas;
+                BSS_PL.configDataBanner = configDataBanners ? configDataBanners : [];
+                BSS_PL.configDataPopup = configDataPopups ? configDataPopups : [];
+                BSS_PL.storeId = 10846;
+                BSS_PL.currentPlan = "ten_usd";
+                BSS_PL.storeIdCustomOld = "10678";
+                BSS_PL.storeIdOldWIthPriority = "12200";
+                BSS_PL.apiServerProduction = "https://product-labels-pro.bsscommerce.com";
+                
+                BSS_PL.integration = {"laiReview":{"status":0,"config":[]}}
+                </script>
+            <style>
+.homepage-slideshow .slick-slide .bss_pl_img {
+    visibility: hidden !important;
+}
+</style>
+<script>
+function bssFixSupportReInitLabel($, BSS_PL, firstLoadProduct, checkPageFly, initCollectionLabel, initBadge) {
+  $('[data-product-single-thumbnail]').on('click', function () {
+    $('.productFeaturedImage .bss_pl_img').remove();
+    setTimeout(() => {
+      firstLoadProduct = true;
+      BSS_PL.init();
+    }, 200);
+  });
+  return { firstLoadProduct, checkPageFly };
+}
+</script>
+<script>
+function bssFixSupportProductParent($, page, parents, itemHandle) {
+  parents = $('[data-handle="' + itemHandle + '"]:not(.container)');
+  return parents;
+}
+</script>
+<script>
+function bssFixSupportAppendHtmlLabel($, BSS_PL, parent, page, htmlLabel) {
+  let appended = false;
+  if (page == 'products') {
+    if ($(parent).parent().hasClass('productFeaturedImage')) {
+      $(parent).prepend(htmlLabel);
+      appended = true;
+    } else if ($(parent).hasClass('productWrapper')) {
+      let parent2 = $(parent).find('.imageWrapper');
+      if (parent2.length && !$(parent2).find('.bss_pl_img').length) {
+        parent2.prepend(htmlLabel);
+        appended = true;
+      }
+    } else if ($(parent).hasClass('mz-figure')) {
+      let parent2 = $(parent).closest('.MagicToolboxSlide');
+      if (parent2.length && !parent2.find('.bss_pl_img').length) {
+        parent2.prepend(htmlLabel);
+        appended = true;
+      }
+    }
+  } else if (
+    window.location.pathname.includes('/pages/') &&
+    $(parent).hasClass('shg-product-image-wrapper')
+  ) {
+    $(parent).prepend(htmlLabel);
+    appended = true;
+  } else if (
+    (page == 'collections' || window.location.pathname == '/search') &&
+    $(parent).hasClass('productWrapper')
+  ) {
+    let parent2 = $(parent).find('.imageWrapper');
+    if (parent2.length && !$(parent2).find('.bss_pl_img').length) {
+      parent2.prepend(htmlLabel);
+      appended = true;
+    }
+  }
+  return appended;
+}
+</script>

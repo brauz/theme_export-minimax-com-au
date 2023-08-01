@@ -1,0 +1,34 @@
+
+<section class="customForm">
+    <div class="container">
+        <h1 class="title">{{ section.settings.title | escape }}</h1>
+        <div data-esc-form="{{ section.settings.text | escape }}" data-customer="{{ customer.id }}" data-page="{{ shop.secure_url }}{{ page.url }}"></div>
+    </div>
+</section>
+
+
+{% schema %}
+{
+    "name": "Custom Form",
+    "settings":[
+        {
+            "id" : "title",
+            "label" : "Form Title",
+            "type" : "text"
+        },
+        {
+            "id" : "text",
+            "label" : "Form ID",
+            "info" : "Include form id",
+            "type" : "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Custom Form",
+            "category": "Form Title"
+        }
+    ]
+}
+
+{% endschema %}

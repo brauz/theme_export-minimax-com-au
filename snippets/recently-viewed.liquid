@@ -1,0 +1,92 @@
+<div class="recently-viewed-wrapper">
+    <h2 class="title ose-related-title">Recently Viewed</h2>
+    <div class="recently-viewed-items"></div>
+</div> 
+
+<script>
+    let theCookie = getCookie('recentProducts');
+    let productHandle = `{{ product.handle }}`;
+    let cookieArray = theCookie.split(",");
+    let trimmedArray = cookieArray.slice(0,4);
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+
+        const recentViewed = document.querySelector(".recently-viewed-items");
+        const theWrapper = document.querySelector(".recently-viewed-wrapper");
+
+        if(cookieArray.length < 2) {
+            theWrapper.classList.toggle('no-show');
+        }
+
+        for (var value of cookieArray) {
+
+            if(value != '') {
+                fetch(`/products/${value}.js`)
+                .then(response => response.json())
+                .then(data => {
+
+                    if(data.title) {
+                        let thePrice = (data.price / 100).toFixed(2);
+                        let maxPrice = (data.compare_at_price_max / 100).toFixed(2);
+                        let displayMax = "";
+                        
+                        if(maxPrice != 0.00) {
+                            displayMax = `<span class="was">
+                                                $${maxPrice}
+                                            </span>`;
+                        }
+
+                        let priceBit = `<div class="price">
+                                            <span class="productPrice">$${thePrice}</span>
+                                        </div>`;
+
+                        if(thePrice != maxPrice) {
+                            priceBit = `<div class="price">
+                                            <span class="visually-hidden">Regular price</span>
+                                            <span class="comparison">
+                                                ${displayMax}
+                                                <span class="now">
+                                                $${thePrice}
+                                                </span>
+                                            </span>
+                                        </div>`;
+                        }
+
+                        recentViewed.insertAdjacentHTML('beforeend', 
+                            `<div class="recent-item">
+                                <div class="productWrapper" data-handle="${data.handle}">
+
+                                    <a href="${data.url}" class="item">
+                                        <span class="imageWrapper">
+                                            <span class="imageContainer" style="background-image:url(${data.images[0]});">
+                                            </span>
+                                        </span>
+
+                                        <span class="productInformation">
+                                            <span class="contentDetails">
+                                                <span class="productName">${data.vendor} ${data.title}</span>
+                                                ${priceBit}
+                                            </span>
+                                        </span>
+                                    </a>
+
+                                </div>
+                            </div>`
+                        )
+                    }
+                });
+            }
+        }
+    });
+
+    if(theCookie && !theCookie.includes(productHandle)) {
+
+        cookieArray.unshift(productHandle);
+
+        let newCookie = trimmedArray.toString();
+        setCookie('recentProducts', newCookie, 7);
+
+    } else if(!theCookie) {
+        setCookie('recentProducts', productHandle, 7);
+    }
+</script>

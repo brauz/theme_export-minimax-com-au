@@ -1,0 +1,128 @@
+<section class="twoColumnBlock">
+	<div class="container">
+		<div class="twoColumnBlockWrapper">
+
+                {% for block in section.blocks %}
+					{% if block.settings.image == blank %}
+						<div class="column" style="background-color: {{ block.settings.background_colour }};">
+	    					<div class="v-wrap">
+	    						<div class="v-box">
+									{% if block.settings.title == blank %}
+									{% else %}
+										<div class="textBlock">
+											<h2>{{ block.settings.title }}</h2>
+											<p>{{ block.settings.text }}</p>
+										</div>
+										{% if block.settings.link_url == blank %}
+										{% else %}
+			    							<a href="{{ block.settings.link_url }}" class="std btn">{{ block.settings.button_text }}</a>
+										{% endif %}
+									{% endif %}
+	    						</div>
+	    					</div>
+	    				</div>
+					{% else %}
+	                    <div class="column image" style="background-image: url('{{ block.settings.image | img_url: 'master' }}');" data-thumb-alt="">
+	    					<div class="v-wrap">
+	    						<div class="v-box">
+									{% if block.settings.title == blank %}
+									{% else %}
+										<div class="textBlock">
+											<h2>{{ block.settings.title }}</h2>
+											<p>{{ block.settings.text }}</p>
+										</div>
+										{% if block.settings.link_url == blank %}
+										{% else %}
+			    							<a href="{{ block.settings.link_url }}" class="std btn">{{ block.settings.button_text }}</a>
+										{% endif %}
+									{% endif %}
+	    						</div>
+	    					</div>
+	    				</div>
+					{% endif %}
+                {% endfor %}
+
+		</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Two Column Block",
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+		  {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "link_url",
+            "label": "Block link"
+          },
+		  {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text"
+          },
+			{
+	          "type": "select",
+	          "id": "text_colour",
+	          "label": "Text Colour",
+	          "options": [
+	            {
+	              "value": "light",
+	              "label": "Light"
+	            },
+	            {
+	              "value": "dark",
+	              "label": "Dark"
+	            }
+	          ],
+				"default": "light"
+	        },
+			{
+	          "type": "select",
+	          "id": "background_colour",
+	          "label": "Background Colour",
+	          "options": [
+	            {
+	              "value": "#f7f7f7",
+	              "label": "Light"
+	            },
+	            {
+	              "value": "#0B0B0A",
+	              "label": "Dark"
+	            }
+	          ],
+				"default": "#f7f7f7"
+	        }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Two Column Block",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

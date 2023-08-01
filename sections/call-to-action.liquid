@@ -1,0 +1,51 @@
+
+<section class="callToAction">
+    <div class="container">
+        <span class="btnBlock">
+            <a class="std btn secondary" href="{{ section.settings.link | escape }}" target="{{ section.settings.linktab | escape }}">{{ section.settings.text | escape }}</a>
+        </span>
+    </div>
+</section>
+
+
+{% schema %}
+{
+    "name": "Call To Action",
+    "settings": [
+        {
+            "id" : "text",
+            "label" : "Button Text",
+            "info" : "Include button text",
+            "type" : "text"
+        },
+        {
+            "id" : "link",
+            "label" : "Link",
+            "info" : "Include link",
+            "type" : "text"
+        },
+        {
+            "type": "select",
+            "id": "linktab",
+            "label": "Open Link In",
+            "options": [
+                {
+                    "value": "_self",
+                    "label": "Same Tab"
+                },
+                {
+                    "value": "_blank",
+                    "label": "New Tab"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Call to Action",
+            "category": "Link"
+        }
+    ]
+}
+
+{% endschema %}

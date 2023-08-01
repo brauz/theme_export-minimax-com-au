@@ -1,0 +1,85 @@
+<section class="fixedHeroSlider">
+	<div class="slideContainer">
+		<div class="flexslider flexSliderDesktop">
+			<ul class="slides">
+                {% for block in section.blocks %}
+                    <li class="heroImages flex-active-slide" style="background-image: url('{{ block.settings.image | img_url: 'master' }}');" data-thumb-alt="">
+    					<div class="v-wrap">
+    						<div class="v-box">
+								{% if block.settings.title == blank %}
+								{% else %}
+	    							<div class="sliderButtonContainer {{ block.settings.text_colour }} {{ block.settings.position }}">
+	    								<a href="{{ block.settings.link_url }}" class="sliderButton">{{ block.settings.title }}</a>
+	    							</div>
+								{% endif %}
+    						</div>
+    					</div>
+    				</li>
+                {% endfor %}
+			</ul>
+		</div>
+		<div class="flexslider flexSliderMobile">
+			<ul class="slides">
+                {% for block in section.blocks %}
+                    <li class="heroImages flex-active-slide" style="background-image: url('{{ block.settings.imageMobile | img_url: 'master' }}');" data-thumb-alt="">
+    					<div class="v-wrap">
+    						<div class="v-box">
+								{% if block.settings.title == blank %}
+								{% else %}
+	    							<div class="sliderButtonContainer {{ block.settings.text_colour }} {{ block.settings.position }}">
+	    								<a href="{{ block.settings.link_url }}" class="sliderButton">{{ block.settings.title }}</a>
+	    							</div>
+								{% endif %}
+    						</div>
+    					</div>
+    				</li>
+                {% endfor %}
+			</ul>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Slideshow",
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+		  {
+            "type": "image_picker",
+            "id": "imageMobile",
+            "label": "Mobile Image"
+          },
+		  {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+		  {
+            "type": "url",
+            "id": "link_url",
+            "label": "Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Slideshow",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

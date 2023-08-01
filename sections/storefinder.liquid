@@ -1,0 +1,1659 @@
+<div class="headerWrapper">
+    <div class="container">
+
+        <div class="productHeader">
+
+            <h1>{{ page.title }}</h1>
+
+            {% if page.content != blank %}
+              <div class="rte">
+                {{ page.content }}
+              </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<div class="storeLocations desktop">
+    <div class="container">
+        {% for store in section.blocks %}
+            {% if store.settings.state == 'victoria' %}{% assign vic = 1 %}{% endif %}
+            {% if store.settings.state == 'south-australia' %}{% assign sa = 1 %}{% endif %}
+            {% if store.settings.state == 'new-south-wales' %}{% assign nsw = 1 %}{% endif %}
+            {% if store.settings.state == 'queensland' %}{% assign qld = 1 %}{% endif %}
+            {% if store.settings.state == 'a-c-t' %}{% assign act = 1 %}{% endif %}
+            {% if store.settings.state == 'northern-territory' %}{% assign nt = 1 %}{% endif %}
+            {% if store.settings.state == 'western-australia' %}{% assign wa = 1 %}{% endif %}
+            {% if store.settings.state == 'tasmania' %}{% assign tas = 1 %}{% endif %}
+
+        {% endfor %}
+
+        <div class="storeList">
+            {% if act == 1 %}
+            <span class="state">
+                <span class="title">
+                    A.C.T.
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'a-c-t' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                        </span>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if nsw == 1 %}
+            <span class="state">
+                <span class="title">
+                    New South Wales
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'new-south-wales' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                        </span>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if nt == 1 %}
+            <span class="state">
+                <span class="title">
+                    Northern Territory
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'northern-territory' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                        </span>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if qld == 1 %}
+            <span class="state">
+                <span class="title">
+                    Queensland
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'queensland' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                        </span>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if sa == 1 %}
+            <span class="state">
+                <span class="title">
+                    South Australia
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'south-australia' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                        </span>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if tas == 1 %}
+            <span class="state">
+                <span class="title">
+                    Tasmania
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'tasmania' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                        </span>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if vic == 1 %}
+            <span class="state">
+                <span class="title">
+                    Victoria
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'victoria' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                        </span>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if wa == 1 %}
+            <span class="state">
+                <span class="title">
+                    Western Australia
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'tasmania' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                        </span>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+        </div>
+
+        <div class="storeDetails">
+            {% for store in section.blocks %}
+            <div rel="{{ store.settings.location | handleize }}" class="storeWrapper">
+                <div class="storeImage" style="background-image: url('{{ store.settings.store-image.src | img_url: 'original' }}');">
+                </div>
+                <div class="storeInfo">
+                    <div class="left">
+                        <span class="storeName">
+                            {{ store.settings.store-title }}
+                        </span>
+                        <span class="label">
+                            Address
+                        </span>
+                        <span class="detail">
+                            {{ store.settings.address }}
+                        </span>
+                        <span class="label">
+                            Phone
+                        </span>
+                        <span class="detail">
+                            <a href="tel:{{ store.settings.phone }}">{{ store.settings.phone }}</a>
+                        </span>
+                        <span class="label">
+                            Trading Hours
+                        </span>
+                        <span class="detail">
+                            <span class="dayWrapper">
+                                <span class="day">
+                                    {% if store.settings.day-one %}
+                                        {{ store.settings.day-one }}
+                                    {% endif %}
+                                </span>
+                                <span class="time">
+                                    {% if store.settings.time-one %}
+                                        {{ store.settings.time-one }}
+                                    {% endif %}
+                                </span>
+                            </span>
+                            <span class="dayWrapper">
+                                <span class="day">
+                                    {% if store.settings.day-two %}
+                                        {{ store.settings.day-two }}
+                                    {% endif %}
+                                </span>
+                                <span class="time">
+                                    {% if store.settings.time-two %}
+                                        {{ store.settings.time-two }}
+                                    {% endif %}
+                                </span>
+                            </span>
+                            <span class="dayWrapper">
+                                <span class="day">
+                                    {% if store.settings.day-three %}
+                                        {{ store.settings.day-three }}
+                                    {% endif %}
+                                </span>
+                                <span class="time">
+                                    {% if store.settings.time-three %}
+                                        {{ store.settings.time-three }}
+                                    {% endif %}
+                                </span>
+                            </span>
+                            <span class="dayWrapper">
+                                <span class="day">
+                                    {% if store.settings.day-four %}
+                                        {{ store.settings.day-four }}
+                                    {% endif %}
+                                </span>
+                                <span class="time">
+                                    {% if store.settings.time-four %}
+                                        {{ store.settings.time-four }}
+                                    {% endif %}
+                                </span>
+                            </span>
+                            <span class="dayWrapper">
+                                <span class="day">
+                                    {% if store.settings.day-five %}
+                                        {{ store.settings.day-five }}
+                                    {% endif %}
+                                </span>
+                                <span class="time">
+                                    {% if store.settings.time-five %}
+                                        {{ store.settings.time-five }}
+                                    {% endif %}
+                                </span>
+                            </span>
+                            <span class="dayWrapper">
+                                <span class="day">
+                                    {% if store.settings.day-six %}
+                                        {{ store.settings.day-six }}
+                                    {% endif %}
+                                </span>
+                                <span class="time">
+                                    {% if store.settings.time-six %}
+                                        {{ store.settings.time-six }}
+                                    {% endif %}
+                                </span>
+                            </span>
+                            <span class="dayWrapper">
+                                <span class="day">
+                                    {% if store.settings.day-seven %}
+                                        {{ store.settings.day-seven }}
+                                    {% endif %}
+                                </span>
+                                <span class="time">
+                                    {% if store.settings.time-seven %}
+                                        {{ store.settings.time-seven }}
+                                    {% endif %}
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="right">
+                        {% if store.settings.google-map-link %}
+                            <a href="{{ store.settings.google-map-link }}" target="_blank" class="mapLink">
+                                View in Google Maps {% include 'share' %}
+                            </a>
+                        {% endif %}
+                        <div class="googleMap">
+                			<div class="marker" data-pin="{{'minimax-pin.png' | asset_url }}" data-lat="{{ store.settings.google-map-latitude }}" data-lng="{{ store.settings.google-map-longitude }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if store.settings.additional-image %}
+                    <div class="additionalImage" style="background-image: url('{{ store.settings.additional-image.src | img_url: 'original' }}');">
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="storeLocations mobile">
+    <div class="container">
+        {% for store in section.blocks %}
+            {% if store.settings.state == 'victoria' %}{% assign vic = 1 %}{% endif %}
+            {% if store.settings.state == 'south-australia' %}{% assign sa = 1 %}{% endif %}
+            {% if store.settings.state == 'new-south-wales' %}{% assign nsw = 1 %}{% endif %}
+            {% if store.settings.state == 'queensland' %}{% assign qld = 1 %}{% endif %}
+            {% if store.settings.state == 'a-c-t' %}{% assign act = 1 %}{% endif %}
+            {% if store.settings.state == 'northern-territory' %}{% assign nt = 1 %}{% endif %}
+            {% if store.settings.state == 'western-australia' %}{% assign wa = 1 %}{% endif %}
+            {% if store.settings.state == 'tasmania' %}{% assign tas = 1 %}{% endif %}
+
+        {% endfor %}
+
+        <div class="storeList">
+            {% if act == 1 %}
+            <span class="state">
+                <span class="title">
+                    A.C.T.
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'a-c-t' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                            <span class="plus active">{% include 'plus' %}</span>
+                            <span class="minus">{% include 'minus' %}</span>
+                        </span>
+
+                        <div rel="{{ store.settings.location | handleize }}" class="storeWrapper">
+                            <div class="storeImage" style="background-image: url('{{ store.settings.store-image.src | img_url: 'original' }}');">
+                            </div>
+                            <div class="storeInfo">
+                                <div class="left">
+                                    <span class="storeName">
+                                        {{ store.settings.store-title }}
+                                    </span>
+                                    <span class="label">
+                                        Address
+                                    </span>
+                                    <span class="detail">
+                                        {{ store.settings.address }}
+                                    </span>
+                                    <span class="label">
+                                        Phone
+                                    </span>
+                                    <span class="detail">
+                                        <a href="tel:{{ store.settings.phone }}">{{ store.settings.phone }}</a>
+                                    </span>
+                                    <span class="label">
+                                        Trading Hours
+                                    </span>
+                                    <span class="detail">
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-one %}
+                                                    {{ store.settings.day-one }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-one %}
+                                                    {{ store.settings.time-one }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-two %}
+                                                    {{ store.settings.day-two }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-two %}
+                                                    {{ store.settings.time-two }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-three %}
+                                                    {{ store.settings.day-three }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-three %}
+                                                    {{ store.settings.time-three }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-four %}
+                                                    {{ store.settings.day-four }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-four %}
+                                                    {{ store.settings.time-four }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-five %}
+                                                    {{ store.settings.day-five }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-five %}
+                                                    {{ store.settings.time-five }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-six %}
+                                                    {{ store.settings.day-six }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-six %}
+                                                    {{ store.settings.time-six }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-seven %}
+                                                    {{ store.settings.day-seven }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-seven %}
+                                                    {{ store.settings.time-seven }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="right">
+                                    {% if store.settings.google-map-link %}
+                                        <a href="{{ store.settings.google-map-link }}" target="_blank" class="mapLink">
+                                            View in Google Maps {% include 'share' %}
+                                        </a>
+                                    {% endif %}
+                                    <div class="googleMap">
+                            			<div class="marker" data-pin="{{'minimax-pin.png' | asset_url }}" data-lat="{{ store.settings.google-map-latitude }}" data-lng="{{ store.settings.google-map-longitude }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if store.settings.additional-image %}
+                                <div class="additionalImage" style="background-image: url('{{ store.settings.additional-image.src | img_url: 'original' }}');">
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if nsw == 1 %}
+            <span class="state">
+                <span class="title">
+                    New South Wales
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'new-south-wales' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                            <span class="plus active">{% include 'plus' %}</span>
+                            <span class="minus">{% include 'minus' %}</span>
+                        </span>
+
+                        <div rel="{{ store.settings.location | handleize }}" class="storeWrapper">
+                            <div class="storeImage" style="background-image: url('{{ store.settings.store-image.src | img_url: 'original' }}');">
+                            </div>
+                            <div class="storeInfo">
+                                <div class="left">
+                                    <span class="storeName">
+                                        {{ store.settings.store-title }}
+                                    </span>
+                                    <span class="label">
+                                        Address
+                                    </span>
+                                    <span class="detail">
+                                        {{ store.settings.address }}
+                                    </span>
+                                    <span class="label">
+                                        Phone
+                                    </span>
+                                    <span class="detail">
+                                        <a href="tel:{{ store.settings.phone }}">{{ store.settings.phone }}</a>
+                                    </span>
+                                    <span class="label">
+                                        Trading Hours
+                                    </span>
+                                    <span class="detail">
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-one %}
+                                                    {{ store.settings.day-one }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-one %}
+                                                    {{ store.settings.time-one }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-two %}
+                                                    {{ store.settings.day-two }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-two %}
+                                                    {{ store.settings.time-two }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-three %}
+                                                    {{ store.settings.day-three }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-three %}
+                                                    {{ store.settings.time-three }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-four %}
+                                                    {{ store.settings.day-four }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-four %}
+                                                    {{ store.settings.time-four }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-five %}
+                                                    {{ store.settings.day-five }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-five %}
+                                                    {{ store.settings.time-five }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-six %}
+                                                    {{ store.settings.day-six }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-six %}
+                                                    {{ store.settings.time-six }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-seven %}
+                                                    {{ store.settings.day-seven }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-seven %}
+                                                    {{ store.settings.time-seven }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="right">
+                                    {% if store.settings.google-map-link %}
+                                        <a href="{{ store.settings.google-map-link }}" target="_blank" class="mapLink">
+                                            View in Google Maps {% include 'share' %}
+                                        </a>
+                                    {% endif %}
+                                    <div class="googleMap">
+                            			<div class="marker" data-pin="{{'minimax-pin.png' | asset_url }}" data-lat="{{ store.settings.google-map-latitude }}" data-lng="{{ store.settings.google-map-longitude }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if store.settings.additional-image %}
+                                <div class="additionalImage" style="background-image: url('{{ store.settings.additional-image.src | img_url: 'original' }}');">
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if nt == 1 %}
+            <span class="state">
+                <span class="title">
+                    Northern Territory
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'northern-territory' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                            <span class="plus active">{% include 'plus' %}</span>
+                            <span class="minus">{% include 'minus' %}</span>
+                        </span>
+
+                        <div rel="{{ store.settings.location | handleize }}" class="storeWrapper">
+                            <div class="storeImage" style="background-image: url('{{ store.settings.store-image.src | img_url: 'original' }}');">
+                            </div>
+                            <div class="storeInfo">
+                                <div class="left">
+                                    <span class="storeName">
+                                        {{ store.settings.store-title }}
+                                    </span>
+                                    <span class="label">
+                                        Address
+                                    </span>
+                                    <span class="detail">
+                                        {{ store.settings.address }}
+                                    </span>
+                                    <span class="label">
+                                        Phone
+                                    </span>
+                                    <span class="detail">
+                                        <a href="tel:{{ store.settings.phone }}">{{ store.settings.phone }}</a>
+                                    </span>
+                                    <span class="label">
+                                        Trading Hours
+                                    </span>
+                                    <span class="detail">
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-one %}
+                                                    {{ store.settings.day-one }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-one %}
+                                                    {{ store.settings.time-one }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-two %}
+                                                    {{ store.settings.day-two }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-two %}
+                                                    {{ store.settings.time-two }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-three %}
+                                                    {{ store.settings.day-three }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-three %}
+                                                    {{ store.settings.time-three }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-four %}
+                                                    {{ store.settings.day-four }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-four %}
+                                                    {{ store.settings.time-four }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-five %}
+                                                    {{ store.settings.day-five }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-five %}
+                                                    {{ store.settings.time-five }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-six %}
+                                                    {{ store.settings.day-six }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-six %}
+                                                    {{ store.settings.time-six }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-seven %}
+                                                    {{ store.settings.day-seven }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-seven %}
+                                                    {{ store.settings.time-seven }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="right">
+                                    {% if store.settings.google-map-link %}
+                                        <a href="{{ store.settings.google-map-link }}" target="_blank" class="mapLink">
+                                            View in Google Maps {% include 'share' %}
+                                        </a>
+                                    {% endif %}
+                                    <div class="googleMap">
+                            			<div class="marker" data-pin="{{'minimax-pin.png' | asset_url }}" data-lat="{{ store.settings.google-map-latitude }}" data-lng="{{ store.settings.google-map-longitude }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if store.settings.additional-image %}
+                                <div class="additionalImage" style="background-image: url('{{ store.settings.additional-image.src | img_url: 'original' }}');">
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if qld == 1 %}
+            <span class="state">
+                <span class="title">
+                    Queensland
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'queensland' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                            <span class="plus active">{% include 'plus' %}</span>
+                            <span class="minus">{% include 'minus' %}</span>
+                        </span>
+
+                        <div rel="{{ store.settings.location | handleize }}" class="storeWrapper">
+                            <div class="storeImage" style="background-image: url('{{ store.settings.store-image.src | img_url: 'original' }}');">
+                            </div>
+                            <div class="storeInfo">
+                                <div class="left">
+                                    <span class="storeName">
+                                        {{ store.settings.store-title }}
+                                    </span>
+                                    <span class="label">
+                                        Address
+                                    </span>
+                                    <span class="detail">
+                                        {{ store.settings.address }}
+                                    </span>
+                                    <span class="label">
+                                        Phone
+                                    </span>
+                                    <span class="detail">
+                                        <a href="tel:{{ store.settings.phone }}">{{ store.settings.phone }}</a>
+                                    </span>
+                                    <span class="label">
+                                        Trading Hours
+                                    </span>
+                                    <span class="detail">
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-one %}
+                                                    {{ store.settings.day-one }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-one %}
+                                                    {{ store.settings.time-one }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-two %}
+                                                    {{ store.settings.day-two }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-two %}
+                                                    {{ store.settings.time-two }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-three %}
+                                                    {{ store.settings.day-three }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-three %}
+                                                    {{ store.settings.time-three }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-four %}
+                                                    {{ store.settings.day-four }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-four %}
+                                                    {{ store.settings.time-four }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-five %}
+                                                    {{ store.settings.day-five }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-five %}
+                                                    {{ store.settings.time-five }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-six %}
+                                                    {{ store.settings.day-six }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-six %}
+                                                    {{ store.settings.time-six }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-seven %}
+                                                    {{ store.settings.day-seven }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-seven %}
+                                                    {{ store.settings.time-seven }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="right">
+                                    {% if store.settings.google-map-link %}
+                                        <a href="{{ store.settings.google-map-link }}" target="_blank" class="mapLink">
+                                            View in Google Maps {% include 'share' %}
+                                        </a>
+                                    {% endif %}
+                                    <div class="googleMap">
+                            			<div class="marker" data-pin="{{'minimax-pin.png' | asset_url }}" data-lat="{{ store.settings.google-map-latitude }}" data-lng="{{ store.settings.google-map-longitude }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if store.settings.additional-image %}
+                                <div class="additionalImage" style="background-image: url('{{ store.settings.additional-image.src | img_url: 'original' }}');">
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if sa == 1 %}
+            <span class="state">
+                <span class="title">
+                    South Australia
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'south-australia' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                            <span class="plus active">{% include 'plus' %}</span>
+                            <span class="minus">{% include 'minus' %}</span>
+                        </span>
+
+                        <div rel="{{ store.settings.location | handleize }}" class="storeWrapper">
+                            <div class="storeImage" style="background-image: url('{{ store.settings.store-image.src | img_url: 'original' }}');">
+                            </div>
+                            <div class="storeInfo">
+                                <div class="left">
+                                    <span class="storeName">
+                                        {{ store.settings.store-title }}
+                                    </span>
+                                    <span class="label">
+                                        Address
+                                    </span>
+                                    <span class="detail">
+                                        {{ store.settings.address }}
+                                    </span>
+                                    <span class="label">
+                                        Phone
+                                    </span>
+                                    <span class="detail">
+                                        <a href="tel:{{ store.settings.phone }}">{{ store.settings.phone }}</a>
+                                    </span>
+                                    <span class="label">
+                                        Trading Hours
+                                    </span>
+                                    <span class="detail">
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-one %}
+                                                    {{ store.settings.day-one }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-one %}
+                                                    {{ store.settings.time-one }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-two %}
+                                                    {{ store.settings.day-two }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-two %}
+                                                    {{ store.settings.time-two }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-three %}
+                                                    {{ store.settings.day-three }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-three %}
+                                                    {{ store.settings.time-three }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-four %}
+                                                    {{ store.settings.day-four }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-four %}
+                                                    {{ store.settings.time-four }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-five %}
+                                                    {{ store.settings.day-five }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-five %}
+                                                    {{ store.settings.time-five }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-six %}
+                                                    {{ store.settings.day-six }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-six %}
+                                                    {{ store.settings.time-six }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-seven %}
+                                                    {{ store.settings.day-seven }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-seven %}
+                                                    {{ store.settings.time-seven }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="right">
+                                    {% if store.settings.google-map-link %}
+                                        <a href="{{ store.settings.google-map-link }}" target="_blank" class="mapLink">
+                                            View in Google Maps {% include 'share' %}
+                                        </a>
+                                    {% endif %}
+                                    <div class="googleMap">
+                            			<div class="marker" data-pin="{{'minimax-pin.png' | asset_url }}" data-lat="{{ store.settings.google-map-latitude }}" data-lng="{{ store.settings.google-map-longitude }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if store.settings.additional-image %}
+                                <div class="additionalImage" style="background-image: url('{{ store.settings.additional-image.src | img_url: 'original' }}');">
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if tas == 1 %}
+            <span class="state">
+                <span class="title">
+                    Tasmania
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'tasmania' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                            <span class="plus active">{% include 'plus' %}</span>
+                            <span class="minus">{% include 'minus' %}</span>
+                        </span>
+
+                        <div rel="{{ store.settings.location | handleize }}" class="storeWrapper">
+                            <div class="storeImage" style="background-image: url('{{ store.settings.store-image.src | img_url: 'original' }}');">
+                            </div>
+                            <div class="storeInfo">
+                                <div class="left">
+                                    <span class="storeName">
+                                        {{ store.settings.store-title }}
+                                    </span>
+                                    <span class="label">
+                                        Address
+                                    </span>
+                                    <span class="detail">
+                                        {{ store.settings.address }}
+                                    </span>
+                                    <span class="label">
+                                        Phone
+                                    </span>
+                                    <span class="detail">
+                                        <a href="tel:{{ store.settings.phone }}">{{ store.settings.phone }}</a>
+                                    </span>
+                                    <span class="label">
+                                        Trading Hours
+                                    </span>
+                                    <span class="detail">
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-one %}
+                                                    {{ store.settings.day-one }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-one %}
+                                                    {{ store.settings.time-one }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-two %}
+                                                    {{ store.settings.day-two }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-two %}
+                                                    {{ store.settings.time-two }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-three %}
+                                                    {{ store.settings.day-three }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-three %}
+                                                    {{ store.settings.time-three }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-four %}
+                                                    {{ store.settings.day-four }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-four %}
+                                                    {{ store.settings.time-four }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-five %}
+                                                    {{ store.settings.day-five }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-five %}
+                                                    {{ store.settings.time-five }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-six %}
+                                                    {{ store.settings.day-six }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-six %}
+                                                    {{ store.settings.time-six }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-seven %}
+                                                    {{ store.settings.day-seven }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-seven %}
+                                                    {{ store.settings.time-seven }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="right">
+                                    {% if store.settings.google-map-link %}
+                                        <a href="{{ store.settings.google-map-link }}" target="_blank" class="mapLink">
+                                            View in Google Maps {% include 'share' %}
+                                        </a>
+                                    {% endif %}
+                                    <div class="googleMap">
+                            			<div class="marker" data-pin="{{'minimax-pin.png' | asset_url }}" data-lat="{{ store.settings.google-map-latitude }}" data-lng="{{ store.settings.google-map-longitude }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if store.settings.additional-image %}
+                                <div class="additionalImage" style="background-image: url('{{ store.settings.additional-image.src | img_url: 'original' }}');">
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if vic == 1 %}
+            <span class="state">
+                <span class="title">
+                    Victoria
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'victoria' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                            <span class="plus active">{% include 'plus' %}</span>
+                            <span class="minus">{% include 'minus' %}</span>
+                        </span>
+
+                        <div rel="{{ store.settings.location | handleize }}" class="storeWrapper">
+                            <div class="storeImage" style="background-image: url('{{ store.settings.store-image.src | img_url: 'original' }}');">
+                            </div>
+                            <div class="storeInfo">
+                                <div class="left">
+                                    <span class="storeName">
+                                        {{ store.settings.store-title }}
+                                    </span>
+                                    <span class="label">
+                                        Address
+                                    </span>
+                                    <span class="detail">
+                                        {{ store.settings.address }}
+                                    </span>
+                                    <span class="label">
+                                        Phone
+                                    </span>
+                                    <span class="detail">
+                                        <a href="tel:{{ store.settings.phone }}">{{ store.settings.phone }}</a>
+                                    </span>
+                                    <span class="label">
+                                        Trading Hours
+                                    </span>
+                                    <span class="detail">
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-one %}
+                                                    {{ store.settings.day-one }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-one %}
+                                                    {{ store.settings.time-one }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-two %}
+                                                    {{ store.settings.day-two }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-two %}
+                                                    {{ store.settings.time-two }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-three %}
+                                                    {{ store.settings.day-three }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-three %}
+                                                    {{ store.settings.time-three }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-four %}
+                                                    {{ store.settings.day-four }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-four %}
+                                                    {{ store.settings.time-four }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-five %}
+                                                    {{ store.settings.day-five }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-five %}
+                                                    {{ store.settings.time-five }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-six %}
+                                                    {{ store.settings.day-six }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-six %}
+                                                    {{ store.settings.time-six }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-seven %}
+                                                    {{ store.settings.day-seven }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-seven %}
+                                                    {{ store.settings.time-seven }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="right">
+                                    {% if store.settings.google-map-link %}
+                                        <a href="{{ store.settings.google-map-link }}" target="_blank" class="mapLink">
+                                            View in Google Maps {% include 'share' %}
+                                        </a>
+                                    {% endif %}
+                                    <div class="googleMap">
+                            			<div class="marker" data-pin="{{'minimax-pin.png' | asset_url }}" data-lat="{{ store.settings.google-map-latitude }}" data-lng="{{ store.settings.google-map-longitude }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if store.settings.additional-image %}
+                                <div class="additionalImage" style="background-image: url('{{ store.settings.additional-image.src | img_url: 'original' }}');">
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+
+            {% if wa == 1 %}
+            <span class="state">
+                <span class="title">
+                    Western Australia
+                </span>
+                <span class="locations">
+                    {% for store in section.blocks %}
+                    {% if store.settings.state == 'tasmania' %}
+                        <span id="{{ store.settings.location | handleize }}" class="location">
+                            {{ store.settings.location }}
+                            <span class="plus active">{% include 'plus' %}</span>
+                            <span class="minus">{% include 'minus' %}</span>
+                        </span>
+
+                        <div rel="{{ store.settings.location | handleize }}" class="storeWrapper">
+                            <div class="storeImage" style="background-image: url('{{ store.settings.store-image.src | img_url: 'original' }}');">
+                            </div>
+                            <div class="storeInfo">
+                                <div class="left">
+                                    <span class="storeName">
+                                        {{ store.settings.store-title }}
+                                    </span>
+                                    <span class="label">
+                                        Address
+                                    </span>
+                                    <span class="detail">
+                                        {{ store.settings.address }}
+                                    </span>
+                                    <span class="label">
+                                        Phone
+                                    </span>
+                                    <span class="detail">
+                                        <a href="tel:{{ store.settings.phone }}">{{ store.settings.phone }}</a>
+                                    </span>
+                                    <span class="label">
+                                        Trading Hours
+                                    </span>
+                                    <span class="detail">
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-one %}
+                                                    {{ store.settings.day-one }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-one %}
+                                                    {{ store.settings.time-one }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-two %}
+                                                    {{ store.settings.day-two }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-two %}
+                                                    {{ store.settings.time-two }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-three %}
+                                                    {{ store.settings.day-three }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-three %}
+                                                    {{ store.settings.time-three }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-four %}
+                                                    {{ store.settings.day-four }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-four %}
+                                                    {{ store.settings.time-four }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-five %}
+                                                    {{ store.settings.day-five }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-five %}
+                                                    {{ store.settings.time-five }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-six %}
+                                                    {{ store.settings.day-six }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-six %}
+                                                    {{ store.settings.time-six }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                        <span class="dayWrapper">
+                                            <span class="day">
+                                                {% if store.settings.day-seven %}
+                                                    {{ store.settings.day-seven }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="time">
+                                                {% if store.settings.time-seven %}
+                                                    {{ store.settings.time-seven }}
+                                                {% endif %}
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="right">
+                                    {% if store.settings.google-map-link %}
+                                        <a href="{{ store.settings.google-map-link }}" target="_blank" class="mapLink">
+                                            View in Google Maps {% include 'share' %}
+                                        </a>
+                                    {% endif %}
+                                    <div class="googleMap">
+                            			<div class="marker" data-pin="{{'minimax-pin.png' | asset_url }}" data-lat="{{ store.settings.google-map-latitude }}" data-lng="{{ store.settings.google-map-longitude }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if store.settings.additional-image %}
+                                <div class="additionalImage" style="background-image: url('{{ store.settings.additional-image.src | img_url: 'original' }}');">
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </span>
+            </span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Stores",
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Store",
+        "settings": [
+ {
+          "type": "text",
+          "id": "title",
+          "label": "Title for the section [Internal]",
+          "default": "store name here"
+          },        
+{
+            "type": "text",
+            "id": "location",
+            "label": "Location"
+          },
+          {
+            "type": "radio",
+            "id": "state",
+            "label": "Text",
+            "options": [
+             { "value": "victoria", "label": "Victoria" },
+             { "value": "south-australia", "label": "South Australia" },
+             { "value": "new-south-wales", "label": "New South Wales" },
+             { "value": "queensland", "label": "Queensland" },
+             { "value": "a-c-t", "label": "A.C.T" },
+             { "value": "western-australia", "label": "Western Australia" },
+             { "value": "northern-territory", "label": "Northern Territory" },
+             { "value": "tasmania", "label": "Tasmania" }
+            ],
+            "info": "Text"
+          },
+          {
+            "type": "text",
+            "id": "store-title",
+            "label": "Store Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "store-image",
+            "label": "Store Image"
+          },
+          {
+            "type": "text",
+            "id": "address",
+            "label": "Address"
+          },
+          {
+            "type": "text",
+            "id": "phone",
+            "label": "Phone Number"
+          },
+          {
+            "type": "text",
+            "id": "day-one",
+            "label": "Day"
+          },
+          {
+            "type": "text",
+            "id": "time-one",
+            "label": "Time"
+          },
+          {
+            "type": "text",
+            "id": "day-two",
+            "label": "Day"
+          },
+          {
+            "type": "text",
+            "id": "time-two",
+            "label": "Time"
+          },
+          {
+            "type": "text",
+            "id": "day-three",
+            "label": "Day"
+          },
+          {
+            "type": "text",
+            "id": "time-three",
+            "label": "Time"
+          },
+          {
+            "type": "text",
+            "id": "day-four",
+            "label": "Day"
+          },
+          {
+            "type": "text",
+            "id": "time-four",
+            "label": "Time"
+          },
+          {
+            "type": "text",
+            "id": "day-five",
+            "label": "Day"
+          },
+          {
+            "type": "text",
+            "id": "time-five",
+            "label": "Time"
+          },
+          {
+            "type": "text",
+            "id": "day-six",
+            "label": "Day"
+          },
+          {
+            "type": "text",
+            "id": "time-six",
+            "label": "Time"
+          },
+          {
+            "type": "text",
+            "id": "day-seven",
+            "label": "Day"
+          },
+          {
+            "type": "text",
+            "id": "time-seven",
+            "label": "Time"
+          },
+          {
+            "type": "text",
+            "id": "google-map-link",
+            "label": "Google Map Link"
+          },
+          {
+            "type": "text",
+            "id": "google-map-longitude",
+            "label": "Google Map Longitude"
+          },
+          {
+            "type": "text",
+            "id": "google-map-latitude",
+            "label": "Google Map Latitude"
+          },
+          {
+            "type": "image_picker",
+            "id": "additional-image",
+            "label": "Additional Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Stores",
+        "category": "stores",
+        "blocks": [
+          {
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

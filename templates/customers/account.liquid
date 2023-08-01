@@ -1,0 +1,75 @@
+<div class="headerWrapper">
+    <div class="container">
+        <div class="productHeader orders">
+            <h1>{{ 'customer.account.title' | t }}</h1>
+        </div>
+    </div>
+</div>
+
+<section class="myAccount orders">
+    <div class="container">
+
+        <div class="orderList">
+            <h5>{{ 'customer.orders.title' | t }}</h5>
+
+            {% paginate customer.orders by 20 %}
+              {% if customer.orders.size != 0 %}
+                <table class="responsive-table">
+                  <thead>
+                    <tr>
+                      <th>{{ 'customer.orders.order_number' | t }}</th>
+                      <th>{{ 'customer.orders.date' | t }}</th>
+                      <th>{{ 'customer.orders.payment_status' | t }}</th>
+                      <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                      <th>{{ 'customer.orders.total' | t }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for order in customer.orders %}
+                      <tr class="responsive-table-row">
+                        <td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
+                        <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'month_day_year' }}</td>
+                        <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                        <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                        <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                <p>{{ 'customer.orders.none' | t }}</p>
+              {% endif %}
+
+              {% if paginate.pages > 1 %}
+                {% include 'pagination' %}
+              {% endif %}
+
+            {% endpaginate %}
+        </div>
+
+        <div class="accountDetails left">
+            <h5>{{ 'customer.account.details' | t }}</h5>
+
+            <span class="customerName">{{ customer.first_name }} {{ customer.last_name }}</span>
+
+            <span class="customerEmail">{{ customer.email }}</span>
+
+            {% assign loyalty = customer.metafields.loyalty %}
+            {% assign key = 'points' %}
+            {% if loyalty[key] != blank %}
+                <span class="loyaltyPoints">
+                    <strong>Loyalty Balance: </strong>{{ loyalty[key] }} Points
+                </span>
+            {% endif %}
+
+        </div>
+
+        <div class="accountDetails right">
+            <h5>Address Book</h5>
+            {{ customer.default_address | format_address }}
+
+            <a href="/account/addresses" class="addressEdit">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+        </div>
+        <a class="logOutDesktop" href="/account/logout">Log Out</a>
+    </div>
+</section>

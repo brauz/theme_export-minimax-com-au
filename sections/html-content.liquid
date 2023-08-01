@@ -1,0 +1,34 @@
+<section class="htmlcontent">
+    <div class="container">
+		{{ section.settings.htmlcontent }}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "HTML Content",
+    "settings":[
+        {
+            "id" : "htmlcontent",
+            "label" : "HMTL",
+            "type" : "html"
+        }
+    ],
+    "presets": [
+        {
+            "name": "HTML Content",
+            "category": "Text"
+        }
+    ]
+}
+
+{% endschema %}
+
+
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

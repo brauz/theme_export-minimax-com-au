@@ -1,0 +1,29 @@
+{% comment %}
+    ATB-SCHEMA{
+    "name":"Full Width Text",
+    "id":"fullwidthtext",
+    "price": 0,
+    "banner":"",
+    "icon": "",
+    "screenshots" : [],
+    "tags": "full width text",
+    "description": "Full Width Text",
+    "settings":[
+        {
+            "id" : "text",
+            "label" : "Text",
+            "info" : "Include text",
+            "type" : "html"
+        }
+    ]
+}ATB-SCHEMA
+{% endcomment %}
+
+{% include 'atb-render' field:'text' %}
+{% assign text = val %}
+
+<section class="fullwidth">
+    <div class="container">
+        {{ text }}
+    </div>
+</section>

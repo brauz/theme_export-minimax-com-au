@@ -1,0 +1,1 @@
+window.fgData={"offers":[]};

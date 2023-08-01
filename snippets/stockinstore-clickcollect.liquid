@@ -1,0 +1,67 @@
+<script type="text/javascript">
+	var _stockinstore = _stockinstore || [];
+	_stockinstore.push({ "site":"10081","applicationurl": ("https:" == document.location.protocol ? "https://" : "http://") + "stockinstore.net","assetsurl": ("https:" == document.location.protocol ? "https://" : "http://") + "assets.stockinstore.net"});
+	(function() {
+		var ma = document.createElement("script");
+		ma.type = "text/javascript"; ma.async = 1;
+		ma.src = _stockinstore[0].assetsurl + "/widgets/stockinstore-global.js";
+		var mas = document.getElementsByTagName("script")[0];
+		mas.parentNode.insertBefore(ma, mas);
+	})();
+</script>
+
+<script>
+	var sisCartCheckoutConfig = {
+		shipMethodSelected:'{{ checkout.shipping_method.title | escape }}',
+			mode: {% if mode %} '{{ mode }}'{% else %} 'live' {% endif %},
+			templatename:'checkout',
+			options:{% if options %} {{ options  }} {% else %} null {% endif %}
+	}
+
+</script>
+
+
+<!--Shopify Standard-->
+{% if template.name == "checkout" %}
+	<div data-widget-type="checkout" data-sis-widget-description="stockinstore" data-sis-widget-id="88" style="display:none;"></div>
+{% elsif template.name == "cart" %}
+	<div data-widget-type="shopping bag" data-sis-widget-description="stockinstore" data-sis-widget-id="88" style="display:none;"></div>
+	<script>sisCartCheckoutConfig.templatename='cart';</script>
+{% else %}
+	<!--Shopify Plus-->
+	<div data-widget-type="checkout" data-sis-widget-description="stockinstore" data-sis-widget-id="88" style="display:none;"></div>
+{% endif %}
+
+<script>
+	_stockinstore.items = [];
+	_stockinstore.items.push(
+		{% if template.name == "cart" %}
+			{% for line_item in cart.items %}
+				{
+					 upi: '{{ line_item.sku }}'
+					,itemid: '{{ line_item.variant_id }}'
+					,itemsku:'{{ line_item.sku }}'
+					,quantity:{{ line_item.quantity }}
+					,name:'{{ line_item.title | escape }}'
+					,image:'{{ line_item | img_url: "100x" }}'
+					,style:'{{ line_item.sku }}'
+					,variations:'{{ line_item.variant.title  | escape }}'
+				}{% unless forloop.last %},{% endunless %}{% endfor %}
+		{% else %}
+			{% for line_item in checkout.line_items %}
+				{
+					 upi: '{{ line_item.sku }}'
+					,itemid: '{{ line_item.variant_id }}'
+					,itemsku:'{{ line_item.sku }}'
+					,quantity:{{ line_item.quantity }}
+					,name:'{{ line_item.title | escape }}'
+					,image:'{{ line_item | img_url: "100x" }}'
+					,style:'{{ line_item.sku }}'
+					,variations:'{{ line_item.variant.title  | escape }}'
+				}{% unless forloop.last %},{% endunless %}{% endfor %}
+		{% endif %}
+	);
+</script>
+
+{{ 'stockinstore-clickcollect-scripts.js' | asset_url | script_tag }}
+{{ 'stockinstore-clickcollect-styles.scss.css' | asset_url | stylesheet_tag }}
