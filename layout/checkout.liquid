@@ -59,20 +59,5 @@
     </div>
 
     {{ tracking_code }}
-    <!--stockinstore checkout page snippet - start-->
-	{% include 'stockinstore-clickcollect' with mode:'live' %}
-  {% for item in checkout.line_items %}
-    {% if item.product.metafields.marketplacer.marketplacer_details != blank %}
-      {% assign marketCheck = true %}
-    {% endif %}
-  {% endfor %}
-  {% if marketCheck == true %}
-  <style>
-    .option-click-collect.section__delivery {
-      display: none;
-    }
-  </style>
-  {% endif %}
-	<!--stockinstore checkout page snippet - end-->
   </body>
 </html>

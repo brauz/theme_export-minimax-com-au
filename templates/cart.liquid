@@ -29,9 +29,6 @@
                             <span>
 
                                 <p class="vendor">{{ item.vendor }}</p>
-                                <!--stockinstore message placeholder - start -->	
-								<div class="sis-message-placeholder hide" data-sis-variant-id="{{ item.variant.id }}"></div>
-								<!--stockinstore message placeholder - end -->	
 
                   <a class="productName" href="{{ item.url }}">
                     {{- item.product.title }}
@@ -283,30 +280,6 @@
   </section>
 {% endif %}
 
-<!-- stockinstore cart page snippet - start -->
-
-{% capture sisoptions %}
-	{
-		
-		objTargetClickCollectCartMessage:{
-			cartpage:{ 
-				targetElement:'.cartHeader .so-cart-total',
-				action:'after'
-			} 
-		},
-
-        objTargetClickCollectLineItemMessage:{
-           cartpage:{
-                targetElementRow:'.cartItemsWrapper',
-                action:'after'
-           }
-        }
-
-	}
-{% endcapture %}
-
-{% include 'stockinstore-clickcollect' with mode:'live' options:sisoptions %}
-<!-- stockinstore cart page snippet - end -->
 <script id="docapp-discount-speedup">
   (() => { if (!document.documentElement.innerHTML.includes('\\/shop' + '\\/js' + '\\/discount-on-cart-pro.min.js') || window.discountOnCartProAppLoaded) return; let script = document.createElement('script'); script.src = "https://d9fvwtvqz2fm1.cloudfront.net/shop/js/discount-on-cart-pro.min.js?shop=minimaxau.myshopify.com"; document.getElementById('docapp-discount-speedup').after(script); })();
 </script>

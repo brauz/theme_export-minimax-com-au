@@ -173,19 +173,6 @@
                         
         
                            </span>
-            
-                      {% if product.metafields.marketplacer.marketplacer_details == blank %}
-                      <div id="stockinstore-wrapper"></div>
-                      <div id="stockinstore-options" style="display:none!important;">
-                          <span id="fis-hide">0</span>
-                          <span id="cnc-hide">0</span>
-                      </div>
-                      {% else %}
-                      <div id="stockinstore-options" style="display:none!important;">
-                        <span id="fis-hide">1</span>
-                        <span id="cnc-hide">1</span>
-                      </div>
-                      {% endif %}
                       
                       {% if section.settings.show_delivery_estimator %}
                       <div class="delivery-shipping-block">
