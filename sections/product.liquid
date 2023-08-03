@@ -253,25 +253,14 @@
                         
         
                            </span>
-                      <div data-giftflick></div>
-                      {% if section.settings.show_delivery_estimator %}
+
+                      {% if section.settings.show_delivery_estimator and product.metafields.marketplacer.marketplacer_details != blank %}
                       <div class="delivery-shipping-block">
-                      
-                        <div>
-                        {{ 'delivery-truck.svg' | asset_url | img_tag }} <span class="delivery-shipping-header">Delivery</span>
-                        </div>
 
                         {% comment %} <span class="delivery-shipping-cost">Free shipping over $99</span> {% endcomment %}
 
-                        {% if product.metafields.marketplacer.marketplacer_details != blank %}
-                            <span class="delivery-shipping-details">{{ product.metafields.marketplacer.marketplacer_details }}</span>
-                        {% else %}
-                            <span class="delivery-shipping-details">
-                              {{ settings.shipping_text }}
-                            </span>
-                        {% endif %}
+                        <span class="delivery-shipping-details">{{ product.metafields.marketplacer.marketplacer_details }}</span>
 
-                        
                       </div>
                       <div class="deliveryEstimator stock-store-block">
                         
@@ -279,6 +268,8 @@
                     
                       {%endif%}
                       
+                      <div data-giftflick></div>
+
                       <div class="shareBlock">                         
 
                          <!-- <div id="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></div> -->
