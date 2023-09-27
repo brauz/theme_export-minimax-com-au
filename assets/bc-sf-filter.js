@@ -78,12 +78,12 @@ BCSfFilter.prototype.buildProductGridItem = function(data) {
 
     // Add Price
     var itemPriceHtml = '';
-  	if (data.compare_at_price_max > data.price_min) {
-      	<!-- itemPriceHtml += '<span class="saleSticker"><img src="//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/icon-sale.svg?v=38816482714103567821690849057" alt="Sale" /></span>'; -->
+  	if (data.variants[0].compare_at_price > data.variants[0].price) {
+      	<!-- itemPriceHtml += '<span class="saleSticker"><img src="//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/icon-sale.svg?v=38816482714103567821689730738" alt="Sale" /></span>'; -->
         itemPriceHtml += '<span class="visually-hidden" data-compare-text>Regular price</span>';
         itemPriceHtml += '<span class="comparison" data-compare-price>';
-        itemPriceHtml += '<span class="was">' + this.formatMoney(data.compare_at_price_max) + '</span>';
-        itemPriceHtml += ' <span class="now" data-product-price>' + this.formatMoney(data.price_min) + '</span>';
+        itemPriceHtml += '<span class="was">' + this.formatMoney(data.variants[0].compare_at_price) + '</span>';
+        itemPriceHtml += ' <span class="now" data-product-price>' + this.formatMoney(data.variants[0].price) + '</span>';
         itemPriceHtml += '</span>';
   	} else {
         itemPriceHtml += '<span class="productPrice">' + this.formatMoney(data.price_min) + '</span>';

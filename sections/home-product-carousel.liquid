@@ -40,18 +40,18 @@
 
                 <span class="productName">{{ product.title }}</span>
                 <div data-price-wrapper class="price">
-                  {% if product.compare_at_price_max > product.price %}
-                    <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
-                    <span class="comparison" data-compare-price>
-                      <span class="now" data-product-price>
-                        {{ product.price | money }}
+                  {% if product.variants[0].compare_at_price > product.variants[0].price %}
+                      <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                      <span class="comparison" data-compare-price>
+                          <span class="was">
+                            {{ product.variants[0].compare_at_price | money }}
+                          </span>
+                          <span class="now" data-product-price>
+                            {{ product.variants[0].price | money }}
+                          </span>
                       </span>
-                      <span class="was">
-                        {{ product.compare_at_price_max | money }}
-                      </span>
-                    </span>
                   {% else %}
-                    <span class="productPrice">{{ product.price | money }}</span>
+                      <span class="productPrice">{{ product.price | money }}</span>
                   {% endif %}
                 </div>
               </span>

@@ -204,15 +204,75 @@
                               <input type="text" id="Size" name="size">
                           </span>
                       {% endif %}
-                      <span class="quantity">
-                          <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
-                          <select id="quantity" name="quantity">
-                            {% for i in (1..10) %}
-                            <!-- <option selected="true" style="display:none;"></option> -->
-                            <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                            </select>
-                      </span>
+                      <div class="quantity">
+                        <label for="Quantity" class="qty-label">{{ 'products.product.quantity' | t }}</label><br/>
+
+                          <div class="qty-button-row">
+                            <button class="qty-minus">-</button>
+                            <input
+                              class="qty-number"
+                              type="number"
+                              min="1"
+                              value="1"
+                              id="quantity"
+                              name="quantity"
+                            >
+                            <button class="qty-plus">+</button>
+                          </div>
+                          <style>
+                            .qty-button-row {
+                              display: flex;
+                              border: 2px solid #0b0b0a;
+                              width: 100%;
+                              font-size: 18px;
+                              font-weight: 600;
+                              margin-top: 10px;
+
+                              /* Chrome, Safari, Edge, Opera */
+                              input.qty-number::-webkit-outer-spin-button,
+                              input.qty-number::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                              }
+
+                              /* Firefox */
+                              input[type=number] {
+                                -moz-appearance: textfield;
+                              }
+                            }
+                            .qty-plus, .qty-minus {
+                              border: none;
+                              background: none;
+                              width: 50px;
+
+                            }
+
+                            #shopify-section-product .container .productMain .right .productDetails .quantity .qty-number {
+                              height: 50px;
+                              line-height: 50px;
+                              border: 0;
+                              text-align: center;
+                              -moz-appearance: textfield;
+                            }
+                          </style>
+                          <script>
+                            $(document).ready(function() {
+                                $('.qty-plus').click(function(e) {
+                                  e.preventDefault();
+                                  var quantity = parseInt($('#quantity').val());
+                                  $('#quantity').val(quantity + 1);
+                                });
+
+                                $('.qty-minus').click(function(e) {
+                                  e.preventDefault();
+                                  var quantity = parseInt($('#quantity').val());
+                                  if (quantity > 1) {
+                                    $('#quantity').val(quantity - 1);
+                                  }
+                                });
+                              });
+                          </script>
+                    </div>
 
                     <span class="addToCart test2">
                      <button  onclick="ga('send', 'event', 'Shopping Bag', 'Add Click', '{{ product.title }}');"
@@ -253,34 +313,35 @@
                         
         
                            </span>
+                      {% assign isGiftCard = false %}
+                            {% for c in product.collections %}
+                              {% if c.handle == "minimax-gift-cards" %}
+                                {% assign isGiftCard = true %}
+                              {% endif %}
+                            {% endfor %}
 
-                      <script src="https://d3aq2u4yw77ivo.cloudfront.net/find-in-store/shopify/minimax/find-in-store.shopify.minimax.prod.js" async></script>
-                      <div
-                        id="brauz-find-in-store-config-product-page"
-                        data-sd="{{ shop.permanent_domain }}"
-                        data-cvi="{{ product.first_available_variant.id }}"
-                        data-hodv="{{ product.has_only_default_variant }}"
-                        style="display: none; width: 0;"
-                      >
-                      </div>
-                      <div id="brauz-find-in-store-product-page"></div>
-
-                      {% if section.settings.show_delivery_estimator and product.metafields.marketplacer.marketplacer_details != blank %}
-                      <div class="delivery-shipping-block">
-
-                        {% comment %} <span class="delivery-shipping-cost">Free shipping over $99</span> {% endcomment %}
-
-                        <span class="delivery-shipping-details">{{ product.metafields.marketplacer.marketplacer_details }}</span>
-
-                      </div>
-                      <div class="deliveryEstimator stock-store-block">
-                        
-                      </div>
-                    
-                      {%endif%}
-                      
-                      <div data-giftflick></div>
-
+                          {% unless isGiftCard %}
+                            <script src="https://d3aq2u4yw77ivo.cloudfront.net/find-in-store/shopify/minimax/find-in-store.shopify.minimax.prod.js" async></script>
+                            <div
+                              id="brauz-find-in-store-config-product-page"
+                              data-sd="{{ shop.permanent_domain }}"
+                              data-cvi="{{ product.first_available_variant.id }}"
+                              data-hodv="{{ product.has_only_default_variant }}"
+                              style="display: none; width: 0;">
+                            </div>
+                            <div id="brauz-find-in-store-product-page"></div>
+                            
+                            {% if section.settings.show_delivery_estimator and product.metafields.marketplacer.marketplacer_details != blank %}
+                            <div class="delivery-shipping-block">
+                              <span class="delivery-shipping-details">{{ product.metafields.marketplacer.marketplacer_details }}</span>
+                            </div>
+                            <div class="deliveryEstimator stock-store-block">
+                              
+                            </div>
+                          
+                            {%endif%}
+                            <div data-giftflick></div>
+                          {% endunless %}
                       <div class="shareBlock">                         
 
                          <!-- <div id="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></div> -->
@@ -420,29 +481,36 @@
                     </tr>
                   {% endif %}
 
-                  {% if product.metafields.accentuate.box_depth != blank %}
+                  {% if product.metafields.accentuate.depth != blank %}
                     <tr>
-                      <td>Depth</td><td>{{ product.metafields.accentuate.box_depth }}</td>
+                      <td>Depth (cm)</td><td>{{ product.metafields.accentuate.depth }}</td>
                     </tr>
                   {% endif %}
 
-                  {% if product.metafields.accentuate.box_height != blank %}
+                  {% if product.metafields.accentuate.height != blank %}
                     <tr>
-                      <td>Height</td><td>{{ product.metafields.accentuate.box_height }}</td>
+                      <td>Height (cm)</td><td>{{  product.metafields.accentuate.height }}</td>
                     </tr>
                   {% endif %}
 
-                  {% if product.metafields.accentuate.box_width != blank %}
+                  {% if product.metafields.accentuate.Width != blank %}
                     <tr>
-                      <td>Width</td><td>{{ product.metafields.accentuate.box_width }}</td>
+                      <td>Width (cm)</td><td>{{ product.metafields.accentuate.Width }}</td>
                     </tr>
                   {% endif %}
 
-                  {% if product.metafields.accentuate.box_weight != blank %}
+                  {% if product.metafields.accentuate.Weight != blank %}
                     <tr>
-                      <td>Weight</td><td>{{ product.metafields.accentuate.box_weight }}</td>
+                      <td>Weight (g)</td><td>{{  product.metafields.accentuate.Weight }}</td>
                     </tr>
                   {% endif %}
+
+                   {% if product.metafields.accentuate.Size != blank %}
+                    <tr>
+                      <td>Size</td><td>{{  product.metafields.accentuate.Size }}</td>
+                    </tr>
+                  {% endif %}
+                  
                 </table>
 
                 {{ product.metafields.accentuate.features }}

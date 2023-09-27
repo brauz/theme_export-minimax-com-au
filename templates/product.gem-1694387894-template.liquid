@@ -1,0 +1,8 @@
+{% render 'preorder-now-collection-item', product: product %}
+        {% include 'atb' zone:"Top"%}
+{% section 'product' %}
+
+{% include 'atb' zone:"Bottom"%}
+<script>const shopifyGiftflick = { targetAppend: '[data-giftflick]'};</script>
+<script src="https://giftflick.com.au/shopify/shopify-app.js" async="true"></script>{% include 'upsellio_embed' %}
+{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, auto_install: true, product: product %}

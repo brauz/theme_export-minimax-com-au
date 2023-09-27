@@ -93,6 +93,13 @@
     
     
     
+    
+  
+    
+    
+    
+    
+    
 (function( jQuery ){
   try {
     var $module = jQuery('#m-1672701789607').children('.module');
@@ -126,6 +133,11 @@
     $module.children('[data-accordion]').children('[data-content]').children().css('border-bottom', borderSize + ' solid ' + borderColor);
   } catch(err) {}
 })( window.GemQuery || jQuery );
+    
+    
+    
+    
+    
     
     
     

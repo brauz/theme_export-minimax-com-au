@@ -29,6 +29,9 @@
                             <span>
 
                                 <p class="vendor">{{ item.vendor }}</p>
+                                <!--stockinstore message placeholder - start -->	
+								<div class="sis-message-placeholder hide" data-sis-variant-id="{{ item.variant.id }}"></div>
+								<!--stockinstore message placeholder - end -->	
 
                   <a class="productName" href="{{ item.url }}">
                     {{- item.product.title }}
@@ -55,6 +58,7 @@
 
                   {% if property_size > 0 %}
                     {% for p in item.properties %}
+                      {% if p.first.first == "_" %}{% continue %}{% endif %}
                       {% unless p.last == blank %}
                         {{ p.first }}:
 
@@ -172,9 +176,7 @@
               </p>
             {% endcomment %}
 
-            <!-- Route Code Edited  4/20/2023 -->
-            <div class="route-div" disable-reorder></div>
-            <!-- End Route Code -->
+            
 
             <input
               type="submit"
@@ -182,6 +184,9 @@
               class="discos_checkout btn checkout"
               value="{{ 'cart.general.checkout' | t }}"
             >
+            <!-- Route Code Edited  4/20/2023 -->
+            <div class="route-div" disable-reorder></div>
+            <!-- End Route Code -->
           </div>
         </div>
 

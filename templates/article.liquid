@@ -204,14 +204,14 @@
                                  {% endif %}
                                 <span class="productName">{{ all_products[selected_handle].vendor }} {{ all_products[selected_handle].title }}</span>
                                 <div data-price-wrapper class="price">
-                                      {% if all_products[selected_handle].compare_at_price_max > all_products[selected_handle].price %}
+                                      {% if all_products[selected_handle].variants[0].compare_at_price > all_products[selected_handle].variants[0].price %}
                                           <span class="visually-hidden" data-compare-text>{{ 'all_products[selected_handle].regular_price' | t }}</span>
                                           <span class="comparison" data-compare-price>
                                               <span class="was">
-                                                  Was {{ all_products[selected_handle].compare_at_price_max | money }}
+                                                  Was {{ all_products[selected_handle].variants[0].compare_at_price | money }}
                                               </span>
                                               <span class="now" data-product-price>
-                                                Now {{ all_products[selected_handle].price | money }}
+                                                Now {{ all_products[selected_handle].variants[0].price | money }}
                                               </span>
                                         </span>
                                       {% else %}

@@ -204,7 +204,7 @@ $z-index-dropdown: 2;
 $z-index-skip-to-content: 10000; // really high to be safe of app markup
 
 /*================ SVG ================*/
-$svg-select-icon: #{'//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/ico-select.svg?42618'};
+$svg-select-icon: #{'//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/ico-select.svg?43760'};
 
 
 /*================ COMMON ================*/
@@ -1154,7 +1154,7 @@ a.std.link {
         position: absolute;
         top: 4px;
         right: -24px;
-        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/chevron-right.svg?v=135556109935802762131690848805);
+        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/chevron-right.svg?v=135556109935802762131689730474);
         background-size: 10px 10px;
         width: 10px;
         height: 10px;
@@ -1176,7 +1176,7 @@ a.std.link {
             position: absolute;
             top: 4px;
             left: -24px;
-            background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/chevron-left.svg?v=153501977549875719621690848804);
+            background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/chevron-left.svg?v=153501977549875719621689730473);
             background-size: 10px 10px;
             width: 10px;
             height: 10px;
@@ -1713,7 +1713,7 @@ body .iwishWrapper .iwishMsgInfo {
         margin: 0 auto;
         margin-bottom: 30px;
         content: ' ';
-        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/wishlist-filled.svg?v=151741918800683179231690849185);
+        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/wishlist-filled.svg?v=151741918800683179231689730878);
         background-repeat: no-repeat;
         background-size: 20px 20px;
         background-position: center;
@@ -1874,13 +1874,13 @@ a.btn {
 }
 
 .bc-sf-filter-option-block .bc-sf-filter-block-content ul li input.selected[type="checkbox"] + a {
-    background: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/bc-sf-filter-checkbox-checked.png?v=158990636013933022211690848763) 0 center no-repeat!important;
+    background: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/bc-sf-filter-checkbox-checked.png?v=158990636013933022211689730430) 0 center no-repeat!important;
     background-size: 18px 18px!important;
     padding-left: 30px!important;
 }
 
 .bc-sf-filter-option-block .bc-sf-filter-block-content ul li input[type=checkbox]+a {
-    background: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/bc-sf-filter-checkbox.png?v=170032897364104322141690848765) 0 center no-repeat!important;
+    background: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/bc-sf-filter-checkbox.png?v=170032897364104322141689730432) 0 center no-repeat!important;
     background-size: 18px 18px!important;
     padding-left: 30px!important;
 }
@@ -1942,11 +1942,11 @@ a.btn {
     width:20px;
     height:19px;
     display: block;
-    background-image:url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/heart-icon.svg?v=58332518211444944041690849049);
+    background-image:url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/heart-icon.svg?v=58332518211444944041689730730);
 }
 
 .bookmarked .heartIcon {
-    background-image:url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/heart-icon-full.svg?v=150865978410260824431690849049);
+    background-image:url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/heart-icon-full.svg?v=150865978410260824431689730729);
 }
 
 div#bookmarkit {
@@ -3643,7 +3643,7 @@ body .bc-sf-filter-block-title h3 span:before {
     left: 0px !important;
     top: 3px !important;
     border: none!important;
-    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/minus.svg?v=117517025619708731501690849104)!important;
+    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/minus.svg?v=117517025619708731501689730789)!important;
     background-size: 12px 12px !important;
     background-repeat: no-repeat !important;
     width: 12px !important;
@@ -3658,7 +3658,7 @@ body .bc-sf-filter-block-title h3 span:before {
 .bc-sf-filter-option-block .bc-sf-filter-block-title h3 span.up:before {
     position: absolute !important;
     top: 2px !important;
-    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/plus.svg?v=55591350114999178451690849125)!important;
+    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/plus.svg?v=55591350114999178451689730812)!important;
 
     @media (max-width: 850px) {
         top: 0!important;
@@ -3672,7 +3672,7 @@ body .bc-sf-filter-block-title h3 span:before {
 //     position: absolute !important;
 //     right: 2px !important;
 //     top: 4px !important;
-//     background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/plus.svg?v=55591350114999178451690849125) !important;
+//     background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/plus.svg?v=55591350114999178451689730812) !important;
 //     background-size: 9px 9px !important;
 //     background-repeat: no-repeat !important;
 //     width: 9px !important;
@@ -5683,7 +5683,7 @@ header {
                         position: absolute;
                         right: 25px;
                         top: 14px;
-                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/arrow-right.svg?v=15176391658276222991690848746);
+                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/arrow-right.svg?v=15176391658276222991689730412);
                         background-size: 20px 20px;
                         background-repeat: no-repeat;
                         width: 20px;
@@ -5788,7 +5788,7 @@ header {
 
             &::after {
                 position: absolute;
-                background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/arrow-right.svg?v=15176391658276222991690848746);
+                background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/arrow-right.svg?v=15176391658276222991689730412);
                 background-size: 25px 25px;
                 background-repeat: no-repeat;
                 width: 25px;
@@ -6853,7 +6853,7 @@ ul.flex-direction-nav {
 
                 &:before {
                     content: ' ';
-                    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/arrow-left-slider.svg?v=148556165804439048691690848744);
+                    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/arrow-left-slider.svg?v=148556165804439048691689730411);
                     width: 50px;
                     height: 50px;
                     background-size: 50px 50px;
@@ -6872,7 +6872,7 @@ ul.flex-direction-nav {
 
                 &:before {
                     content: ' ';
-                    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/arrow-right-slider.svg?v=122465510281127618531690848745);
+                    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/arrow-right-slider.svg?v=122465510281127618531689730412);
                     width: 50px;
                     height: 50px;
                     background-size: 50px 50px;
@@ -7826,7 +7826,7 @@ body.template-product {
                                         position: absolute;
                                         right: 2px;
                                         top: 12px;
-                                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/chevron-left.svg?v=153501977549875719621690848804);
+                                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/chevron-left.svg?v=153501977549875719621689730473);
                                         background-size: 14px 14px;
                                         background-repeat: no-repeat;
                                         width: 14px;
@@ -7844,7 +7844,7 @@ body.template-product {
                                         position: absolute;
                                         right: 2px;
                                         top: 12px;
-                                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/chevron-right.svg?v=135556109935802762131690848805);
+                                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/chevron-right.svg?v=135556109935802762131689730474);
                                         background-size: 14px 14px;
                                         background-repeat: no-repeat;
                                         width: 14px;
@@ -7960,7 +7960,7 @@ body.template-product {
                     width: calc(100% - 121px);
                     max-width: 740px;
                     padding-right: 20px;
-                    cursor: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/icon-search.svg?v=163908968319896458501690849057), auto;
+                    cursor: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/icon-search.svg?v=163908968319896458501689730738), auto;
 
                     @media (max-width: 900px) {
                         width: 100%;
@@ -8097,7 +8097,7 @@ body.template-product {
                     .quantity {
                         float: left;
                         width: 100%;
-                        padding: 10px 0;
+                        padding: 10px 0 0;
 
                         label {
                             float: left;
@@ -9005,7 +9005,7 @@ body.template-blog .collectionFeatureImage {
                         position: absolute;
                         right: 2px;
                         top: 12px;
-                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/chevron-down.svg?v=101704539842496519671690848804);
+                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/chevron-down.svg?v=101704539842496519671689730473);
                         background-size: 11px 11px;
                         background-repeat: no-repeat;
                         width: 11px;
@@ -9026,7 +9026,7 @@ body.template-blog .collectionFeatureImage {
                             background-repeat: no-repeat;
                             width: 11px;
                             height: 11px;
-                            background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/chevron-up.svg?v=54987485621862643491690848805);
+                            background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/chevron-up.svg?v=54987485621862643491689730474);
                         }
                     }
                 }
@@ -9470,7 +9470,7 @@ section.productCarousel {
                         position: absolute;
                         right: 2px;
                         top: 12px;
-                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/chevron-left.svg?v=153501977549875719621690848804);
+                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/chevron-left.svg?v=153501977549875719621689730473);
                         background-size: 14px 14px;
                         background-repeat: no-repeat;
                         width: 14px;
@@ -9488,7 +9488,7 @@ section.productCarousel {
                         position: absolute;
                         right: 8px;
                         top: 12px;
-                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/chevron-right.svg?v=135556109935802762131690848805);
+                        background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/chevron-right.svg?v=135556109935802762131689730474);
                         background-size: 14px 14px;
                         background-repeat: no-repeat;
                         width: 24px;
@@ -11121,7 +11121,7 @@ section.subscribe {
                         &:after {
                             position: absolute;
                             content: ' ';
-                            background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/chevron-right.svg?v=135556109935802762131690848805);
+                            background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/chevron-right.svg?v=135556109935802762131689730474);
                             background-repeat: no-repeat;
                             background-size: 10px 10px;
                             height: 10px;
@@ -15229,7 +15229,7 @@ ul.menuColumn {
 }
 
 .filter-title {
-    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/112/assets/icon-filter.svg?v=92983138004854030391690849056);
+    background-image: url(//cdn.shopify.com/s/files/1/2176/1321/t/111/assets/icon-filter.svg?v=92983138004854030391689730737);
     background-position: left;
     background-repeat: no-repeat;
     padding-left: 40px;
@@ -15533,7 +15533,8 @@ input.selected-store {
 }
 
 
-.boost-pfs-search-suggestion-item .bss_pl_img {
+.boost-pfs-search-suggestion-item .bss_pl_img,
+.cartItems limespot-box .bss_pl_img {
     visibility: hidden !important;
     position: absolute !important;
     left: -99999px !important;

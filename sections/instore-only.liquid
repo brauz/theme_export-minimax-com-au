@@ -139,6 +139,82 @@
                         {% endfor %}
                       </select>
 
+                      <div class="quantity">
+                        <label for="Quantity" class="qty-label">{{ 'products.product.quantity' | t }}</label><br/>
+
+                          <div class="qty-button-row">
+                            <button class="qty-minus">-</button>
+                            <input
+                              class="qty-number"
+                              type="number"
+                              min="1"
+                              value="1"
+                              id="quantity"
+                              name="quantity"
+                            >
+                            <button class="qty-plus">+</button>
+                          </div>
+                          {% comment %} <select id="quantity" name="quantity">
+                            {% for i in (1..100) %}
+                            <!-- <option selected="true" style="display:none;"></option> -->
+                            <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                          </select> {% endcomment %}
+                          <style>
+                            .qty-button-row {
+                              display: flex;
+                              border: 2px solid #0b0b0a;
+                              width: 100%;
+                              font-size: 18px;
+                              font-weight: 600;
+                              margin-top: 10px;
+
+                              /* Chrome, Safari, Edge, Opera */
+                              input.qty-number::-webkit-outer-spin-button,
+                              input.qty-number::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                              }
+
+                              /* Firefox */
+                              input[type=number] {
+                                -moz-appearance: textfield;
+                              }
+                            }
+                            .qty-plus, .qty-minus {
+                              border: none;
+                              background: none;
+                              width: 50px;
+
+                            }
+
+                            #shopify-section-instore-only .container .productMain .right .productDetails .quantity .qty-number {
+                              height: 50px;
+                              line-height: 50px;
+                              border: 0;
+                              text-align: center;
+                              -moz-appearance: textfield;
+                            }
+                          </style>
+                          <script>
+                            $(document).ready(function() {
+                                $('.qty-plus').click(function(e) {
+                                  e.preventDefault();
+                                  var quantity = parseInt($('#quantity').val());
+                                  $('#quantity').val(quantity + 1);
+                                });
+
+                                $('.qty-minus').click(function(e) {
+                                  e.preventDefault();
+                                  var quantity = parseInt($('#quantity').val());
+                                  if (quantity > 1) {
+                                    $('#quantity').val(quantity - 1);
+                                  }
+                                });
+                              });
+                          </script>
+                    </div>
+
                     <span class="addToCart">
                      <button  disabled="disabled"
                             type="submit"
@@ -174,31 +250,36 @@
         
                            </span>
                       
-                      {% if section.settings.show_delivery_estimator %}
-                      <div class="delivery-shipping-block">
-                      
-                        <div>
-                        {{ 'delivery-truck.svg' | asset_url | img_tag }} <span class="delivery-shipping-header">Delivery</span>
-                        </div>
+                      {% assign isGiftCard = false %}
+                            {% for c in product.collections %}
+                              {% if c.handle == "minimax-gift-cards" %}
+                                {% assign isGiftCard = true %}
+                              {% endif %}
+                            {% endfor %}
 
-                        {% comment %} <span class="delivery-shipping-cost">Free shipping over $99</span> {% endcomment %}
-
-                        {% if product.metafields.marketplacer.marketplacer_details != blank %}
-                            <span class="delivery-shipping-details">{{ product.metafields.marketplacer.marketplacer_details }}</span>
-                        {% else %}
-                            <span class="delivery-shipping-details">
-                              {{ settings.shipping_text }}
-                            </span>
-                        {% endif %}
-
-                      </div>
-                      <div class="deliveryEstimator stock-store-block">
-                        
-                      </div>
-                    
-                      {%endif%}
-                      
-                      <div class="shareBlock">                         
+                          {% unless isGiftCard %}
+                            <script src="https://d3aq2u4yw77ivo.cloudfront.net/find-in-store/shopify/minimax/find-in-store.shopify.minimax.prod.js" async></script>
+                            <div
+                              id="brauz-find-in-store-config-product-page"
+                              data-sd="{{ shop.permanent_domain }}"
+                              data-cvi="{{ product.first_available_variant.id }}"
+                              data-hodv="{{ product.has_only_default_variant }}"
+                              style="display: none; width: 0;">
+                            </div>
+                            <div id="brauz-find-in-store-product-page"></div>
+                            
+                            {% if section.settings.show_delivery_estimator and product.metafields.marketplacer.marketplacer_details != blank %}
+                            <div class="delivery-shipping-block">
+                              <span class="delivery-shipping-details">{{ product.metafields.marketplacer.marketplacer_details }}</span>
+                            </div>
+                            <div class="deliveryEstimator stock-store-block">
+                              
+                            </div>
+                          
+                            {%endif%}
+                            <div data-giftflick></div>
+                          {% endunless %}
+                           <div class="shareBlock">                         
 
                          <!-- <div id="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></div> -->
 

@@ -100,11 +100,11 @@ var boostPFSTemplate = {
 
         // Add Price
         var itemPriceHtml = '';
-        if (data.compare_at_price_max > data.price_min) {
+        if (data.variants[0].compare_at_price > data.variants[0].price) {
             itemPriceHtml += '<span class="visually-hidden" data-compare-text>' + boostPFSThemeConfig.label_basic.sorting + '</span>';
             itemPriceHtml += '<span class="comparison" data-compare-price>';
-            itemPriceHtml += ' <span class="now" data-product-price>' + Utils.formatMoney(data.price_min) + '</span>';
-			itemPriceHtml += '<span class="was">' + Utils.formatMoney(data.compare_at_price_max) + '</span>';
+            itemPriceHtml += ' <span class="now" data-product-price>' + Utils.formatMoney(data.variants[0].price) + '</span>';
+			itemPriceHtml += '<span class="was">' + Utils.formatMoney(data.variants[0].compare_at_price) + '</span>';
             itemPriceHtml += '</span>';
         } else {
             itemPriceHtml += '<span class="productPrice">' + Utils.formatMoney(data.price_min) + '</span>';

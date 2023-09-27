@@ -26,8 +26,8 @@
                 .then(data => {
 
                     if(data.title) {
-                        let thePrice = (data.price / 100).toFixed(2);
-                        let maxPrice = (data.compare_at_price_max / 100).toFixed(2);
+                        let thePrice = (data.variants[0].price / 100).toFixed(2);
+                        let maxPrice = (data.variants[0].compare_at_price / 100).toFixed(2);
                         let displayMax = "";
                         
                         if(maxPrice != 0.00) {
